@@ -4,7 +4,7 @@ Shared context for the NZIPL team. This file loads automatically in any Claude C
 
 ## The Lab
 
-The Net Zero Industrial Policy Lab at Johns Hopkins University identifies and sequences clean industrial opportunities for developing countries using economic complexity methods. Primary outputs are Play Cards, Constraint Maps, and Chart Packs delivered as interactive HTML scrollytelling and slide decks.
+The Net Zero Industrial Policy Lab at Johns Hopkins University identifies and sequences clean industrial opportunities for countries using economic complexity methods. Primary outputs are Play Cards, Constraint Maps, and Chart Packs delivered as interactive HTML scrollytelling and slide decks.
 
 Website: netzeropolicylab.com
 Platform: cice.netzeropolicylab.com (Clean Industrial Capabilities Explorer)
