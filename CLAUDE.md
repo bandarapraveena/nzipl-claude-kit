@@ -135,7 +135,7 @@ Use the `/nzipl-design` skill for all visual formatting. Key tokens:
 
 | Command | Description |
 |---------|-------------|
-| `/enrich-fdi` | Enrich FDI dataset rows with per-row source URLs via web research. Reads xlsx, searches for confirming articles, writes URLs to source columns. |
+| `/source-solar-wind-battery-fdi` | Enrich FDI dataset rows with per-row source URLs via web research. Reads xlsx, searches for confirming articles, writes URLs to source columns. SKILL + references in `source-solar-wind-battery-fdi/`. |
 
 ## Tasks
 

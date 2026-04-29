@@ -1,14 +1,14 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 20,
-  "rows_fully_sourced": 12,
-  "rows_partially_sourced": 8,
+  "rows_processed": 40,
+  "rows_fully_sourced": 17,
+  "rows_partially_sourced": 23,
   "rows_no_result": 0,
-  "next_unsourced_row": 21,
-  "priority": "largest",
-  "last_updated": "2026-04-08",
-  "last_operator": "Gilberto",
+  "next_unsourced_row": 22,
+  "priority": "sequential",
+  "last_updated": "2026-04-22",
+  "last_operator": "Praveen",
   "batches": [
     {
       "date": "2026-04-08",
@@ -18,6 +18,15 @@
       "no_result": 0,
       "operator": "Gilberto",
       "notes": "Rows sorted by investment desc, $3.2B-$11.5B"
+    },
+    {
+      "date": "2026-04-22",
+      "rows_processed": 20,
+      "fully_sourced": 5,
+      "partial": 15,
+      "no_result": 0,
+      "operator": "Praveen",
+      "notes": "Sequential rows 2-21 (2-B Energy through AESC Spain). Sources: BusinessWire, GlobeNewsWire, Windpower Monthly, Automation.com, CompositesWorld, ACCIONA pressroom, RenewablesNow, PV-Magazine, Japan Times, La Moncloa. Flags: Aeolon row 17 cites Nador not Tanger; AESC Douai row 18 investment discrepancy ($920M vs ~€2B); AESC Sunderland row 20 investment discrepancy ($622M vs £1B). AAER row 5 Bordeaux/Valorem not independently confirmed — fallback fDi Markets (FT)."
     }
   ]
 }

@@ -1,0 +1,1285 @@
+[
+  {
+    "id": "EV-DEU-0001",
+    "name": "Tesla Gigafactory Berlin-Brandenburg",
+    "aliases": [
+      "Giga Berlin",
+      "Gigafactory 4",
+      "Grünheide Plant"
+    ],
+    "company": "Tesla",
+    "origin": "USA",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Brandenburg",
+    "city": "Grünheide",
+    "lat": 52.4,
+    "lng": 13.825,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "Model Y (+ planned 4680 cell production)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2019-11-12",
+    "prodStarted": "2022-03-22",
+    "targetYear": 2022,
+    "investmentM": 5500,
+    "investmentM_history": [
+      {
+        "date": "2024-08-05",
+        "valueM": 5500,
+        "source": "https://www.electrive.com/2024/08/05/tesla-wants-to-expand-grunheide-under-certain-conditions/",
+        "original": "€5B+ per plant manager"
+      }
+    ],
+    "targetProduction": 500000,
+    "realizedProduction": 300000,
+    "productionUnits": "vehicles/year",
+    "targetJobs": 12000,
+    "currentJobs": 12000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.tesla.com/giga-berlin",
+      "investmentM": "https://www.electrive.com/2024/08/05/tesla-wants-to-expand-grunheide-under-certain-conditions/",
+      "announced": "https://www.tesla.com/giga-berlin",
+      "prodStarted": "https://www.electrive.com/2022/03/22/tesla-starts-delivering-model-ys-from-grunheide/",
+      "targetProduction": "https://www.euronews.com/next/2023/07/21/tesla-aims-to-double-production-capacity-in-german-gigafactory-targeting-1-million-evs-ann",
+      "realizedProduction": "https://www.electrive.com/2026/03/02/tesla-plant-in-grunheide-reportedly-running-at-40-capacity/",
+      "targetJobs": "https://www.euronews.com/next/2023/07/21/tesla-aims-to-double-production-capacity-in-german-gigafactory-targeting-1-million-evs-ann",
+      "status": "https://www.electrive.com/2026/03/02/tesla-plant-in-grunheide-reportedly-running-at-40-capacity/",
+      "lat_lng": "https://www.tesla.com/giga-berlin"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0002",
+    "name": "Northvolt Heide",
+    "aliases": [
+      "Northvolt Drei",
+      "Northvolt Germany",
+      "Lyten Heide"
+    ],
+    "company": "Northvolt (acquired by Lyten June 2025)",
+    "origin": "SWE",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Schleswig-Holstein",
+    "city": "Heide",
+    "lat": 54.191,
+    "lng": 9.089,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Lithium-ion pouch cells for European OEMs (original plan: 60 GWh)",
+    "status": "Cancelled",
+    "countAsNew": false,
+    "announced": "2022-03-01",
+    "prodStarted": null,
+    "targetYear": 2026,
+    "investmentM": 4440,
+    "investmentM_history": [
+      {
+        "date": "2022-03-01",
+        "valueM": 4440,
+        "source": "https://www.pv-magazine.com/2024/03/27/northvolt-breaks-ground-on-60-gwh-gigafactory-in-germany/",
+        "original": "€4.5B announced; FDI Markets $4.44B"
+      }
+    ],
+    "targetProduction": 60,
+    "productionUnits": "GWh/year",
+    "targetJobs": 3000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.electrive.com/2025/10/09/what-lyten-plans-to-do-in-heide-after-the-northvolt-takeover/",
+      "investmentM": "https://www.pv-magazine.com/2024/03/27/northvolt-breaks-ground-on-60-gwh-gigafactory-in-germany/",
+      "announced": "https://electrek.co/2023/05/15/northvolt-germany-gigafactory/",
+      "targetProduction": "https://www.pv-magazine.com/2024/03/27/northvolt-breaks-ground-on-60-gwh-gigafactory-in-germany/",
+      "targetJobs": "https://www.electrive.com/2025/10/09/what-lyten-plans-to-do-in-heide-after-the-northvolt-takeover/",
+      "status": "https://finance.yahoo.com/news/northvolt-bankruptcy-puts-future-german-113620743.html",
+      "lat_lng": "https://www.electrive.com/2025/05/23/after-production-halt-in-sweden-work-at-northvolt-plant-in-germany-continues/"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0003",
+    "name": "Volkswagen PowerCo Salzgitter",
+    "aliases": [
+      "PowerCo SE Salzgitter",
+      "Gigafactory Salzgitter",
+      "VW SalzGiga"
+    ],
+    "company": "PowerCo SE (Volkswagen Group)",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Lower Saxony",
+    "city": "Salzgitter",
+    "lat": 52.154,
+    "lng": 10.418,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Unified Cell prismatic LFP/NMC cells for VW Group BEVs",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2021-03-15",
+    "prodStarted": "2025-12-01",
+    "targetYear": 2025,
+    "investmentM": 2200,
+    "investmentM_history": [
+      {
+        "date": "2022-07-07",
+        "valueM": 2200,
+        "source": "https://www.volkswagen-group.com/en/press-releases/ground-breaking-in-salzgitter-volkswagen-enters-global-battery-business-with-powerco-16899",
+        "original": "~€2B"
+      }
+    ],
+    "targetProduction": 40,
+    "realizedProduction": 20,
+    "productionUnits": "GWh/year",
+    "targetJobs": 5000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.volkswagen-group.com/en/press-releases/start-of-european-battery-cell-production-powerco-commissions-salzgitter-gigafactory-20045",
+      "investmentM": "https://www.volkswagen-group.com/en/press-releases/ground-breaking-in-salzgitter-volkswagen-enters-global-battery-business-with-powerco-16899",
+      "announced": "https://www.volkswagen-group.com/en/press-releases/ground-breaking-in-salzgitter-volkswagen-enters-global-battery-business-with-powerco-16899",
+      "prodStarted": "https://www.volkswagen-group.com/en/press-releases/start-of-european-battery-cell-production-powerco-commissions-salzgitter-gigafactory-20045",
+      "targetProduction": "https://www.automotivelogistics.media/ev-and-battery/powerco-making-battery-cells-at-salzgitter-for-celltopack-assembly-at-martorell/2597879",
+      "status": "https://www.eenewseurope.com/en/powerco-brings-european-battery-cell-production-online-at-salzgitter/",
+      "lat_lng": "https://www.volkswagen-newsroom.com/en/volkswagen-ag-salzgitter-plant-6592"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0004",
+    "name": "Stellantis ACC Kaiserslautern Gigafactory",
+    "aliases": [
+      "Automotive Cells Company Kaiserslautern",
+      "ACC Opel Kaiserslautern"
+    ],
+    "company": "Automotive Cells Company (Stellantis / TotalEnergies / Mercedes-Benz JV)",
+    "origin": "FRA",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Rhineland-Palatinate",
+    "city": "Kaiserslautern",
+    "lat": 49.454,
+    "lng": 7.761,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "NMC lithium-ion cells for Stellantis and Mercedes-Benz EVs (original plan: 13.4 GWh → 40 GWh)",
+    "status": "Cancelled",
+    "countAsNew": false,
+    "announced": "2021-09-24",
+    "prodStarted": null,
+    "targetYear": 2025,
+    "investmentM": 2200,
+    "investmentM_history": [
+      {
+        "date": "2021-09-24",
+        "valueM": 2200,
+        "source": "https://totalenergies.com/company/projects/electricity/acc-batteries-electric-mobility-europe",
+        "original": "€2B of ACC €7B plan; €437M public funding"
+      }
+    ],
+    "targetProduction": 40,
+    "productionUnits": "GWh/year",
+    "targetJobs": 2000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://totalenergies.com/company/projects/electricity/acc-batteries-electric-mobility-europe",
+      "investmentM": "https://www.automotivemanufacturingsolutions.com/news/acc-halts-gigafactory-plans-in-germany-and-italy/2605786",
+      "announced": "https://www.electrive.com/2024/06/05/acc-puts-work-on-battery-factories-in-kaiserslautern-and-termoli-on-hold/",
+      "targetProduction": "https://battery-tech.net/why-acc-is-pausing-new-gigafactories-while-ramping-french-output/",
+      "status": "https://www.cnbc.com/2026/02/07/stellantis-backed-acc-drops-plans-for-italian-german-factories-union.html",
+      "lat_lng": "https://www.autonews.com/automakers/stellantis-mercedes-pause-construction-germany-gigafactory/"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0005",
+    "name": "SVOLT Überherrn Gigafactory",
+    "aliases": [
+      "SVOLT Saarland",
+      "SVOLT Europe Überherrn",
+      "Svolt Energy Technology Überherrn"
+    ],
+    "company": "SVOLT Energy Technology",
+    "origin": "CHN",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Saarland",
+    "city": "Überherrn",
+    "lat": 49.252,
+    "lng": 6.699,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Lithium-ion cells (planned 24 GWh)",
+    "status": "Cancelled",
+    "countAsNew": false,
+    "announced": "2022-09-09",
+    "prodStarted": null,
+    "targetYear": 2027,
+    "investmentM": 2200,
+    "investmentM_history": [
+      {
+        "date": "2022-09-09",
+        "valueM": 2200,
+        "source": "https://www.electrive.com/2024/10/28/svolt-confirms-cancellation-of-its-saarland-plans/",
+        "original": "€2B planned; cancelled Jan 2025"
+      }
+    ],
+    "targetProduction": 24,
+    "productionUnits": "GWh/year",
+    "targetJobs": 2000,
+    "postIRA": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.electrive.com/2024/05/27/svolt-will-not-build-battery-factory-in-germany/",
+      "investmentM": "https://www.electrive.com/2024/10/28/svolt-confirms-cancellation-of-its-saarland-plans/",
+      "announced": "https://www.pv-magazine.com/2024/05/29/svolt-abandons-plans-to-open-battery-factory-in-germany/",
+      "targetProduction": "https://rhomotion.com/news/svolt-cancels-two-german-factories-as-europes-ev-market-falls-short-of-growth-expectations-industry-update/",
+      "status": "https://www.electrive.com/2024/10/28/svolt-confirms-cancellation-of-its-saarland-plans/",
+      "lat_lng": "https://www.ess-news.com/2024/05/29/svolt-abandons-plans-to-open-battery-factory-in-germany/"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0006",
+    "name": "Ford Cologne Electric Vehicle Center",
+    "aliases": [
+      "Ford-Werke Köln EV",
+      "Ford Cologne EV Center",
+      "Ford Niehl EV"
+    ],
+    "company": "Ford-Werke GmbH (Ford Motor Company)",
+    "origin": "USA",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "North Rhine-Westphalia",
+    "city": "Cologne",
+    "lat": 50.998,
+    "lng": 6.948,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "All-electric Ford Explorer + Ford Capri on MEB platform",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2021-02-17",
+    "prodStarted": "2024-06-04",
+    "targetYear": 2024,
+    "investmentM": 2000,
+    "investmentM_history": [
+      {
+        "date": "2023-06-12",
+        "valueM": 2000,
+        "source": "https://media.ford.com/content/fordmedia/feu/en/news/2023/06/12/ford-opens-cologne-ev-center.html",
+        "original": "$2B"
+      }
+    ],
+    "targetProduction": 250000,
+    "productionUnits": "vehicles/year",
+    "targetJobs": 3800,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://media.ford.com/content/fordmedia/feu/en/news/2023/06/12/ford-opens-cologne-ev-center.html",
+      "investmentM": "https://www.automotivelogistics.media/electric-vehicles/ford-opens-2bn-carbon-neutral-ev-plant-in-cologne/44323.article",
+      "announced": "https://corporate.ford.com/articles/electrification/cologne-ev-center/",
+      "prodStarted": "https://media.ford.com/content/fordmedia/feu/en/news/2024/06/04/mass-production-of-new-all-electric-explorer-starts-at-fords-ev-.html",
+      "targetProduction": "https://www.greencarcongress.com/2023/06/20230613-fordev.html",
+      "status": "https://media.ford.com/content/fordmedia/feu/en/news/2024/06/04/mass-production-of-new-all-electric-explorer-starts-at-fords-ev-.html",
+      "lat_lng": "https://corporate.ford.com/articles/electrification/cologne-ev-center/"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0007",
+    "name": "CATL Thuringia Cell Plant (CATT) Arnstadt",
+    "aliases": [
+      "CATL Erfurt",
+      "CATL Arnstadt",
+      "Contemporary Amperex Technology Thuringia",
+      "CATT",
+      "CATL G1 Germany"
+    ],
+    "company": "Contemporary Amperex Technology Thuringia GmbH (CATL)",
+    "origin": "CHN",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Thuringia",
+    "city": "Arnstadt",
+    "lat": 50.833,
+    "lng": 10.953,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Lithium-ion prismatic cells + modules for European OEMs (14 GWh)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2018-10-09",
+    "prodStarted": "2022-12-01",
+    "targetYear": 2023,
+    "investmentM": 1980,
+    "investmentM_history": [
+      {
+        "date": "2018-10-09",
+        "valueM": 1910,
+        "source": "https://www.electrive.com/2019/10/19/catl-starts-building-battery-plant-in-germany/",
+        "original": "€1.8B per FDI row 78"
+      },
+      {
+        "date": "2022-01-01",
+        "valueM": 1980,
+        "source": "https://www.invest-in-thuringia.de/en/news/news-detail/catl-takes-off-europes-largest-cell-production-facility-starts-production/",
+        "original": "Per FDI row 85 expansion"
+      }
+    ],
+    "targetProduction": 14,
+    "realizedProduction": 8,
+    "productionUnits": "GWh/year",
+    "targetJobs": 2000,
+    "currentJobs": 1700,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.catl.com/en/news/1046.html",
+      "investmentM": "https://www.exyte.net/Newsroom/CATL-gigafactory-Arnstadt",
+      "announced": "https://www.electrive.com/2019/10/19/catl-starts-building-battery-plant-in-germany/",
+      "prodStarted": "https://insideevs.com/news/628393/catl-started-production-battery-cells-germany/",
+      "targetProduction": "https://chemxplore.com/news/catl-s-german-plant-receives-approval-for-battery-cell-production-in-arnstadt-germany",
+      "targetJobs": "https://www.invest-in-thuringia.de/en/news/news-detail/catl-takes-off-europes-largest-cell-production-facility-starts-production/",
+      "currentJobs": "https://carboncredits.com/catls-multi-country-expansion-redefines-europes-battery-supply-chain-and-workforce/",
+      "status": "https://www.electrive.com/2025/10/15/catl-doubles-testing-capacity-in-germany/",
+      "lat_lng": "https://eng.yidaiyilu.gov.cn/p/304492.html"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0008",
+    "name": "Volkswagen Zwickau EV Plant",
+    "aliases": [
+      "VW Zwickau",
+      "Volkswagen Sachsen Zwickau-Mosel"
+    ],
+    "company": "Volkswagen AG",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Saxony",
+    "city": "Zwickau",
+    "lat": 50.716,
+    "lng": 12.521,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "VW ID.3, ID.4, ID.5, Cupra Born, Audi Q4 e-tron (MEB)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2018-11-16",
+    "prodStarted": "2019-11-04",
+    "targetYear": 2021,
+    "investmentM": 1320,
+    "investmentM_history": [
+      {
+        "date": "2018-11-16",
+        "valueM": 1320,
+        "source": "https://www.automotiveworld.com/news-releases/volkswagen-transformation-continuing-apace-zwickau-car-factory-to-produce-only-electric-models-in-future/",
+        "original": "€1.2B transformation"
+      }
+    ],
+    "targetProduction": 330000,
+    "realizedProduction": 270000,
+    "productionUnits": "vehicles/year",
+    "targetJobs": 8000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.volkswagen-newsroom.com/en/press-releases/the-one-millionth-electric-vehicle-rolls-off-the-production-line-at-the-volkswagen-plant-in-zwickau-19242",
+      "investmentM": "https://www.automotiveworld.com/news-releases/volkswagen-transformation-continuing-apace-zwickau-car-factory-to-produce-only-electric-models-in-future/",
+      "announced": "https://www.greencarcongress.com/2019/09/20190908-zwickau.html",
+      "prodStarted": "https://www.automotivelogistics.media/electric-vehicles/volkswagen-begins-id3-electric-vehicle-assembly-at-zwickau/39565.article",
+      "targetProduction": "https://insideevs.com/news/361417/six-electric-models-produced-zwickau-330000-annually/",
+      "realizedProduction": "https://cleantechnica.com/2025/04/30/1-millionth-electric-vehicle-rolls-off-the-production-line-at-the-volkswagen-plant-in-zwickau/",
+      "status": "https://cleantechnica.com/2025/04/30/1-millionth-electric-vehicle-rolls-off-the-production-line-at-the-volkswagen-plant-in-zwickau/",
+      "lat_lng": "https://www.esgtoday.com/vw-major-car-plant-converts-to-100-ev-production/"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0009",
+    "name": "Volkswagen Emden EV Plant",
+    "aliases": [
+      "VW Emden ID.4",
+      "Volkswagen Emden e-mobility transformation"
+    ],
+    "company": "Volkswagen AG",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Lower Saxony",
+    "city": "Emden",
+    "lat": 53.378,
+    "lng": 7.227,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "VW ID.4, ID.7, ID.7 Tourer (MEB)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2020-06-11",
+    "prodStarted": "2022-05-20",
+    "targetYear": 2023,
+    "investmentM": 1100,
+    "investmentM_history": [
+      {
+        "date": "2020-06-11",
+        "valueM": 1100,
+        "source": "https://www.volkswagen-newsroom.com/en/press-releases/volkswagens-global-production-network-for-electric-vehicles-grows-with-the-launch-of-a-second-german-site-in-emden-7976",
+        "original": "€1B transformation"
+      }
+    ],
+    "targetProduction": 300000,
+    "productionUnits": "vehicles/year",
+    "targetJobs": 7700,
+    "currentJobs": 7700,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.volkswagen-newsroom.com/en/press-releases/volkswagens-global-production-network-for-electric-vehicles-grows-with-the-launch-of-a-second-german-site-in-emden-7976",
+      "investmentM": "https://www.volkswagen-newsroom.com/en/volkswagen-ag-emden-plant-5913",
+      "announced": "https://www.volkswagen-newsroom.com/en/emden-3739",
+      "prodStarted": "https://insideevs.com/news/587267/germany-volkswagen-id-production-start-emden/",
+      "targetProduction": "https://insideevs.com/news/432567/volkswagen-emden-plant-id4-other-bevs/",
+      "targetJobs": "https://www.volkswagen-newsroom.com/en/volkswagen-ag-emden-plant-5913",
+      "status": "https://www.automotiveev.com/volkswagen-begins-production-of-the-id-7-at-emden/",
+      "lat_lng": "https://www.volkswagen-newsroom.com/en/volkswagen-ag-emden-plant-5913"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0010",
+    "name": "BMW Leipzig Battery Component Expansion",
+    "aliases": [
+      "BMW Plant Leipzig HV Battery",
+      "BMW Leipzig e-component"
+    ],
+    "company": "BMW Group",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Saxony",
+    "city": "Leipzig",
+    "lat": 51.395,
+    "lng": 12.472,
+    "sector": "Batteries",
+    "projectType": "pack",
+    "product": "High-voltage battery modules + assemblies (cell coating, module production, HV battery assembly for BMW BEVs)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2022-06-30",
+    "prodStarted": "2024-09-01",
+    "targetYear": 2024,
+    "investmentM": 1000,
+    "investmentM_history": [
+      {
+        "date": "2022-06-30",
+        "valueM": 1000,
+        "source": "https://cleantechnica.com/2023/08/28/bmw-breaks-ground-on-high-voltage-battery-components-plant-near-leipzig/",
+        "original": "up to €1B expansion"
+      }
+    ],
+    "targetProduction": 300000,
+    "productionUnits": "packs/year",
+    "targetJobs": 1000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.bmwgroup.com/en/news/general/2025/20-years-bmw-group-plant-leipzig.html",
+      "investmentM": "https://cleantechnica.com/2023/08/28/bmw-breaks-ground-on-high-voltage-battery-components-plant-near-leipzig/",
+      "announced": "https://www.press.bmwgroup.com/global/article/detail/T0431938EN/bmw-group-to-build-logistics-centre-for-high-voltage-batteries-in-north-of-leipzig",
+      "targetProduction": "https://business-saxony.com/en/bmw-plant-leipzig-sustainability-pioneer",
+      "status": "https://www.bmwgroup.com/en/news/general/2025/20-years-bmw-group-plant-leipzig.html",
+      "lat_lng": "https://business-saxony.com/en/bmw-plant-leipzig-sustainability-pioneer"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0011",
+    "name": "BMW Group Plant Irlbach-Straßkirchen",
+    "aliases": [
+      "BMW Irlbach",
+      "BMW Strasskirchen",
+      "BMW Neue Klasse Battery Plant"
+    ],
+    "company": "BMW Group",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Bavaria",
+    "city": "Straßkirchen",
+    "lat": 48.847,
+    "lng": 12.892,
+    "sector": "Batteries",
+    "projectType": "pack",
+    "product": "High-voltage battery assembly for Neue Klasse BEVs (Gen6)",
+    "status": "Under Construction",
+    "countAsNew": true,
+    "announced": "2023-02-24",
+    "prodStarted": null,
+    "targetYear": 2026,
+    "investmentM": 870,
+    "investmentM_history": [
+      {
+        "date": "2023-02-24",
+        "valueM": 870,
+        "source": "https://batteriesnews.com/bmw-builds-battery-factory-lower-bavaria/",
+        "original": "€700-800M; use mid-point €800M ≈ $870M"
+      }
+    ],
+    "targetProduction": 300000,
+    "productionUnits": "packs/year",
+    "targetJobs": 1600,
+    "postIRA": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.bmwgroup-werke.com/irlbach-strasskirchen/en.html",
+      "investmentM": "https://batteriesnews.com/bmw-builds-battery-factory-lower-bavaria/",
+      "announced": "https://www.press.bmwgroup.com/global/article/detail/T0437196EN/yes-to-bmw:-strasskirchen-residents-cast-clear-vote-for-new-high-voltage-battery-assembly-site",
+      "targetProduction": "https://www.bmwgroup-werke.com/irlbach-strasskirchen/en/news/construction-of-the-new-assembly-plant-for-high-voltage-batteries.html",
+      "targetJobs": "https://www.press.bmwgroup.com/global/article/detail/T0450977EN/innovation-in-bavaria:-bmw-group-relies-on-local-partners-at-the-plant-irlbach-strasskirchen",
+      "status": "https://www.electrive.com/2023/09/25/germany-straskirchen-residents-cast-clear-vote-for-bmws-new-high-voltage-battery-assembly-site/",
+      "lat_lng": "https://www.bmwgroup-werke.com/irlbach-strasskirchen/en.html"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0012",
+    "name": "Gotion High-Tech Göttingen",
+    "aliases": [
+      "Gotion Germany",
+      "Guoxuan Göttingen",
+      "ex-Bosch Göttingen"
+    ],
+    "company": "Gotion High-Tech",
+    "origin": "CHN",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Lower Saxony",
+    "city": "Göttingen",
+    "lat": 51.529,
+    "lng": 9.932,
+    "sector": "Batteries",
+    "projectType": "pack",
+    "product": "Battery packs and modules (planned 20 GWh cell expansion; initial 5 GWh pack)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2021-07-16",
+    "prodStarted": "2023-09-17",
+    "targetYear": 2024,
+    "investmentM": 800,
+    "investmentM_history": [
+      {
+        "date": "2021-07-16",
+        "valueM": 800,
+        "source": "https://cnevpost.com/2021/07/16/power-battery-maker-gotion-high-tech-secures-its-first-plant-in-europe-through-acquisition/",
+        "original": "FDI $800M"
+      }
+    ],
+    "targetProduction": 20,
+    "realizedProduction": 5,
+    "productionUnits": "GWh/year",
+    "targetJobs": 2000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://en.gotion.com.cn/news/company-news-265.html",
+      "investmentM": "https://cnevpost.com/2023/09/17/gotion-german-battery-plant-goes-into-production/",
+      "announced": "https://cnevpost.com/2021/07/16/power-battery-maker-gotion-high-tech-secures-its-first-plant-in-europe-through-acquisition/",
+      "prodStarted": "https://www.electrive.com/2023/09/18/gotion-high-tech-launches-battery-production-in-germany/",
+      "targetProduction": "https://new.abb.com/news/detail/110548/abb-to-support-gotion-high-techs-large-scale-battery-factories-designed-to-serve-the-european-and-us-electric-vehicle-markets",
+      "status": "https://rhomotion.com/news/gotion-officially-launches-battery-pack-production-in-germany/",
+      "lat_lng": "https://en.gotion.com.cn/news/company-news-265.html"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0013",
+    "name": "Mercedes-Benz Accumotive Kamenz Plant 2",
+    "aliases": [
+      "Daimler Accumotive Kamenz",
+      "ACCUMOTIVE Kamenz 2",
+      "Mercedes-Benz Kamenz"
+    ],
+    "company": "Mercedes-Benz AG (Accumotive)",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Saxony",
+    "city": "Kamenz",
+    "lat": 51.269,
+    "lng": 14.102,
+    "sector": "Batteries",
+    "projectType": "pack",
+    "product": "Lithium-ion battery packs + modules for Mercedes EQ fleet",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2017-05-22",
+    "prodStarted": "2018-10-22",
+    "targetYear": 2018,
+    "investmentM": 540,
+    "investmentM_history": [
+      {
+        "date": "2017-05-22",
+        "valueM": 540,
+        "source": "https://www.greencarcongress.com/2017/05/20170522-accumotive.html",
+        "original": "€500M second plant"
+      }
+    ],
+    "targetProduction": 500000,
+    "productionUnits": "packs/year",
+    "targetJobs": 1000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.electrive.com/2019/01/31/kamenz-a-visit-to-daimlers-battery-assembly-factory/",
+      "investmentM": "https://www.greencarcongress.com/2017/05/20170522-accumotive.html",
+      "announced": "https://www.greencarcongress.com/2017/05/20170522-accumotive.html",
+      "prodStarted": "https://insideevs.com/news/425847/mercedes-benz-battery-pack-plant-kamenz/",
+      "targetProduction": "https://www.electrive.com/2020/05/27/daimler-grows-battery-production-starting-in-kamenz/",
+      "targetJobs": "https://www.greencarcongress.com/2018/11/20181106-accumotive.html",
+      "status": "https://www.automotivemanufacturingsolutions.com/ev-battery-production/mercedes-benz-increases-battery-production-at-kamenz/40682.article",
+      "lat_lng": "https://business-saxony.com/en/e-drives-for-mercedes-benz"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0014",
+    "name": "BASF Schwarzheide Cathode Active Materials Plant",
+    "aliases": [
+      "BASF CAM Schwarzheide",
+      "BASF battery materials Brandenburg"
+    ],
+    "company": "BASF SE",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Brandenburg",
+    "city": "Schwarzheide",
+    "lat": 51.471,
+    "lng": 13.876,
+    "sector": "Batteries",
+    "projectType": "cathode",
+    "product": "High-nickel NCM cathode active materials (CAM) for EV batteries",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2020-02-12",
+    "prodStarted": "2022-12-15",
+    "targetYear": 2022,
+    "investmentM": 440,
+    "investmentM_history": [
+      {
+        "date": "2020-02-12",
+        "valueM": 440,
+        "source": "https://www.basf.com/global/en/media/news-releases/2020/02/p-20-127",
+        "original": "€400M capex; €175M public co-funding"
+      }
+    ],
+    "productionUnits": "tonnes/year",
+    "targetJobs": 180,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.basf.com/global/en/media/news-releases/2020/02/p-20-127",
+      "investmentM": "https://catalysts.basf.com/industries/automotive-transportation/battery-materials/global-footprint/european-battery-materials-investment",
+      "announced": "https://www.electrive.com/2020/02/12/basf-to-produce-cathode-materials-in-brandenburg/",
+      "prodStarted": "https://www.basf.com/global/en/media/news-releases/2023/06/p-23-251",
+      "targetProduction": "https://catalysts.basf.com/news/groundbreaking-for-cathode-active-materials-production-plant-in-schwarzheide-germany",
+      "targetJobs": "https://catalysts.basf.com/news/groundbreaking-for-cathode-active-materials-production-plant-in-schwarzheide-germany",
+      "status": "https://www.basf.com/global/en/media/news-releases/2025/09/p-25-159",
+      "lat_lng": "https://automotive-transportation.basf.com/global/en/automotive/stories/european-battery-materials-investment-project.html"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0015",
+    "name": "Mercedes-Benz eCampus Stuttgart-Untertürkheim",
+    "aliases": [
+      "Mercedes eCampus",
+      "Untertürkheim battery competence center",
+      "Mercedes Industrial Cell Lab"
+    ],
+    "company": "Mercedes-Benz AG",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Baden-Württemberg",
+    "city": "Stuttgart",
+    "lat": 48.784,
+    "lng": 9.24,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Next-gen cell chemistry development + Industrial Cell Lab (pilot production) + battery ramp-up factory",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2021-12-17",
+    "prodStarted": "2024-07-08",
+    "targetYear": 2024,
+    "investmentM": 330,
+    "investmentM_history": [
+      {
+        "date": "2021-12-17",
+        "valueM": 330,
+        "source": "https://group.mercedes-benz.com/company/news/ecampus-untertuerkheim.html",
+        "original": "three-digit million euro"
+      }
+    ],
+    "productionUnits": "GWh/year",
+    "targetJobs": 1000,
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://group.mercedes-benz.com/company/news/ecampus-untertuerkheim.html",
+      "investmentM": "https://group.mercedes-benz.com/company/locations/campus-untertuerkheim.html",
+      "announced": "https://group.mercedes-benz.com/company/news/ecampus-untertuerkheim.html",
+      "prodStarted": "https://www.electrive.com/2024/07/08/new-ecampus-mercedes-bundles-battery-development-in-stuttgart/",
+      "status": "https://cleantechnica.com/2024/07/08/battery-technologies-of-the-future-mercedes-benz-ecampus-opens-at-stuttgart-unterturkheim-headquarters/",
+      "lat_lng": "https://group.mercedes-benz.com/company/locations/campus-untertuerkheim.html"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0016",
+    "name": "Porsche V4Smart Nördlingen Cell Plant",
+    "aliases": [
+      "V4Drive Nördlingen",
+      "VARTA V4Drive",
+      "Porsche Cellforce V4Smart",
+      "Porsche booster cell plant"
+    ],
+    "company": "V4Smart GmbH (Porsche AG majority, VARTA AG minority)",
+    "origin": "DEU",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Bavaria",
+    "city": "Nördlingen",
+    "lat": 48.854,
+    "lng": 10.49,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Ultra-high-performance cylindrical lithium-ion booster cells (Porsche 911 Carrera GTS hybrid)",
+    "status": "Under Construction",
+    "countAsNew": true,
+    "announced": "2024-08-19",
+    "prodStarted": null,
+    "targetYear": 2026,
+    "investmentM": 220,
+    "investmentM_history": [
+      {
+        "date": "2024-08-19",
+        "valueM": 30,
+        "source": "https://www.investing.com/news/stock-market-news/porsche-acquires-majority-stake-in-vartas-v4drive-battery-93CH-3906979",
+        "original": "€30M Porsche investment"
+      },
+      {
+        "date": "2025-03-04",
+        "valueM": 220,
+        "source": "https://newsroom.porsche.com/en/2025/company/porsche-v4smart-varta-ag-ultra-high-performance-lithium-ion-cylindrical-cells-38766.html",
+        "original": "~€200M combined Porsche-VARTA scope (estimate)"
+      }
+    ],
+    "targetJobs": 375,
+    "postIRA": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://newsroom.porsche.com/en/2025/company/porsche-v4smart-varta-ag-ultra-high-performance-lithium-ion-cylindrical-cells-38766.html",
+      "investmentM": "https://www.investing.com/news/stock-market-news/porsche-acquires-majority-stake-in-vartas-v4drive-battery-93CH-3906979",
+      "announced": "https://newsroom.porsche.com/en/2024/company/porsche-varta-deepen-strategic-partnership-37095.html",
+      "targetJobs": "https://battery-news.de/en/2025/03/06/porsche-acquires-majority-stake-in-varta-subsidiary-v4drive/",
+      "status": "https://www.electrive.com/2025/03/05/porsche-renames-v4drive-to-v4smart/",
+      "lat_lng": "https://evertiq.com/news/2025-03-10-porsche-acquires-majority-stake-in-v4drive"
+    },
+    "isFDI": false
+  },
+  {
+    "id": "EV-DEU-0017",
+    "name": "Microvast Ludwigsfelde",
+    "aliases": [
+      "Microvast Germany",
+      "Microvast EMEA HQ Ludwigsfelde"
+    ],
+    "company": "Microvast Holdings",
+    "origin": "USA",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Brandenburg",
+    "city": "Ludwigsfelde",
+    "lat": 52.302,
+    "lng": 13.26,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Lithium-ion cells + packs for commercial vehicles and buses",
+    "status": "Paused",
+    "countAsNew": true,
+    "announced": "2019-11-20",
+    "prodStarted": "2021-03-01",
+    "targetYear": 2021,
+    "investmentM": 150,
+    "investmentM_history": [
+      {
+        "date": "2019-11-20",
+        "valueM": 150,
+        "source": "https://www.electrive.com/2019/11/20/battery-manufacturer-microvast-follows-tesla-to-brandenburg/",
+        "original": "Approx estimate (not publicly disclosed)"
+      }
+    ],
+    "targetProduction": 6,
+    "realizedProduction": 1,
+    "productionUnits": "GWh/year",
+    "targetJobs": 250,
+    "postIRA": false,
+    "verificationTier": 3,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://microvast.com/microvast-emea-hq-gets-a-visit-from-vice-chancellor-german-federal-minister-of-finance-olaf-scholz/",
+      "investmentM": "https://www.electrive.com/2019/11/20/battery-manufacturer-microvast-follows-tesla-to-brandenburg/",
+      "announced": "https://www.electrive.com/2019/11/20/battery-manufacturer-microvast-follows-tesla-to-brandenburg/",
+      "prodStarted": "https://www.electrive.com/2020/07/03/microvast-completes-battery-factory-in-brandenburg/",
+      "targetProduction": "https://panattonieurope.com/en-de/case-studies/microvast-ludwigsfelde-lithium-ion-battery-production-plant-on-the-outskirts-of-berlin",
+      "targetJobs": "https://evertiq.com/news/47280",
+      "status": "https://totallyev.net/battery-manufacturer-microvast-commences-production-in-germany/",
+      "lat_lng": "https://panattonieurope.com/en-de/find-properties/bts-microvast-ludwigsfelde"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0018",
+    "name": "Stellantis Eisenach Assembly Plant (BEV line)",
+    "aliases": [
+      "Opel Eisenach",
+      "Stellantis Eisenach STLA Medium",
+      "Opel Grandland Electric plant"
+    ],
+    "company": "Stellantis N.V. (Opel / Vauxhall brand)",
+    "origin": "NLD",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Thuringia",
+    "city": "Eisenach",
+    "lat": 50.966,
+    "lng": 10.316,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "Opel Grandland Electric + Vauxhall Grandland Electric (STLA Medium platform)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2023-03-22",
+    "prodStarted": "2024-09-01",
+    "targetYear": 2024,
+    "investmentM": 140,
+    "investmentM_history": [
+      {
+        "date": "2023-03-22",
+        "valueM": 140,
+        "source": "https://www.stellantis.com/en/news/press-releases/2023/march/stellantis-invests-130-million-in-eisenach-assembly-plant-in-germany-for-electric-opel-grandland-successor",
+        "original": "€130M (~$140M)"
+      }
+    ],
+    "productionUnits": "vehicles/year",
+    "postIRA": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.stellantis.com/en/news/press-releases/2023/march/stellantis-invests-130-million-in-eisenach-assembly-plant-in-germany-for-electric-opel-grandland-successor",
+      "investmentM": "https://www.media.stellantis.com/em-en/opel/press/stellantis-invests-130-million-in-eisenach-assembly-plant-in-germany-for-electric-opel-grandland-successor",
+      "announced": "https://www.automotivemanufacturingsolutions.com/evs/stellantis-invests-130m-in-eisenach-assembly-plant-for-electric-opel-grandland-successor/44052.article",
+      "prodStarted": "https://www.media.stellantis.com/em-en/opel/press/made-in-germany-the-new-opel-grandland-electric-astra-electric-and-astra-sports-tourer-electric",
+      "status": "https://www.media.stellantis.com/em-en/opel/press/made-in-germany-the-new-opel-grandland-electric-astra-electric-and-astra-sports-tourer-electric",
+      "lat_lng": "https://o.media.stellantis.com/em-en/opel/press/25-years-ago-one-millionth-opel-made-in-eisenach-is-produced"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0019",
+    "name": "Valmet Automotive Kirchardt Battery Plant",
+    "aliases": [
+      "Valmet Automotive Kirchardt",
+      "Valmet Heilbronn battery",
+      "CATL-Valmet Kirchardt (FDI row 86)"
+    ],
+    "company": "Valmet Automotive (CATL holds 23.08% stake)",
+    "origin": "FIN",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Baden-Württemberg",
+    "city": "Kirchardt",
+    "lat": 49.2,
+    "lng": 8.976,
+    "sector": "Batteries",
+    "projectType": "pack",
+    "product": "High-voltage battery systems for EV and plug-in hybrid OEMs",
+    "status": "Planned",
+    "countAsNew": true,
+    "announced": "2021-01-01",
+    "prodStarted": "2022-02-01",
+    "targetYear": 2022,
+    "investmentM": 96.5,
+    "investmentM_history": [
+      {
+        "date": "2021-01-01",
+        "valueM": 96.5,
+        "source": "FDI_Combined.xlsx:row=86",
+        "original": "$96.5M per fDi Markets"
+      }
+    ],
+    "productionUnits": "packs/year",
+    "postIRA": false,
+    "verificationTier": 3,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.valmet-automotive.com/media/valmet-automotive-started-series-production-at-the-kirchardt-battery-plant/",
+      "status": "https://www.valmet-automotive.com/media/valmet-automotive-started-series-production-at-the-kirchardt-battery-plant/"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-DEU-0020",
+    "name": "Kedali Germany Erfurt Precision Components Plant",
+    "aliases": [
+      "Kedali Germany GmbH",
+      "Shenzhen Kedali Thuringia",
+      "KDL Amt Wachsenburg"
+    ],
+    "company": "Kedali Germany GmbH (Shenzhen Kedali Industry)",
+    "origin": "CHN",
+    "country": "DEU",
+    "region": "Europe",
+    "state": "Thuringia",
+    "city": "Erfurt",
+    "lat": 50.984,
+    "lng": 11.02,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Aluminum precision structural components + cell housings for lithium-ion batteries (supplier to CATL Arnstadt)",
+    "status": "Operating",
+    "countAsNew": true,
+    "announced": "2020-01-01",
+    "prodStarted": "2021-01-01",
+    "targetYear": 2021,
+    "investmentM": 66,
+    "investmentM_history": [
+      {
+        "date": "2020-01-01",
+        "valueM": 66,
+        "source": "FDI_Combined.xlsx:row=310",
+        "original": "$66M per fDi Markets"
+      }
+    ],
+    "productionUnits": "tonnes/year",
+    "postIRA": false,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://kedali.eu/en/",
+      "status": "https://www.invest-in-thuringia.de/en/companies-and-technologies/details/kedali-germany-gmbh-kdl/",
+      "product": "https://e.huawei.com/en/case-studies/solutions/enterprise-network/kedali-germany-gmbh",
+      "lat_lng": "https://www.invest-in-thuringia.de/en/companies-and-technologies/details/kedali-germany-gmbh-kdl/"
+    },
+    "isFDI": true
+  },
+  {
+    "id": "EV-HUN-0001",
+    "name": "CATL Debrecen Battery Cell Gigafactory",
+    "aliases": [
+      "CATL Hungary",
+      "CATT Debrecen",
+      "CATL second European plant"
+    ],
+    "company": "Contemporary Amperex Technology Hungary (CATL)",
+    "origin": "CHN",
+    "country": "HUN",
+    "city": "Debrecen",
+    "lat": 47.5316,
+    "lng": 21.6273,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "Lithium-ion prismatic battery cells for European OEMs (Mercedes-Benz, BMW, Stellantis); initial 40 GWh / planned 100 GWh",
+    "status": "Under Construction",
+    "announced": "2022-08-12",
+    "prodStarted": null,
+    "targetYear": 2026,
+    "investmentM": 8000,
+    "investmentM_history": [
+      {
+        "date": "2022-08-12",
+        "valueM": 8000,
+        "source": "https://www.catl.com/en/news/983.html",
+        "original": "€7.34B announced"
+      }
+    ],
+    "targetProduction": 100,
+    "productionUnits": "GWh/year",
+    "targetJobs": 9000,
+    "isFDI": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.catl.com/en/news/983.html",
+      "investmentM": "https://hipa.hu/news/catl-s-new-battery-plant-to-become-hungary-s-largest-greenfield-fdi-project-ever-/",
+      "announced": "https://www.catl.com/en/news/983.html",
+      "targetProduction": "https://electrification-solutions.com/catl-hungary-plant-set-to-begin-production-in-early-2026/",
+      "targetJobs": "https://hipa.hu/news/catl-s-new-battery-plant-to-become-hungary-s-largest-greenfield-fdi-project-ever-/",
+      "status": "https://www.electrive.com/2025/12/05/hungarian-catl-factory-to-open-in-spring/",
+      "lat_lng": "https://hipa.hu/news/catl-s-new-battery-plant-to-become-hungary-s-largest-greenfield-fdi-project-ever-/"
+    }
+  },
+  {
+    "id": "EV-HUN-0002",
+    "name": "BYD Szeged EV Assembly Plant",
+    "aliases": [
+      "BYD Hungary",
+      "BYD Europe Szeged"
+    ],
+    "company": "BYD",
+    "origin": "CHN",
+    "country": "HUN",
+    "city": "Szeged",
+    "lat": 46.253,
+    "lng": 20.1414,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "BYD passenger BEVs and PHEVs for European market (initial 150,000 vehicles/year → 300,000)",
+    "status": "Under Construction",
+    "announced": "2023-12-22",
+    "prodStarted": null,
+    "targetYear": 2025,
+    "investmentM": 4200,
+    "investmentM_history": [
+      {
+        "date": "2023-12-22",
+        "valueM": 4200,
+        "source": "https://hipa.hu/news/the-world-s-leading-manufacturer-of-electric-and-plug-in-hybrid-cars-byd-is-set-to-establish-its-first-european-electric-vehicle-production-facility-in-hungary/",
+        "original": "~€4B"
+      }
+    ],
+    "targetProduction": 300000,
+    "productionUnits": "vehicles/year",
+    "targetJobs": 10000,
+    "isFDI": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://hipa.hu/news/the-world-s-leading-manufacturer-of-electric-and-plug-in-hybrid-cars-byd-is-set-to-establish-its-first-european-electric-vehicle-production-facility-in-hungary/",
+      "investmentM": "https://www.hungarianconservative.com/articles/current/byd_szeged_new_factory_electric_cars/",
+      "announced": "https://www.szegedify.com/szeged-news/2024/1/5/chinese-giant-byd-to-build-its-first-european-car-factory-in-szeged",
+      "targetProduction": "https://www.electrive.com/2024/02/06/byd-plans-to-open-its-hungarian-ev-factory-within-three-years/",
+      "status": "https://www.globalchinaev.com/post/byd-starts-pilot-production-at-hungary-plant-ahead-of-mass-production-in-spring",
+      "lat_lng": "https://hipa.hu/news/the-world-s-leading-manufacturer-of-electric-and-plug-in-hybrid-cars-byd-is-set-to-establish-its-first-european-electric-vehicle-production-facility-in-hungary/"
+    }
+  },
+  {
+    "id": "EV-HUN-0003",
+    "name": "SK On Iváncsa Battery Cell Plant",
+    "aliases": [
+      "SK On Iváncsa",
+      "SK Innovation Iváncsa",
+      "SK On Hungary Plant 3"
+    ],
+    "company": "SK On",
+    "origin": "KOR",
+    "country": "HUN",
+    "city": "Iváncsa",
+    "lat": 47.1667,
+    "lng": 18.6167,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "NCM pouch battery cells for European OEMs (Ford, VW); 30 GWh annual capacity",
+    "status": "Operating",
+    "announced": "2021-01-29",
+    "prodStarted": "2024-06-01",
+    "targetYear": 2024,
+    "investmentM": 2300,
+    "investmentM_history": [
+      {
+        "date": "2021-01-29",
+        "valueM": 2300,
+        "source": "https://hipa.hu/news/gigantic-investment-of-sk-innovation-the-largest-greenfield-fdi-project-ever-to-start-in-ivancsa/",
+        "original": "€1.9B → $2.3B"
+      }
+    ],
+    "targetProduction": 30,
+    "realizedProduction": 30,
+    "productionUnits": "GWh/year",
+    "targetJobs": 2500,
+    "isFDI": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://hipa.hu/news/gigantic-investment-of-sk-innovation-the-largest-greenfield-fdi-project-ever-to-start-in-ivancsa/",
+      "investmentM": "https://chargedevs.com/newswire/sk-on-secures-2-billion-in-investment-for-hungary-battery-plant/",
+      "announced": "https://www.electrive.com/2021/07/20/sk-innovation-subsidized-for-hungarian-battery-plant/",
+      "prodStarted": "https://ceenergynews.com/transport/sk-innovation-builds-europes-largest-ev-battery-plant-in-hungary/",
+      "targetProduction": "https://battery-tech.net/company/sk-on-hungary/",
+      "targetJobs": "https://hipa.hu/news/gigantic-investment-of-sk-innovation-the-largest-greenfield-fdi-project-ever-to-start-in-ivancsa/",
+      "status": "https://www.koreatimes.co.kr/business/companies/20241114/sk-road-named-in-hungary",
+      "lat_lng": "https://hipa.hu/news/gigantic-investment-of-sk-innovation-the-largest-greenfield-fdi-project-ever-to-start-in-ivancsa/"
+    }
+  },
+  {
+    "id": "EV-HUN-0004",
+    "name": "BMW Group Plant Debrecen",
+    "aliases": [
+      "BMW Debrecen",
+      "BMW Hungary",
+      "BMW iFactory Debrecen"
+    ],
+    "company": "BMW Group",
+    "origin": "DEU",
+    "country": "HUN",
+    "city": "Debrecen",
+    "lat": 47.52,
+    "lng": 21.65,
+    "sector": "EVs",
+    "projectType": "vehicle_assembly",
+    "product": "BMW iX3 and Neue Klasse BEVs (first vehicle plant dedicated to Neue Klasse); includes Gen6 high-voltage battery assembly on site",
+    "status": "Operating",
+    "announced": "2018-07-31",
+    "prodStarted": "2025-10-01",
+    "targetYear": 2025,
+    "investmentM": 2100,
+    "investmentM_history": [
+      {
+        "date": "2023-04-26",
+        "valueM": 2100,
+        "source": "https://www.press.bmwgroup.com/global/article/detail/T0405972EN/bmw-group-to-invest-more-than-2-billion-euros-in-hungarian-plant-debrecen-by-2025",
+        "original": "€2B+ committed"
+      }
+    ],
+    "targetProduction": 150000,
+    "productionUnits": "vehicles/year",
+    "targetJobs": 2500,
+    "isFDI": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://www.press.bmwgroup.com/global/article/detail/T0405972EN/bmw-group-to-invest-more-than-2-billion-euros-in-hungarian-plant-debrecen-by-2025",
+      "investmentM": "https://www.press.bmwgroup.com/global/article/detail/T0405972EN/bmw-group-to-invest-more-than-2-billion-euros-in-hungarian-plant-debrecen-by-2025",
+      "announced": "https://www.bmwgroup-werke.com/debrecen/en.html",
+      "prodStarted": "https://www.electrive.com/2025/09/29/official-opening-of-the-new-bmw-factory-in-hungary/",
+      "targetProduction": "https://hipa.hu/news/BMW-plant-Debrecen-inaugurated-Hungary-HIPA/",
+      "status": "https://www.electrive.com/2025/09/29/official-opening-of-the-new-bmw-factory-in-hungary/",
+      "lat_lng": "https://www.bmwgroup-werke.com/debrecen/en.html"
+    }
+  },
+  {
+    "id": "EV-HUN-0005",
+    "name": "SK On Komárom Battery Cell Plant",
+    "aliases": [
+      "SK On Komárom",
+      "SK Innovation Komárom",
+      "SK On Hungary Plant 1+2"
+    ],
+    "company": "SK On",
+    "origin": "KOR",
+    "country": "HUN",
+    "city": "Komárom",
+    "lat": 47.743,
+    "lng": 18.1203,
+    "sector": "Batteries",
+    "projectType": "cell",
+    "product": "NCM pouch battery cells (gen-3) for European OEMs; 7.5 GWh across 5 assembly lines",
+    "status": "Operating",
+    "announced": "2018-03-01",
+    "prodStarted": "2020-01-01",
+    "targetYear": 2020,
+    "investmentM": 1800,
+    "investmentM_history": [
+      {
+        "date": "2018-03-01",
+        "valueM": 1800,
+        "source": "https://battery-tech.net/company/sk-on-hungary/",
+        "original": "$1.8B across Plant 1+2"
+      }
+    ],
+    "targetProduction": 7.5,
+    "realizedProduction": 7.5,
+    "productionUnits": "GWh/year",
+    "targetJobs": 1500,
+    "isFDI": true,
+    "verificationTier": 1,
+    "verifiedBy": "Gilberto Garcia-Vazquez",
+    "verifiedDate": "2026-04-24",
+    "license": "CC-BY-4.0",
+    "sources": {
+      "company": "https://battery-tech.net/company/sk-on-hungary/",
+      "investmentM": "https://www.sustainable-bus.com/news/hungary-battery-plants-ev-projects/",
+      "announced": "https://insideevs.com/news/483084/sk-innovation-third-ev-battery-plant-hungary/",
+      "targetProduction": "https://battery-tech.net/company/sk-on-hungary/",
+      "status": "https://www.koreatimes.co.kr/business/companies/20241114/sk-road-named-in-hungary",
+      "lat_lng": "https://battery-tech.net/company/sk-on-hungary/"
+    }
+  }
+]

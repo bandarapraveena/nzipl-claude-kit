@@ -1,0 +1,17 @@
+[
+  {
+    "_comment": "Template. Copy into data/manual/<source>/<year>.json. One row per (country, year, sector, variable).",
+    "_schema": "country, year (int), sector in {solar_pv,wind,batteries,evs}, variable in {capacity,production,demand}, value (float), unit (str), source (citation), is_forecast (bool), notes (str), priority (int; higher wins)",
+
+    "country": "China",
+    "year": 2024,
+    "sector": "batteries",
+    "variable": "capacity",
+    "value": 2400.0,
+    "unit": "GWh",
+    "source": "BNEF Global Lithium-Ion Battery Supply Chain Ranking 2024, Exhibit 4",
+    "is_forecast": false,
+    "notes": "",
+    "priority": 10
+  }
+]
