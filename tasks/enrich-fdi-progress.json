@@ -1,11 +1,11 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 80,
-  "rows_fully_sourced": 42,
-  "rows_partially_sourced": 36,
-  "rows_no_result": 2,
-  "next_unsourced_row": 142,
+  "rows_processed": 100,
+  "rows_fully_sourced": 45,
+  "rows_partially_sourced": 52,
+  "rows_no_result": 3,
+  "next_unsourced_row": 162,
   "priority": "sequential",
   "last_updated": "2026-04-30",
   "last_operator": "Claude",
@@ -49,6 +49,17 @@
       "kind": "enrich",
       "rows": "122-141",
       "notes": "Sequential rows 122-141 (Kedali Malaysia through Johnson Controls Guardamar). Sources: yicaiglobal.com, theedgemalaysia.com, indiaesa.info, pv-tech.org, reliableplant.com, hipa.hu, dailynewshungary.com, kedali.eu, leclanche.com, evreporter.com, nexcharge.in, volkswagen-group.com, electrive.com, investmentmonitor.ai, kompass.com, debrecensun.hu, invest-in-thuringia.de, thelec.net, china-arn.com, areadevelopment.com, crainsdetroit.com, boi.gov.ph, stbgiga.com, business-sweden.com, koreaherald.com, mining.com, batteriesnews.com, cnevpost.com, businesswire.com, prnewswire.com, electrek.co, tataautocomp.com, energy-storage.news, autocarpro.in, greencarcongress.com, energy.gov, posventa.info. Fallback fDi Markets (FT) for S on R123 (SAFT Bangalore — $81.6M not publicly confirmed), R126 (Nexcharge Prantij — $77.6M not confirmed), R128 (Samsung SDI Noida — $70M not confirmed), R130 (Kedali Erfurt — $66M not confirmed), R131 (Samsung Xi'an — $63M not confirmed), R133 (OliPower New Clark City — P5-7B total JV vs $61M in dataset), R134 (Kedali Skellefteå — amount not confirmed), R138 (Gotion Fremont — $50M not confirmed), R139 (Gotion Pune — $50M not confirmed), R141 (JCI Guardamar — $47M expansion not confirmed). A-O reconciliations: R126 G 'Pune (Sabarkantha district)'→'Prantij' (evreporter.com confirms factory is at Prantij); R129 G Nyíregyháza→Debrecen (yicaiglobal + debrecensun.hu confirm Debrecen location); R130 I 2020→2022 (kedali.eu confirms spring 2022 completion; Pattern A); R133 G Manila→New Clark City (stbgiga.com/boi.gov.ph confirm Filinvest Innovation Park, New Clark City, Tarlac); R133 E Announced→Completed (BOI confirms factory opened September 2024); R133 I 2023→2024 (factory opened Sep 2024); R136 I 2023→2024 (CATL/Arun Plus production started Q4 2024; Pattern A); R139 E Announced→Completed (autocarpro.in confirms BESS plant inaugurated Nov 2023); R139 I 2019→2023 (inauguration 2023); R139 N None→1 (Tata AutoComp Systems is India-based local partner); R139 O 'Tata'→'Tata AutoComp Systems' (full JV partner name per tataautocomp.com). Flags: R124 W=[UNVERIFIED] (Sanyo Salem is solar silicon ingot/wafer plant, not battery — sector mismatch; sector column not reconcilable per rules); R125 S=[UNVERIFIED] (sources cite EUR 39.4M initial investment, dataset $78M — >30% discrepancy, Pattern B scope ambiguity with expansion announced separately); R127 S=[UNVERIFIED] (VW press release cites EUR 500M total Northvolt stake; $70M in dataset not directly confirmed); R136 S=[UNVERIFIED] (3.6B baht total JV = ~$104M; $52M likely CATL's ~50% share per Pattern B)."
+    },
+    {
+      "date": "2026-04-30",
+      "rows_processed": 20,
+      "fully_sourced": 3,
+      "partial": 16,
+      "no_result": 1,
+      "operator": "Claude",
+      "kind": "enrich",
+      "rows": "142-161",
+      "notes": "Sequential rows 142-161 (Umicore Cheonan 2008 through SAFT South Shields). Sources: umicore.kr, michiganbusiness.org, wzzm13.com, areadevelopment.com, detroitnews.com, globenewswire.com (Umicore 2012, A123 Czech, A123-SAIC JV, Boston-Power), greencarcongress.com (Umicore 2010), businesswire.com (A123 Czech), yuasa.de, gs-yuasa.com, hipa.hu, yuasa.co.uk, cnevpost.com, banpunext.co.th, chinadaily.com.cn, cninfo.com.cn, finance.sina.com.cn, news.91jinshu.com, news.utk.edu, tnresearchpark.org, ornl.gov, skoda-storyboard.com, etn.news, eepower.com, basf.com, reliableplant.com, borgwarner.com, electrive.com, gsyuasa-lp.com, leclanche.com, energy-storage.news, camelbatt.com, batteriesinternational.com, industryweek.com, embedded.com. Fallback fDi Markets (FT) for S on R142/R143/R146/R147/R149/R151/R152/R155/R156/R157 (amounts not confirmed in public sources); full fallback for R153 (Sanyo Suzhou 2003 — no Tier A/B source found for this 2003 investment after IR + local-language passes). A-O reconciliations: R144 M 1→0 / O 'Stellantis'→None (Auburn Hills expansion is Samsung SDI's own facility, not the StarPlus JV in Kokomo Indiana; confirmed by areadevelopment.com + detroitnews.com); R149 O None→'Banpu NEXT' (Banpu NEXT holds 40% of SVOLT Energy Thailand; confirmed by banpunext.co.th) / I 2023→2024 (mass production started Feb 2024 per chinadaily.com.cn; first pack Dec 2023 = commissioning, Pattern A); R157 M 1→0 / O 'CINEA'→None (CINEA is EU's European Climate, Infrastructure and Environment Executive Agency — EU grant body, not a JV equity partner; confirmed by energy-storage.news + batterytechassociation.org); R158 G 'Ann Arbor'→'Battle Creek' (the $20M factory is in Battle Creek MI per camelbatt.com; Ann Arbor is Camel's North American HQ/sales office, not the factory). Flags: R143 U=[UNVERIFIED] (wzzm13.com article is from Feb 2018, dataset Year Announced=2017 — possible year mismatch; no 2017-specific announcement found); R146 R/U/W=[UNVERIFIED] (GlobeNewsWire 2008 confirms Taiwan GP Batteries partnership but Taipei city not confirmed; source says 2008 announcement, dataset says 2009; activity mfg vs design/testing ambiguous); R150 R=[UNVERIFIED] (Chinese CNINFO filing confirms Chonburi Province; specific city within Chonburi unclear; dataset says Rayong which is a neighboring province — may need reconciliation on next audit); R152 W=[UNVERIFIED] (Skoda sources describe battery assembly/manufacturing, but dataset activity says Logistics — possible fDi Markets miscategorization)."
     }
   ]
 }
