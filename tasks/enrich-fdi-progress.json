@@ -1,14 +1,14 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 40,
-  "rows_fully_sourced": 17,
-  "rows_partially_sourced": 23,
-  "rows_no_result": 0,
-  "next_unsourced_row": 22,
+  "rows_processed": 60,
+  "rows_fully_sourced": 29,
+  "rows_partially_sourced": 29,
+  "rows_no_result": 2,
+  "next_unsourced_row": 122,
   "priority": "sequential",
-  "last_updated": "2026-04-22",
-  "last_operator": "Praveen",
+  "last_updated": "2026-04-30",
+  "last_operator": "Claude",
   "batches": [
     {
       "date": "2026-04-08",
@@ -27,6 +27,17 @@
       "no_result": 0,
       "operator": "Praveen",
       "notes": "Sequential rows 2-21 (2-B Energy through AESC Spain). Sources: BusinessWire, GlobeNewsWire, Windpower Monthly, Automation.com, CompositesWorld, ACCIONA pressroom, RenewablesNow, PV-Magazine, Japan Times, La Moncloa. Flags: Aeolon row 17 cites Nador not Tanger; AESC Douai row 18 investment discrepancy ($920M vs ~€2B); AESC Sunderland row 20 investment discrepancy ($622M vs £1B). AAER row 5 Bordeaux/Valorem not independently confirmed — fallback fDi Markets (FT)."
+    },
+    {
+      "date": "2026-04-30",
+      "rows_processed": 20,
+      "fully_sourced": 12,
+      "partial": 6,
+      "no_result": 2,
+      "operator": "Claude",
+      "kind": "enrich",
+      "rows": "102-121",
+      "notes": "Sequential rows 102-121 (VW Hefei R&D through Toshiba Houston). Sources: volkswagen-group.com, govt.chinadaily.com.cn, pv-magazine.com, ess-news.com, gotion.com.cn, koreaherald.com, kedglobal.com, news.metal.com (Sinoma), prnewswire.com (Boston-Power), northvolt.com/scania, cbc.ca (Bolloré), farasis-energy.com, hipa.hu (KunlunChem), yicaiglobal.com (Pret), nec.com, valmet-automotive.com, ledinside.com, argusmedia.com, umicore.com, umicore.kr. Fallback fDi Markets (FT) for R120 (JinYang Malaysia — no Tier A/B source found after company IR + IPA + local-language passes) and R121 (Toshiba Houston — no public announcement found for $85M 2025 plant). A-O reconciliations: R105 G Hanoi→Ha Tinh (Gotion press release confirms Ha Tinh/Vung Ang; S flagged [UNVERIFIED] — $140M is approx Gotion 51% share of $275M total); R112 G Debrecen→Szolnok (HIPA confirms KunlunChem facility is in Szolnok, not Debrecen); R113 G Kuala Lumpur→Johor (batteriesnews confirms Johor state for Pret/Highstar factory); R115 I None→2023 (Valmet Automotive Kirchardt series production started Feb 2023); R117 G Jakarta→Kendal (Kendal SEZ Central Java, confirmed by Kendal Industrial Park and Argus Media); R118 M 0→1 / N None→1 / O None→Jiangmen Changxin Technology (Umicore groundbreaking press release confirms JUC is a JV with Jiangmen Changxin Technology). S column [UNVERIFIED] applied to R102, R104 (Batam city not confirmed by sources — Weda Bay suggested), R108, R109, R111, R114, R115, R116, R117, R118, R119 where amount was not unambiguously confirmed."
     }
   ]
 }
