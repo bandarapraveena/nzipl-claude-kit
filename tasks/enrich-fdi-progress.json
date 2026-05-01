@@ -1,14 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 130,
-  "rows_fully_sourced": 50,
-  "rows_partially_sourced": 75,
-  "rows_no_result": 5,
-  "next_unsourced_row": 192,
+  "rows_processed": 150,
+  "rows_fully_sourced": 53,
+  "rows_partially_sourced": 89,
+  "rows_no_result": 8,
+  "next_unsourced_row": 212,
   "priority": "sequential",
   "last_updated": "2026-04-30",
   "last_operator": "Claude (Sonnet 4.6)",
+  "last_batch": "192-211",
 
   "batches": [
     {
@@ -83,6 +84,17 @@
       "kind": "enrich",
       "rows": "182-191",
       "notes": "Sequential rows 182-191 (BYD Manaus through CBAK+Kandi USA pack assembly). Sources: bydglobal.com + electrive.com (BYD Brazil \u2014 fully confirmed), borgwarner.com/acquires/sevcon + globenewswire.com (BorgWarner Gateshead), yicaiglobal.com (Zhongrui KNS South Korea), news.samsungsdi.com + theinvestor.vn (Samsung SDI Bac Ninh), bollore.com PDF press release (Bollore+Putailai Shanghai), sustainable-bus.com + borgwarner.com/technologies/battery-systems (BorgWarner Darmstadt mfg), northdata.com (BorgWarner Darmstadt R&D Technical Center GmbH), ir.cbak.com.cn + globenewswire.com (CBAK+Anker Malaysia; CBAK+Kandi USA x2). Fully sourced: R182 (BYD Manaus \u2014 bydglobal.com confirms China parent, Completed Sept 1 2020, Manaus PIM location, R$15M=$2.7M, LiFePO4 manufacturing). Flags: R184 R=[UNVERIFIED] (Seoul not specified; source says South Korea only); R184 S=[UNVERIFIED] (KRW5B\u2248$3.6M vs dataset $2.5M \u2014 ~44% discrepancy); R185 S=[UNVERIFIED] ($2M matches Samsung SDI global minimum tax allocation in Vietnam 2024, not confirmed capex \u2014 possible fDi data quality issue); R189 R=[UNVERIFIED] (Malaysia confirmed; KL city not specified in announcement); R190 R=[UNVERIFIED] (US confirmed; Atlanta not finalized \u2014 announcement states evaluating potential locations); R191 R=[UNVERIFIED] (same; Kandi-led 90% pack assembly JV, distinct from CBAK 90% cell mfg JV in R190). No A-O reconciliations in this batch."
+    },
+    {
+      "date": "2026-04-30",
+      "rows_processed": 20,
+      "fully_sourced": 3,
+      "partial": 15,
+      "no_result": 2,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "192-211",
+      "notes": "Sequential rows 192-211 (CBAK/Kandi USA through BlueOval SK Stanton TN). Sources: ir.cbak.com.cn + chargedevs.com (CBAK/Kandi USA), hcforklift.com + electrive.com + lemansattractivite.fr (Hangcha/Manitou France), seasia.co + indonesiabatterycorp.com (Nuode Indonesia copper foil), samsungsdi.com + electrive.com (Samsung SDI/Solid Power/BMW USA), yicaiglobal.com (SLAC USA), ecofinagency.com + businessnews.com.tn (YJC Power Tunisia), yicaiglobal.com + cnevpost.com + energy-storage.news (EVE Energy Turkey), en.gotion.com.cn + energy-storage.news (Gotion Vietnam), phylion.com (Phylion Hungary), selex.vn + theinvestor.vn (Samsung SDI/Selex Vietnam), investmentmonitor.ai + kompass.com (Samsung SDI Noida India), blue-solutions.com + sipbb.ch (Bollore Blue Solutions Switzerland), greenway-battery.com + prnewswire.com (Greenway Indonesia), kedglobal.com + koreaherald.com (LG/Ford Turkey Cancelled), phylion.com + suryapagi.com (Phylion Indonesia), cnevpost.com + electrive.com (Samsung SDI Shanghai R&D), electrive.com + koreatimes.co.kr (Samsung SDI Munich R&D), eng.sk.com + corporate.ford.com + evinfrastructurenews.com (BlueOval SK Stanton TN). Fallback fDi Markets (FT): R193 (CORUN Indonesia \u2014 no Tier A/B source found), R201 (Great Power Vietnam \u2014 no Tier A/B source found). A-O reconciliations: R192 N None\u2192'1' (Kandi is US-based local JV partner; ir.cbak.com.cn confirms); R194 G 'Ancenis-Saint-G\u00e9r\u00e9on'\u2192'Le Mans' (Ancenis is Manitou HQ; factory announced at Le Mans per lemansattractivite.fr); R194 N '0'\u2192'1' (Manitou Group is French partner); R198 N None\u2192'1' (Hyacinth Automotive is Tunisian local partner; businessnews.com.tn confirms); R200 G 'Hanoi'\u2192'Ha Tinh' (Gotion press release confirms Ha Tinh/Vung Ang economic zone); R200 E 'Announced'\u2192'Completed' (factory operational per gotion.com.cn); R200 M '0'\u2192'1' / N '0'\u2192'1' / O None\u2192'VinES' (VinES Energy Solutions is Vietnamese JV partner; gotion.com.cn confirms); R206 E 'Announced'\u2192'Completed' (Greenway Indonesia subsidiary grand opening Nov 2024; prnewswire.com); R206 I '2023'\u2192'2024' (Pattern A: capex year was 2023, actual opening Nov 2024); R207 N '0'\u2192'1' / O 'Ford Motor'\u2192'Ford Motor, Koc Holding' (koreaherald.com confirms Ko\u00e7 Holding as Turkish local partner in three-way JV); R208 G 'Jakarta'\u2192'Tangerang' (suryapagi.com confirms factory at Panongan, Kabupaten Tangerang); R208 E 'Announced'\u2192'Completed' (factory opened April 2024; suryapagi.com); R208 I '2023'\u2192'2024' (actual opening April 2024; Pattern A). [UNVERIFIED] applied: R192 R (Atlanta not confirmed \u2014 US facility location still under evaluation), R196 R (Princeton not confirmed \u2014 Samsung SDI/Solid Power announcement does not specify US city), R197 R (Houston not confirmed \u2014 SLAC's OKL Engineering partnership is in Cincinnati/Dayton area, not Houston), R202 R (Phylion Hungary city not confirmed \u2014 phylion.com homepage only), R203 R (Samsung SDI/Selex Vietnam city not confirmed). Data quality flag R204: Year Completed (2019) < Year Announced (2024) \u2014 likely fDi data entry error; not reconciled without authoritative source confirming Noida production start year."
     }
   ]
 }
