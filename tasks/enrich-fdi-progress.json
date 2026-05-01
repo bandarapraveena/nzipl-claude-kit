@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 170,
-  "rows_fully_sourced": 62,
-  "rows_partially_sourced": 100,
-  "rows_no_result": 8,
-  "next_unsourced_row": 232,
+  "rows_processed": 190,
+  "rows_fully_sourced": 67,
+  "rows_partially_sourced": 116,
+  "rows_no_result": 10,
+  "next_unsourced_row": 252,
   "priority": "sequential",
   "last_updated": "2026-05-01",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "212-231",
+  "last_batch": "232-251",
 
   "batches": [
     {
@@ -95,6 +95,17 @@
       "kind": "enrich",
       "rows": "192-211",
       "notes": "Sequential rows 192-211 (CBAK/Kandi USA through BlueOval SK Stanton TN). Sources: ir.cbak.com.cn + chargedevs.com (CBAK/Kandi USA), hcforklift.com + electrive.com + lemansattractivite.fr (Hangcha/Manitou France), seasia.co + indonesiabatterycorp.com (Nuode Indonesia copper foil), samsungsdi.com + electrive.com (Samsung SDI/Solid Power/BMW USA), yicaiglobal.com (SLAC USA), ecofinagency.com + businessnews.com.tn (YJC Power Tunisia), yicaiglobal.com + cnevpost.com + energy-storage.news (EVE Energy Turkey), en.gotion.com.cn + energy-storage.news (Gotion Vietnam), phylion.com (Phylion Hungary), selex.vn + theinvestor.vn (Samsung SDI/Selex Vietnam), investmentmonitor.ai + kompass.com (Samsung SDI Noida India), blue-solutions.com + sipbb.ch (Bollore Blue Solutions Switzerland), greenway-battery.com + prnewswire.com (Greenway Indonesia), kedglobal.com + koreaherald.com (LG/Ford Turkey Cancelled), phylion.com + suryapagi.com (Phylion Indonesia), cnevpost.com + electrive.com (Samsung SDI Shanghai R&D), electrive.com + koreatimes.co.kr (Samsung SDI Munich R&D), eng.sk.com + corporate.ford.com + evinfrastructurenews.com (BlueOval SK Stanton TN). Fallback fDi Markets (FT): R193 (CORUN Indonesia \u2014 no Tier A/B source found), R201 (Great Power Vietnam \u2014 no Tier A/B source found). A-O reconciliations: R192 N None\u2192'1' (Kandi is US-based local JV partner; ir.cbak.com.cn confirms); R194 G 'Ancenis-Saint-G\u00e9r\u00e9on'\u2192'Le Mans' (Ancenis is Manitou HQ; factory announced at Le Mans per lemansattractivite.fr); R194 N '0'\u2192'1' (Manitou Group is French partner); R198 N None\u2192'1' (Hyacinth Automotive is Tunisian local partner; businessnews.com.tn confirms); R200 G 'Hanoi'\u2192'Ha Tinh' (Gotion press release confirms Ha Tinh/Vung Ang economic zone); R200 E 'Announced'\u2192'Completed' (factory operational per gotion.com.cn); R200 M '0'\u2192'1' / N '0'\u2192'1' / O None\u2192'VinES' (VinES Energy Solutions is Vietnamese JV partner; gotion.com.cn confirms); R206 E 'Announced'\u2192'Completed' (Greenway Indonesia subsidiary grand opening Nov 2024; prnewswire.com); R206 I '2023'\u2192'2024' (Pattern A: capex year was 2023, actual opening Nov 2024); R207 N '0'\u2192'1' / O 'Ford Motor'\u2192'Ford Motor, Koc Holding' (koreaherald.com confirms Ko\u00e7 Holding as Turkish local partner in three-way JV); R208 G 'Jakarta'\u2192'Tangerang' (suryapagi.com confirms factory at Panongan, Kabupaten Tangerang); R208 E 'Announced'\u2192'Completed' (factory opened April 2024; suryapagi.com); R208 I '2023'\u2192'2024' (actual opening April 2024; Pattern A). [UNVERIFIED] applied: R192 R (Atlanta not confirmed \u2014 US facility location still under evaluation), R196 R (Princeton not confirmed \u2014 Samsung SDI/Solid Power announcement does not specify US city), R197 R (Houston not confirmed \u2014 SLAC's OKL Engineering partnership is in Cincinnati/Dayton area, not Houston), R202 R (Phylion Hungary city not confirmed \u2014 phylion.com homepage only), R203 R (Samsung SDI/Selex Vietnam city not confirmed). Data quality flag R204: Year Completed (2019) < Year Announced (2024) \u2014 likely fDi data entry error; not reconciled without authoritative source confirming Noida production start year."
+    },
+    {
+      "date": "2026-05-01",
+      "rows_processed": 20,
+      "fully_sourced": 5,
+      "partial": 13,
+      "no_result": 2,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "232-251",
+      "notes": "Sequential rows 232-251 (JinkoSolar Bac Giang through China Glass Egypt TEDA). All Solar Manufacturing rows. Sources: solarbeglobal.com + pv-magazine.com (Astronergy Turkey $700M + Alfa Solar JV), taiyangnews.info + muscatdaily.com + omanobserver.om (Drinda Oman 5GW Sohar), investor.firstsolar.com + businesswire.com (First Solar India Sriperumbudur 3.3GW), amwalalghad.com + agbi.com (Kibing Solar Egypt $685M Ain Sokhna), mida.gov.my + thevibes.com (Kibing Solar Malaysia KKIP RM3B commenced Oct 2023), illuminateusa.com + columbusregion.com + pv-tech.org (LONGi+Invenergy Ohio Illuminate USA $600M), zawya.com + pv-magazine.com (JA Solar Oman Sohar $565M), pv-tech.org + pv-magazine.com + egypttoday.com (GCL+Kemet Egypt $500M), theinvestor.vn + vir.com.vn (Runergy Nghe An $440M raised from $293M), longi.com + malaymail.com (LONGi Serendah Malaysia RM1.8B=$380M Oct 2023), ir.jinkosolar.com + pv-tech.org + vir.com.vn (JinkoSolar Quang Ninh $365M Song Khoai IP), chinaglobalsouth.com (Drinda Ethiopia $360M Invest in Ethiopia forum), trendsnafrica.com + oilprice.com (Hanergy+Jandu Ethiopia $360M same forum), theinvestor.vn + vir.com.vn (Boviet Solar Hai Duong $350M [UNVERIFIED]), pv-tech.org (Zhongli Talesun Thailand Rayong 800MW [UNVERIFIED] amount), gstarsolar.com (Gstar Thailand Rayong Rubber IE $300M Aug 2024), pv-magazine.com + balkangreenenergynews.com + pv-tech.org (Nuocheng/Hunan Rich Serbia Paracin MOU May 2024), glassonweb.com + egypttoday.com (China Glass Egypt TEDA Ain Sokhna groundbreaking Nov 2024 $310M). Fallback fDi Markets (FT): R232 (JinkoSolar Bac Giang $750M — no standalone Tier A/B press release found for Song Khe-Noi Hoang IZ; flag for follow-up), R241 (LONGi Yen Bai 2014 — no Tier A/B source found for this 2014 investment). A-O reconciliations: R235 H 2022→2021 (First Solar IR press release dated Sept 2021 confirms announcement year); R236 G None→'Ain Sokhna (SCZone)' (amwalalghad.com + agbi.com confirm SCZone Ain Sokhna); R237 I 2024→2023 (MIDA confirms operations commenced Oct 2023, ahead of 2024 schedule); R238 N 0→1 (Invenergy is US company; destination=USA — JV local partner); R251 L 300→310 (glassonweb.com + China.org.cn cite $310M for China Glass Egypt groundbreaking Nov 2024). [UNVERIFIED] applied: R244 S (IR says $500M total investment; dataset has $365M ≈ VND8,380B registered capital in Vietnam — discrepancy likely reflects planned vs. registered scope), R247 S ($350M = Boway Group total Vietnam commitment; Boviet Hai Duong investment certificate was $120M at Cong Hoa IP), R248 S (PV Tech confirms 500-800MW Rayong facility; $320M investment amount not cited in any public source)."
     },
     {
       "date": "2026-05-01",
