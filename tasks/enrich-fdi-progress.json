@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 150,
-  "rows_fully_sourced": 53,
-  "rows_partially_sourced": 89,
+  "rows_processed": 170,
+  "rows_fully_sourced": 62,
+  "rows_partially_sourced": 100,
   "rows_no_result": 8,
-  "next_unsourced_row": 212,
+  "next_unsourced_row": 232,
   "priority": "sequential",
-  "last_updated": "2026-04-30",
+  "last_updated": "2026-05-01",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "192-211",
+  "last_batch": "212-231",
 
   "batches": [
     {
@@ -95,6 +95,17 @@
       "kind": "enrich",
       "rows": "192-211",
       "notes": "Sequential rows 192-211 (CBAK/Kandi USA through BlueOval SK Stanton TN). Sources: ir.cbak.com.cn + chargedevs.com (CBAK/Kandi USA), hcforklift.com + electrive.com + lemansattractivite.fr (Hangcha/Manitou France), seasia.co + indonesiabatterycorp.com (Nuode Indonesia copper foil), samsungsdi.com + electrive.com (Samsung SDI/Solid Power/BMW USA), yicaiglobal.com (SLAC USA), ecofinagency.com + businessnews.com.tn (YJC Power Tunisia), yicaiglobal.com + cnevpost.com + energy-storage.news (EVE Energy Turkey), en.gotion.com.cn + energy-storage.news (Gotion Vietnam), phylion.com (Phylion Hungary), selex.vn + theinvestor.vn (Samsung SDI/Selex Vietnam), investmentmonitor.ai + kompass.com (Samsung SDI Noida India), blue-solutions.com + sipbb.ch (Bollore Blue Solutions Switzerland), greenway-battery.com + prnewswire.com (Greenway Indonesia), kedglobal.com + koreaherald.com (LG/Ford Turkey Cancelled), phylion.com + suryapagi.com (Phylion Indonesia), cnevpost.com + electrive.com (Samsung SDI Shanghai R&D), electrive.com + koreatimes.co.kr (Samsung SDI Munich R&D), eng.sk.com + corporate.ford.com + evinfrastructurenews.com (BlueOval SK Stanton TN). Fallback fDi Markets (FT): R193 (CORUN Indonesia \u2014 no Tier A/B source found), R201 (Great Power Vietnam \u2014 no Tier A/B source found). A-O reconciliations: R192 N None\u2192'1' (Kandi is US-based local JV partner; ir.cbak.com.cn confirms); R194 G 'Ancenis-Saint-G\u00e9r\u00e9on'\u2192'Le Mans' (Ancenis is Manitou HQ; factory announced at Le Mans per lemansattractivite.fr); R194 N '0'\u2192'1' (Manitou Group is French partner); R198 N None\u2192'1' (Hyacinth Automotive is Tunisian local partner; businessnews.com.tn confirms); R200 G 'Hanoi'\u2192'Ha Tinh' (Gotion press release confirms Ha Tinh/Vung Ang economic zone); R200 E 'Announced'\u2192'Completed' (factory operational per gotion.com.cn); R200 M '0'\u2192'1' / N '0'\u2192'1' / O None\u2192'VinES' (VinES Energy Solutions is Vietnamese JV partner; gotion.com.cn confirms); R206 E 'Announced'\u2192'Completed' (Greenway Indonesia subsidiary grand opening Nov 2024; prnewswire.com); R206 I '2023'\u2192'2024' (Pattern A: capex year was 2023, actual opening Nov 2024); R207 N '0'\u2192'1' / O 'Ford Motor'\u2192'Ford Motor, Koc Holding' (koreaherald.com confirms Ko\u00e7 Holding as Turkish local partner in three-way JV); R208 G 'Jakarta'\u2192'Tangerang' (suryapagi.com confirms factory at Panongan, Kabupaten Tangerang); R208 E 'Announced'\u2192'Completed' (factory opened April 2024; suryapagi.com); R208 I '2023'\u2192'2024' (actual opening April 2024; Pattern A). [UNVERIFIED] applied: R192 R (Atlanta not confirmed \u2014 US facility location still under evaluation), R196 R (Princeton not confirmed \u2014 Samsung SDI/Solid Power announcement does not specify US city), R197 R (Houston not confirmed \u2014 SLAC's OKL Engineering partnership is in Cincinnati/Dayton area, not Houston), R202 R (Phylion Hungary city not confirmed \u2014 phylion.com homepage only), R203 R (Samsung SDI/Selex Vietnam city not confirmed). Data quality flag R204: Year Completed (2019) < Year Announced (2024) \u2014 likely fDi data entry error; not reconciled without authoritative source confirming Noida production start year."
+    },
+    {
+      "date": "2026-05-01",
+      "rows_processed": 20,
+      "fully_sourced": 4,
+      "partial": 14,
+      "no_result": 2,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "212-231",
+      "notes": "Sequential rows 212-231 (Gotion India HAR0030 through NE Solar Cikarang). Mix of Battery (R212\u2013R217) and Solar (R218\u2013R231). Sources: global.toshiba + johnsoncontrols.com + greencarcongress.com (Toshiba/JCI Holland MI), samsungsdibs.at + cleantechnica.com + just-auto.com (Samsung SDI Battery Systems Graz Austria), coatingsworld.com + advancedsciencenews.com (BASF Amagasaki R&D lab), eepower.com (NEC Tokin Xiamen 2002), xinyisolar.com + business-indonesia.org + voi.id (Xinyi Solar Rempang Batam Indonesia), mysteel.net + pv-magazine.com (Hongshi Group West Java Indonesia), en.gclsi.com + pv-tech.org (GCL-SI Hefei China), pvtime.org + yicaiglobal.com + pv-tech.org (TCL Zhonghuan Saudi Arabia), longi.com/en/news/6934 (LONGi Bintulu Malaysia 2016), theedgemarkets.com + theborneopost.com (Sun Bear Solar Kota Kinabalu 2010), unitedsolarholding.com + pv-magazine.com + prnewswire.com + pv-tech.org (United Solar Oman Sohar), saurenergy.asia + thestar.com.my + malaymail.com + sabahenergycorp.com (Kibing Solar Kimanis Malaysia), ir.jinkosolar.com + pv-magazine.com + vir.com.vn + technode.global (JinkoSolar Vietnam Cancelled), mediaroom.maxeon.com + prnewswire.com + governor.state.nm.us (Maxeon Albuquerque NM), energytrend.com + pv-magazine.com + theinvestor.vn (JA Solar Bac Giang Vietnam), investors.canadiansolar.com + pv-magazine.com (Canadian Solar Thailand Chonburi), investors.canadiansolar.com + prnewswire.com + iedc.in.gov + pv-magazine-usa.com (Canadian Solar Jeffersonville Indiana), pv-magazine-usa.com + nesolar.com.kh (NE Solar Indonesia). Fallback fDi Markets (FT): R212 (Gotion India HAR0030 \u2014 no distinct Tier A/B source beyond Tata JV HAR0029), R216 (CORUN Japan Sapporo \u2014 CORUN's 2011 Japan activity was Kanagawa/Shonan, not Sapporo; no Sapporo source found). A-O reconciliations: R213 N '0'\u2192'1' (Johnson Controls is a US local JV partner; destination = USA); R221 N None\u2192'1' (RELC and Vision Industries are both Saudi local partners per pvtime.org); R224 I '2025'\u2192'2026' (United Solar production started Feb 2026 per pv-magazine.com; Pattern A \u2014 2025 was projected year); R226 G 'Vietnam (Bac Giang)'\u2192'Quang Ninh' (Song Khoai IP, Quang Yen, Quang Ninh confirmed by vir.com.vn \u2014 NOT Bac Giang); R226 E 'Announced'\u2192'Cancelled' (JinkoSolar submitted termination notice Feb 26 2026; pv-magazine.com + technode.global confirm US tariff reason). [UNVERIFIED] applied: R218 S ($11.5B is announcement-stage pledge, not executed capex), R219 R (West Java confirmed, exact city/zone TBC), R219 S ($5B pledged, not confirmed executed capex), R220 S ($2.5B initial announcement revised to ~$2.75B per pv-tech; >10% discrepancy), R221 R (Saudi Arabia confirmed, specific city still TBD), R222 S ($1.8B not confirmed \u2014 total Sarawak investment ~MYR5.6B/~$1.3B), R223 S (RM5.2B = ~$1.62B; 2010 project never executed), R224 S ($1.6B dataset vs $1.35B per pv-tech; >15% discrepancy across sources), R225 S (RM7.2B \u2248 $1.5B; Tier B only), R226 S ($1.5B initial, later revised to $294M before cancellation), R229 S ($940M not confirmed \u2014 $210M loan + \u0e3f9B stated don't reconcile to $940M), R231 R (Indonesia confirmed, Cikarang not confirmed by available sources), R231 S ($800M not confirmed). Data quality flag R227: fDi Year Announced = 2024 but Maxeon original press release is Aug 10 2023; fDi may have recorded 2024 as the year of formal site commitment / Honeywell building lease. Not reconciled without confirmation."
     }
   ]
 }
