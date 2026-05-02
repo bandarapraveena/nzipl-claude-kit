@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 698,
-  "rows_processed": 230,
-  "rows_fully_sourced": 79,
-  "rows_partially_sourced": 139,
-  "rows_no_result": 14,
-  "next_unsourced_row": 292,
+  "rows_processed": 245,
+  "rows_fully_sourced": 85,
+  "rows_partially_sourced": 148,
+  "rows_no_result": 15,
+  "next_unsourced_row": 307,
   "priority": "sequential",
-  "last_updated": "2026-05-01",
+  "last_updated": "2026-05-02",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "272-291",
+  "last_batch": "302-306",
 
   "batches": [
     {
@@ -139,6 +139,28 @@
       "kind": "enrich",
       "rows": "272-291",
       "notes": "Sequential rows 272-291 (JA Solar Andhra Pradesh through CETC Sri City). All Solar Manufacturing. Sources: renewablesnow.com (JA Solar+Essel India), investor.firstsolar.com (First Solar Kulim x2 — 2007 IR press release covers 2008 plant; 2011 plant Q=[UNVERIFIED]), trinasolar.com (Trina Solar Rayong $143M — Tier A newsroom), ir.jinkosolar.com (JinkoSolar Jacksonville FL HAR row; JinkoSolar Penang — fully confirmed Tier A), das-solar.com (DAS Solar France Mandeure €109M — Tier A), sczoneutilities.com + pv-tech.org (Elite Solar Egypt Ain Sokhna 5GW — SCZONE Tier A gov portal), pv-tech.org (Hareon Solar Morocco JV; Sanyo Salem OR; CETC India), energytrend.com (LONGi Yen Bai Vietnam $104M), kendalindustrialpark.co.id (Trina Solar Kendal Indonesia $100M JV — Tier B IPA), ir.jinkosolar.com (JinkoSolar Penang), pv-magazine.com (Triton Solar Pithampur), eepower.com (Evergreen EverQ Thalheim Germany $75M), taiyangnews.info (Arctech Camaçari Brazil), pvtime.org (TCL Zhonghuan Philippines Laguna $58.6M acquisition), pv-tech.org (Seraphim Jackson MS HAR row), sricity.in + pv-tech.org (CETC Sri City $49M — Sri City IPA Tier A). Fully sourced: R277 (DAS Solar France), R281 (Trina Solar Kendal), R282 (JinkoSolar Penang), R284 (Sanyo Salem OR), R285 (Evergreen EverQ Germany), R291 (CETC Sri City). Dedup candidates (fDi fallback applied): R288 (FDI184372 — non-HAR duplicate of R276/HARSOL77 JinkoSolar Jacksonville; source confirms $50M vs $132M in HAR row); R290 (FDI154162 — non-HAR duplicate of R289/HARSOL114 Seraphim Jackson MS). Both duplicate pairs should be reviewed for row deletion. A-O reconciliations: R275 I 2018→2016 (Trina Solar Thailand newsroom confirms March 2016 production launch; 2018 was incorrect); R280 I 2021→2023 (LONGi/EnergyTrend confirm Dec 31 2023 operations start; 2021 is chronologically impossible — data error); R281 O 'PLN & Sinar Mas'→'PT Trina Mas Agra Indonesia' (Kendal Industrial Park confirms full JV entity name: Trina Solar+Sinar Mas+PLN Indonesia Power+Agra Surya Energy); R286 G 'Estado de Bahia (exact city TBC)'→'Camaçari, Bahia' (TaiyangNews inauguration confirms Camaçari, Sept 2024). [UNVERIFIED] applied: R272 Q/S (renewablesnow confirms 2015 announcement; Completed status + $150M not independently confirmed; source cites $200M project total); R273 Q (First Solar 2011 Kulim completion — likely FA2/expansion not covered by 2007 press release); R275 W (source confirms manufacturing 500MW cells+modules; dataset K=Logistics — activity mismatch, sector column not reconciled per convention); R276 S (ir.jinkosolar.com cites ~$50M; HAR row lists $132M — HAR/fDi scope difference); R278 S (SCZONE+pv-tech cite $115M-$150M range; no single confirmed amount); R279 Q (pv-tech confirms 2016 JV board approval; Cancelled status not verified in any source); R283 Q (pv-magazine confirms Dec 2015 deal and Aug 2016 target; actual completion not confirmed). Data quality flags: R275 activity mismatch (K=Logistics but source=Manufacturing, similar to R124/R152/R264 pattern); R287 is acquisition not greenfield (TCL Zhonghuan acquired 100% of SunPower Philippines Manufacturing for $58.6M, Nov 2024)."
+    },
+    {
+      "date": "2026-05-01",
+      "rows_processed": 10,
+      "fully_sourced": 4,
+      "partial": 5,
+      "no_result": 1,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "292-301",
+      "notes": "Sequential rows 292-301 (Sharp Wrexham UK through Innolia Energy Hyderabad). All Solar Manufacturing rows. Sources: global.sharp/solar/en/history (Sharp Wrexham Tier A company history), pv-tech.org (Sharp Wrexham 500MW capacity; Gintech Thailand 350MW; Genesis Energy Spain Never Built), en.byd.com/news (BYD Brazil Tier A IR), pv-magazine.com (BYD Campinas $47M inauguration April 2017; Hareon+Dalmia India $40M; Innolia Energy Hyderabad $31.4M), renewablesnow.com (Hareon+Dalmia India $40M JV), www.sec.gov/Archives/edgar/data/947397 (Evergreen Solar 10-K — Tier A SEC filing), sustainablebusiness.com (Evergreen Solar Wuhan JV Aug 2009), adlershof.de/en/news (Global Solar Berlin-Adlershof Nov 2008 — Tier A park portal), optics.org/news/2/9/4 (Global Solar ~$39M confirmed), governor.sc.gov/news/2023-03 (Hounen Solar SC Governor — Tier A), hounensolar.com/orangeburg-1gw (Hounen Solar company site), innoliaenergy.com/company (Innolia company site). Fully sourced: R295 (Gintech Thailand $45M), R299 (Global Solar Berlin-Adlershof $39M), R300 (Hounen Solar Orangeburg SC $33M — SC Governor Tier A), R301 (Innolia Energy Hyderabad $31.4M). Partial/fDi fallback: R292 (Sharp Wrexham — S=$47.3M not cited; U=2003 not confirmed); R293 (BYD Brazil — U=2014 announcement not confirmed, sources show 2017 inauguration only); R296 (Evergreen Solar Wuhan — S=[UNVERIFIED] $17M+$33M=$50M vs dataset $43M; U=fDi: 2006 not confirmed, sources show 2008 announcement); R297 (Genesis Energy Spain — P=[UNVERIFIED] source describes UK-listed company, dataset says Hungary HQ); R298 (Hareon+Dalmia India — Q=[UNVERIFIED] Cancelled status not confirmed in any source; R=[UNVERIFIED] India confirmed but specific city unspecified). No-result/creator-flagged: R294 (BYD_BR1_DUP — creator-flagged duplicate of R293; fDi fallback applied). No A-O reconciliations in this batch."
+    },
+    {
+      "date": "2026-05-02",
+      "rows_processed": 5,
+      "fully_sourced": 2,
+      "partial": 3,
+      "no_result": 0,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "302-306",
+      "notes": "Sequential rows 302-306 (Eaglerise Fort Worth TX through Amerisolar Confins Brazil). All Solar Manufacturing rows. Sources: eaglerise.com company IR (Eaglerise Fort Worth — Tier A), pvtime.org (Autowell Malaysia $30.3M JV), mida.gov.my (Autowell TT Vision JV — Tier A Malaysia IPA), renewablesnow.com + pv-tech.org (Almaden Dubai Silicon Oasis $30M), areadevelopment.com + solarbuildermag.com (Fronius Portage Indiana $26.64M), pv-magazine.com + canalsolar.com.br (Amerisolar Confins Brazil). Fully sourced: R304 (Almaden Dubai Silicon Oasis $30M — all confirmed), R305 (Fronius Portage Indiana $26.64M — all confirmed). Partial: R302 (Eaglerise Fort Worth — U=fDi: 2024 announcement not confirmed, sources show Oct 2025 opening only; W=[UNVERIFIED] source confirms transformer/power electronics manufacturing, not solar panels — activity mismatch similar to R264 pattern); R303 (Autowell Malaysia — Q/V=[UNVERIFIED]: Aug 2024 completion targeted, actual operational status not confirmed); R306 (Amerisolar Brazil — S=[UNVERIFIED]: sources cite R$55M first-year investment, no source confirms $24.3M total capex). No A-O reconciliations in this batch."
     }
   ]
 }
