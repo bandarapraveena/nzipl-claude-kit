@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 264,
-  "rows_fully_sourced": 88,
-  "rows_partially_sourced": 164,
+  "rows_processed": 274,
+  "rows_fully_sourced": 90,
+  "rows_partially_sourced": 172,
   "rows_no_result": 15,
-  "next_unsourced_row": 326,
+  "next_unsourced_row": 336,
   "priority": "sequential",
   "last_updated": "2026-05-02",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "307-326",
+  "last_batch": "326-335",
 
   "batches": [
     {
@@ -171,7 +171,18 @@
       "operator": "Claude (Sonnet 4.6)",
       "kind": "enrich",
       "rows": "307-326",
-      "notes": "Sequential rows 307-326 (Sanyo Dorog Hungary through Solar PST Povoa de Varzim). All Solar Manufacturing / R&D rows. Dedup: R323 (FDI189020 Sungrow Power Supply Bangalore) deleted — HAR/non-HAR Chinese-parent duplicate of R322 (HARSOL121 Sungrow Bengaluru); city 'Bangalore'='Bengaluru', same capex $5.25M, same 2018 year. Total_rows reduced from 698 to 697. Sources: pv-magazine.com + renewablesnow.com (R307 Sanyo Dorog EUR16.5M), prnewswire.com + saurenergy.com + pv-tech.org (R308 Kstar Haiphong $22M), yicaiglobal.com (R309 Lushan Malaysia $21M CNY150M), pv-tech.org (R310 ISC Konstanz/ATAMOSTEC Chile $17M — partners Enel/Colbún/Mondragón/Cintac/CORFO, announced 08/18/2017), pvtime.org (R311 HIUV Bac Giang Vietnam factory + delay article), prnewswire.com + seraphim-energy.com (R312 Seraphim East London IDZ $14M JV), prnewswire.com (R313 Iosil Energy Groveport Ohio $13.5M), pv-magazine.com (R314 Livoltek Manaus BRL70M=$12M commissioned 07/26/2024; R319 AE Solar Kutaisi >$10M inaugurated 05/21/2019), pvtime.org + romania-insider.com (R315 Dahai Romania Calarasi EUR10M=$10.7M), pv-tech.org (R316 HIUV+HB Fuller Ohio $10M; R324 Sineng Electric Bengaluru opened 08/22/2018), business.ca.gov + pv-tech.org + prweb.com (R317 China Sunergy Sacramento $10M), eco-business.com (R318 Suntech Uzbekistan Navoiy $10M + Uzbekenergo JV), balkangreenenergynews.com (R320 EXE Solar Yambol EUR6.5M=$6.8M), eetimes.com (R321 Aleo Solar Palautordera 2007), pv-magazine.com (R322 Sungrow Bengaluru $5.5M opened 07/27/2018), commerce.nc.gov (R325 Swelect Halifax NC $4.7M), energias-renovables.com (R326 Solar PST Povoa de Varzim 2007). Fallback fDi Markets (FT): S on R317 (China Sunergy investment not publicly confirmed), R321 (Aleo Solar $5.8M not confirmed), R324 (Sineng $5M not confirmed), R326 (Solar PST $2.8M not confirmed). Fully sourced: R307 (Sanyo Dorog), R312 (Seraphim East London), R314 (Livoltek Manaus). A-O reconciliations: R311 G 'Vietnam (exact province/city TBC...)'→'Viet Han, Bac Giang' (pvtime confirms Viet Han industrial park, Bac Giang province); R311 E 'Completed'→'Announced' + I 2024→2025 (pvtime delay article: project delayed from March 2024 to September 2025); R312 O nan→'ILB Helios Southern Africa, Industrial Development Corporation of South Africa' (prnewswire JV partners); R313 G 'Ohio'→'Groveport, Ohio' (prnewswire/pv-tech confirm Groveport OH pilot plant site); R314 H 2024→2023 + I 2025→2024 (pv-magazine Sept 2023 announcement; commissioned July 2024 — Pattern A); R319 L 8→10 (pv-magazine confirms '>$10M' investment, dataset $8M undercount); R320 I 2023→2024 (Pattern A: construction April 2023, operations expected end 2024 per balkangreenenergynews); R322 L 5.25→5.5 (pv-magazine headline '$5.5 million 3 GW PV inverter factory'). [UNVERIFIED] applied: R309 R (Malaysia confirmed, no specific city from Lushan announcement), R310 Q/R (ISC Konstanz Chile — pv-tech 2017 article confirms $17M + partners but facility completion status and exact Atacama city not confirmed), R311 S (VND99B ≈$4.2M vs dataset $14M — >100% discrepancy, could not reconcile), R313 Q (Cancelled status for Iosil not confirmed in public source), R315 S (EUR10M≈$10.7M via Tier B only), R316 S (HIUV Ohio $10M from TaiyangNews estimate), R318 Q (Announced status — Suntech went bankrupt Mar 2013 same year as announcement; project likely never executed but no explicit cancellation source found), R319 S (pv-magazine says '>$10M', dataset $8M; reconciled L but citing S=[UNVERIFIED] as exact figure unstated), R320 Q (EXE Solar Bulgaria completion not confirmed in available sources; most recent info is Nov 2022 announcement), R322 S ($5.5M per pv-magazine vs $5.25M dataset; reconciled L; S=[UNVERIFIED] as minor discrepancy), R325 Q (Swelect Halifax NC — announced 2016, actual facility construction not confirmed)."
+      "notes": "Sequential rows 307-326 (Sanyo Dorog Hungary through Solar PST Povoa de Varzim). All Solar Manufacturing / R&D rows. Dedup: R323 (FDI189020 Sungrow Power Supply Bangalore) deleted — HAR/non-HAR Chinese-parent duplicate of R322 (HARSOL121 Sungrow Bengaluru); city 'Bangalore'='Bengaluru', same capex $5.25M, same 2018 year. Total_rows reduced from 698 to 697. Sources: pv-magazine.com + renewablesnow.com (R307 Sanyo Dorog EUR16.5M), prnewswire.com + saurenergy.com + pv-tech.org (R308 Kstar Haiphong $22M), yicaiglobal.com (R309 Lushan Malaysia $21M CNY150M), pv-tech.org (R310 ISC Konstanz/ATAMOSTEC Chile $17M), pvtime.org (R311 HIUV Bac Giang Vietnam), prnewswire.com + seraphim-energy.com (R312 Seraphim East London IDZ $14M JV), prnewswire.com (R313 Iosil Energy Groveport Ohio $13.5M), pv-magazine.com (R314 Livoltek Manaus; R319 AE Solar Kutaisi), pvtime.org + romania-insider.com (R315 Dahai Romania), pv-tech.org (R316 HIUV+HB Fuller Ohio; R324 Sineng Bengaluru), pv-magazine.com (R322 Sungrow Bengaluru), commerce.nc.gov (R325 Swelect Halifax NC), energias-renovables.com (R326 Solar PST). A-O reconciliations: R311 G→Viet Han/Bac Giang; R311 E Completed→Announced + I 2024→2025; R312 O updated; R313 G Ohio→Groveport OH; R314 H 2024→2023 + I 2025→2024; R319 L 8→10; R320 I 2023→2024; R322 L 5.25→5.5. Fully sourced: R307, R312, R314."
+    },
+    {
+      "date": "2026-05-02",
+      "rows_processed": 10,
+      "fully_sourced": 2,
+      "partial": 8,
+      "no_result": 0,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "326-335",
+      "notes": "Sequential rows 326-335 (Kyocera Kadan Czech Republic through Jinchen Malaysia). Mix of historical (R326, R327) and 2025 Announced projects. Sources: europe.kyocera.com IR (Kyocera Kadan 2005 Tier A), pv-magazine.com/2012 (Powerway South Africa ZAR10M=$1.25M), pv-magazine.com/2026 + dailynewsegypt.com (TBEA+Kemet Egypt inverter MoU Jan 2026), renewablesnow.com (Central New Energy+EGN Oman MoU 2025), pv-magazine.com/2025/06/09 + taiyangnews.info (Drinda+Schmid Pekintaş Turkey 5GW $500M June 2025), pv-tech.org (GCL+Founder Group Malaysia $220M MoU June 2025), pv-magazine.com/2025/05/14 + pv-tech.org (Gstar Philippines Subic Bay Commenced May 2025), pv-tech.org (Haitai Solar Batam Indonesia 3GW CNY600M=$85M 2025), pv-magazine.com/2025/12/15 (Hebei Juhang Pakistan Dec 2025), pv-magazine.com/2025/06/06 + energytrend.com (Jinchen Malaysia $6.5M June 2025). Fully sourced: R330 (Drinda Turkey — all fields confirmed including $500M), R333 (Haitai Solar Batam — all fields confirmed including $85M). Partial: R326 (Kyocera — S=fDi: $1.8M not in source); R327 (Powerway SA — W=[UNVERIFIED]: mounting structure mfg not PV cells); R328 (TBEA Egypt — S=fDi: TBEA-specific capital not disclosed); R329 (Central New Energy Oman — S=fDi: capital not disclosed; R=Oman only, city TBC); R331 (GCL Malaysia — R/S/W=[UNVERIFIED]: MoU for renewable energy projects, no dedicated factory announced); R332 (Gstar Philippines — S=fDi: capital not disclosed); R334 (Hebei Juhang Pakistan — S=fDi: vague 'billions'; R=Pakistan only, city TBC); R335 (Jinchen Malaysia — R=[UNVERIFIED]: city TBC; W=[UNVERIFIED]: PV equipment mfg not solar cell/module). A-O reconciliations: R326 I 2004→2005 (Kyocera IR confirms Oct 2005 opening); R330 L None→500 (pv-magazine confirms $500M total JV); R333 G 'Indonesia TBC'→'Batam (Kabil), Riau Islands' + L None→85 (pv-tech confirms CNY 600M); R335 L None→6.5 (energytrend confirms $6.5M=CNY 47.2M)."
     }
   ]
 }
