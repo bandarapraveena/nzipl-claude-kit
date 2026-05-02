@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 274,
-  "rows_fully_sourced": 90,
-  "rows_partially_sourced": 172,
-  "rows_no_result": 15,
-  "next_unsourced_row": 336,
+  "rows_processed": 284,
+  "rows_fully_sourced": 91,
+  "rows_partially_sourced": 179,
+  "rows_no_result": 17,
+  "next_unsourced_row": 346,
   "priority": "sequential",
   "last_updated": "2026-05-02",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "326-335",
+  "last_batch": "336-345",
 
   "batches": [
     {
@@ -183,6 +183,17 @@
       "kind": "enrich",
       "rows": "326-335",
       "notes": "Sequential rows 326-335 (Kyocera Kadan Czech Republic through Jinchen Malaysia). Mix of historical (R326, R327) and 2025 Announced projects. Sources: europe.kyocera.com IR (Kyocera Kadan 2005 Tier A), pv-magazine.com/2012 (Powerway South Africa ZAR10M=$1.25M), pv-magazine.com/2026 + dailynewsegypt.com (TBEA+Kemet Egypt inverter MoU Jan 2026), renewablesnow.com (Central New Energy+EGN Oman MoU 2025), pv-magazine.com/2025/06/09 + taiyangnews.info (Drinda+Schmid Pekintaş Turkey 5GW $500M June 2025), pv-tech.org (GCL+Founder Group Malaysia $220M MoU June 2025), pv-magazine.com/2025/05/14 + pv-tech.org (Gstar Philippines Subic Bay Commenced May 2025), pv-tech.org (Haitai Solar Batam Indonesia 3GW CNY600M=$85M 2025), pv-magazine.com/2025/12/15 (Hebei Juhang Pakistan Dec 2025), pv-magazine.com/2025/06/06 + energytrend.com (Jinchen Malaysia $6.5M June 2025). Fully sourced: R330 (Drinda Turkey — all fields confirmed including $500M), R333 (Haitai Solar Batam — all fields confirmed including $85M). Partial: R326 (Kyocera — S=fDi: $1.8M not in source); R327 (Powerway SA — W=[UNVERIFIED]: mounting structure mfg not PV cells); R328 (TBEA Egypt — S=fDi: TBEA-specific capital not disclosed); R329 (Central New Energy Oman — S=fDi: capital not disclosed; R=Oman only, city TBC); R331 (GCL Malaysia — R/S/W=[UNVERIFIED]: MoU for renewable energy projects, no dedicated factory announced); R332 (Gstar Philippines — S=fDi: capital not disclosed); R334 (Hebei Juhang Pakistan — S=fDi: vague 'billions'; R=Pakistan only, city TBC); R335 (Jinchen Malaysia — R=[UNVERIFIED]: city TBC; W=[UNVERIFIED]: PV equipment mfg not solar cell/module). A-O reconciliations: R326 I 2004→2005 (Kyocera IR confirms Oct 2005 opening); R330 L None→500 (pv-magazine confirms $500M total JV); R333 G 'Indonesia TBC'→'Batam (Kabil), Riau Islands' + L None→85 (pv-tech confirms CNY 600M); R335 L None→6.5 (energytrend confirms $6.5M=CNY 47.2M)."
+    },
+    {
+      "date": "2026-05-02",
+      "rows_processed": 10,
+      "fully_sourced": 1,
+      "partial": 7,
+      "no_result": 2,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "336-345",
+      "notes": "Sequential rows 336-345 (LONGi Deltamas Indonesia dedup through Aiko Solar Lahore Pakistan). All Solar Manufacturing. No-result: R336 (Solar6.2 — non-HAR dedup of R338/HARSOL96 LONGi+Pertamina Deltamas; fDi fallback); R343 (TonyShare Malaysia HARSOL133 — no Tier A/B source found for TonyShare solar mfg in Malaysia). Fully sourced: R338 (LONGi+Pertamina NRE Karawang Deltamas — longi.com Tier A + pv-magazine confirms Commenced June 2025, 1.6 GW HPBC). Partial: R337 (LONGi Algeria HARSOL95 — pv-magazine April 2025 confirms expression of interest; S=fDi); R339 (LONGi Nigeria HARSOL97 — pv-magazine + Nigeria Energy Commission Tier A confirm deal signed Oct 2025; S=fDi); R340 (RedSolar+IRS Group Kano Nigeria HARSOL108 — pv-tech + TaiyangNews confirm MOU May 2025, 600 MW; S=fDi); R341 (SoleFiori Saudi Arabia HARSOL120 — pv-magazine + pv-tech confirm Sept 2025 deal, 6 GW HJT; S=fDi; V=fDi: 2026 target unconfirmed); R342 (Sunsync Alat FEZ Azerbaijan HARSOL124 — pv-magazine + afez.az Tier A IPA confirm Sept 9 2025 agreement, 3 GW TOPCon; S=fDi); R344 (Trina Solar/TrinaTracker Jeddah Saudi Arabia HARSOL140 — trinasolar.com Tier A confirms Q1 2025 opening, 3 GW tracker mfg; S=fDi); R345 (Aiko Solar+Centurain Energy Lahore Pakistan Solar_AIKO_PK1 — aikosolar.com Tier A + dawn.com confirm Aug 9 2024 MOU; S=fDi). A-O reconciliation: R344 G 'Saudi Arabia (undisclosed)'→'Jeddah (3rd Industrial City)' (trinasolar.com confirms)."
     }
   ]
 }
