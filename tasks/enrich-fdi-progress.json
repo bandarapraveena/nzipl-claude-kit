@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 314,
-  "rows_fully_sourced": 106,
-  "rows_partially_sourced": 190,
-  "rows_no_result": 20,
-  "next_unsourced_row": 381,
+  "rows_processed": 334,
+  "rows_fully_sourced": 107,
+  "rows_partially_sourced": 201,
+  "rows_no_result": 28,
+  "next_unsourced_row": 401,
   "priority": "sequential",
   "last_updated": "2026-05-03",
   "last_operator": "Claude (Opus 4.7)",
-  "last_batch": "371-380",
+  "last_batch": "381-400",
   "batches": [
     {
       "date": "2026-04-08",
@@ -215,6 +215,17 @@
       "kind": "enrich",
       "rows": "371-380",
       "notes": "Sequential rows 371-380 (Xiuqiang Glasswork Thailand through Huitian Adhesive Hai Duong Vietnam). All Solar Manufacturing — but predominantly auxiliary/materials suppliers (glass, encapsulant films, backsheets, trackers, adhesives), not cells/modules. Sources: Sina Finance corporate filings (Tier A SSE/SZSE-listed disclosures: Xiuqiang 300160, Cybrid 603212), petromindo.com (Yingfa Ruineng Indonesia), companieshouse.id + easyup.com.cn IR (Yisheng Indonesia), pv-tech.org + pv-magazine.com (JZNEE Saudi Arabia tracker), znshinesolar.com IR + taiyangnews.info (ZNShine India JV), 100est.com (Cybrid 2023 Annual Report) + news.solarbe.com (Cybrid Vietnam), firstpvm.com IR (Foster Thailand base — likely matches dataset 'Fusion Materials'), goodark.com IR + aicsemicon.com (Good-Ark Kulim — semiconductor OSAT not solar), industryglue.com IR + taiyangnews.info (Huitian Vietnam adhesives). No-result: R378 Ginlang Vietnam — no Tier A/B source found for any 'Ginlang' Chinese solar entity in Vietnam (likely transliteration error or misspelling — manual review suggested). Partial: R371 Xiuqiang Thailand (Sina Tier A; R=[UNV] city not stated; W=[UNV] solar glass narrower); R372 Yingfa Ruineng Bintan (G reconciled to Bintan SEZ Riau Islands; S=fDi); R373 Yisheng Batam (G reconciled to Batam Komplek Workshop Cipta Grand City; W=[UNV] EVA/POE/EPE encapsulant films + backsheets, narrower); R374 JZNEE Dammam (W=[UNV] solar tracker components — actuators/drives, narrower; S=fDi); R375 ZNShine India (G reconciled 'Roorkee/Noida'→'Noida' per JV announcement; S=fDi); R376 Cybrid Bac Ninh (G reconciled to Bac Ninh Shunson IP; L None→14 RMB100M Phase 1 Tier A AR; W=[UNV] encapsulant film/backsheet narrower); R377 'Fusion Materials' Thailand (P=[UNV] dataset 'Fusion Materials' identified as Hangzhou First Applied Material/Foster 福斯特 — name disputed; G reconciled to Rayong; Q/V/W=[UNV]; S/U=fDi); R379 GoodArk Kulim (P confirmed Tier A; Q/V/W=[UNV]: Kulim facility is semiconductor diode/rectifier OSAT — NOT solar PV manufacturing — recommend reclassification or removal from solar universe; off-sector flag); R380 Huitian Vietnam (Vina Evergreen subsidiary at Hai Duong BW IZ; W=[UNV] PV adhesives/sealants narrower; S=fDi). A-O reconciliations: R371 L None→10.4 (RMB 75M cap; Sina Tier A filing); R372 G→'Bintan SEZ Riau Islands'; R373 G→'Batam (Komplek Workshop Cipta Grand City)'; R375 G→'Noida' (JV announcement); R376 G→'Bac Ninh (Shunson IP)' + L None→14; R377 G→'Rayong'. Activity-mismatch flags (W=[UNVERIFIED] narrower than dataset Solar Manufacturing implies) on R371 (glass), R373 (encapsulant films), R374 (tracker components), R376 (encapsulant film/backsheet), R377 (EVA/POE film), R380 (adhesives). Off-sector: R379 GoodArk Kulim is semiconductor OSAT, not solar at all."
+    },
+    {
+      "date": "2026-05-03",
+      "rows_processed": 20,
+      "fully_sourced": 1,
+      "partial": 11,
+      "no_result": 8,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "381-400",
+      "notes": "Sequential rows 381-400 (Lihui Solar Turkey through Thornova Solar Vietnam). All Solar Manufacturing. Fully sourced: R397 (Gstar Thailand Rayong — gstarsolar.com Tier A company website confirms Oct 17 2022 factory at Rayong Rubber IE, $300M investment, cell manufacturing). Partial: R382 (LONGi Bintulu Samalaju — mida.gov.my + bernama.com Tier A; RM1.3B groundbreaking Oct 2023, Q1 2024 production start); R383 (LONGi Sarawak East Malaysia — [UNVERIFIED] same MIDA Oct 2023 announcement; specific Sarawak expansion project not separately confirmed from HARSOL91); R384 (NE Solar Phoenix — solarpowerworldonline.com + pv-magazine-usa.com; Cambodia-based 2GW factory opened 2024); R386 (SolarSpace Laos Saysettha — pv-magazine.com + pv-tech.org Tier B; 5GW cell plant launched Sept 24 2023, cell production 2024); R388 (Trina Solar KEZAD UAE — taiyangnews.info; MoU signed Oct 18 2023 with AD Ports + JOCIC); R389 (TrinaTracker Salvador Brazil — prnewswire.com Tier A; factory opened Sept 3 2023); R394 (Arctech India Mundra — en.arctechsolar.com Tier A + prnewswire.com; 3GW tracker JV Jash Energy inaugurated Aug 30 2022); R395 (BYD Campinas Brazil Solar — en.byd.com Tier A + pv-magazine.com; capacity expansion 2022); R398 (Jabil Circuit Chihuahua Mexico — jabil.com Tier A; third facility opened Nov 16 2023); R399 (SolarSpace Cambodia Snuol — pv-magazine.com + pv-tech.org; 1.2GW module factory opened March 2023 at UBE Snoul SEZ); R400 (Thornova Solar Vietnam — prnewswire.com + theinvestor.vn; Que Vo IP Bac Ninh, ramped July 2023). No-result (all fDi fallback): R381 (Lihui Solar Turkey — no Tier A/B source), R385 (Sandaoke Laos — no source; company name not found in English/Chinese trade press), R387 (Tonglin Vietnam — no source), R390 (Xinbo Malaysia — SZSE-listed 003038.SZ confirmed Malaysia expansion but no Tier A/B URL), R391 (Yihua USA — czt-energy.com confirms US operations but no 2023 factory announcement), R392 (Yisheng Vietnam — no Tier A/B source distinct from R373 Yisheng Batam), R393 (Yonz Vietnam — plans announced but no Completed 2023/2024 source), R396 (Elite Solar Cambodia — no Tier A/B source with confirmed PPSEZ/Kampong Speu location). A-O reconciliations: R382 E Completed→Commenced (MIDA confirms Q1 2024 production start; Pattern A) + I 2023→2024 + L None→278 (RM1.3B ÷ 4.67 FX Oct 2023); R384 E Announced→Completed (factory opened 2024) + D China→Cambodia (NE Solar is Cambodia-based; nesolar.com.kh); R386 G 'Vientiane'→'Vientiane (Saysettha Development Zone)'; R388 O 'AD Ports'→'AD Ports, JOCIC' (JOCIC = Jiangsu Provincial Overseas Cooperation and Investment Company; both are Trina KEZAD MoU parties); R389 G 'Brazil (undisclosed)'→'Salvador, Bahia' (prnewswire confirms location); R394 O verbose notes text→'Jash Energy Pvt. Ltd.' (clean partner name per prnewswire + arctechsolar.com); R397 L None→300 (gstarsolar.com confirms $300M total investment); R400 G 'Vietnam (undisclosed)'→'Bac Ninh (Que Vo Industrial Park)' + D China→United States (Thornova Solar is US-based per theinvestor.vn 'US firm')."
     }
   ]
 }
