@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 284,
-  "rows_fully_sourced": 91,
-  "rows_partially_sourced": 179,
-  "rows_no_result": 17,
-  "next_unsourced_row": 346,
+  "rows_processed": 304,
+  "rows_fully_sourced": 106,
+  "rows_partially_sourced": 181,
+  "rows_no_result": 19,
+  "next_unsourced_row": 366,
   "priority": "sequential",
   "last_updated": "2026-05-02",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "336-345",
+  "last_batch": "346-365",
 
   "batches": [
     {
@@ -183,6 +183,17 @@
       "kind": "enrich",
       "rows": "326-335",
       "notes": "Sequential rows 326-335 (Kyocera Kadan Czech Republic through Jinchen Malaysia). Mix of historical (R326, R327) and 2025 Announced projects. Sources: europe.kyocera.com IR (Kyocera Kadan 2005 Tier A), pv-magazine.com/2012 (Powerway South Africa ZAR10M=$1.25M), pv-magazine.com/2026 + dailynewsegypt.com (TBEA+Kemet Egypt inverter MoU Jan 2026), renewablesnow.com (Central New Energy+EGN Oman MoU 2025), pv-magazine.com/2025/06/09 + taiyangnews.info (Drinda+Schmid Pekintaş Turkey 5GW $500M June 2025), pv-tech.org (GCL+Founder Group Malaysia $220M MoU June 2025), pv-magazine.com/2025/05/14 + pv-tech.org (Gstar Philippines Subic Bay Commenced May 2025), pv-tech.org (Haitai Solar Batam Indonesia 3GW CNY600M=$85M 2025), pv-magazine.com/2025/12/15 (Hebei Juhang Pakistan Dec 2025), pv-magazine.com/2025/06/06 + energytrend.com (Jinchen Malaysia $6.5M June 2025). Fully sourced: R330 (Drinda Turkey — all fields confirmed including $500M), R333 (Haitai Solar Batam — all fields confirmed including $85M). Partial: R326 (Kyocera — S=fDi: $1.8M not in source); R327 (Powerway SA — W=[UNVERIFIED]: mounting structure mfg not PV cells); R328 (TBEA Egypt — S=fDi: TBEA-specific capital not disclosed); R329 (Central New Energy Oman — S=fDi: capital not disclosed; R=Oman only, city TBC); R331 (GCL Malaysia — R/S/W=[UNVERIFIED]: MoU for renewable energy projects, no dedicated factory announced); R332 (Gstar Philippines — S=fDi: capital not disclosed); R334 (Hebei Juhang Pakistan — S=fDi: vague 'billions'; R=Pakistan only, city TBC); R335 (Jinchen Malaysia — R=[UNVERIFIED]: city TBC; W=[UNVERIFIED]: PV equipment mfg not solar cell/module). A-O reconciliations: R326 I 2004→2005 (Kyocera IR confirms Oct 2005 opening); R330 L None→500 (pv-magazine confirms $500M total JV); R333 G 'Indonesia TBC'→'Batam (Kabil), Riau Islands' + L None→85 (pv-tech confirms CNY 600M); R335 L None→6.5 (energytrend confirms $6.5M=CNY 47.2M)."
+    },
+    {
+      "date": "2026-05-02",
+      "rows_processed": 20,
+      "fully_sourced": 15,
+      "partial": 3,
+      "no_result": 2,
+      "operator": "Claude (Sonnet 4.6)",
+      "kind": "enrich",
+      "rows": "346-365",
+      "notes": "Sequential rows 346-365 (Antaisolar Saudi Arabia through Qinghai Lihao Angola). All Solar Manufacturing. Sources: prnewswire.com (Antaisolar/Bahra Electric Jeddah Bahra Industrial City JV — Oct 23 2024 announcement, 8GW tracker target), en.arctechsolar.com (Arctech MODON Jeddah land lease Apr 2024 — Pattern C: MODON is industrial zone landlord, not equity partner), pv-magazine.com/2024/05/11 (Astronergy Adana module factory Q3/Q4 2024), theinvestor.vn (Crown Advanced Material Bac Giang $25M), prnewswire+pv-tech (EliTe Solar Batam Indonesia Dec 4 2024 cell facility), pv-magazine.com/2024/06/04+pvtime.org (GCL+Mubadala/MDC Power polysilicon Abu Dhabi), en.goodwe.com Tier A (GoodWe Hai Phong Deep C Zone 2 Mar 11 2024 inverter mfg), pv-tech.org (Gstar GIIC Cikarang wafer factory Apr 2024), gstarsolar.com (Gstar Laos Vientiane Saysettha 7GW frame/mounting 700M CNY Aug 8 2024), pv-tech.org (Gstar UAE 2GW module MoU Siraj Group/Galaxico/Stark Aug 2024), hoymiles.com Tier A (Hoymiles Monterrey Vynmsa IP Sep 17 2024), pv-tech.org (JA Solar HARSOL71 Egypt Ain Sokhna $210M groundbreaking Dec 15 2025), energytrend.com (JinenU Solar HARSOL74 Batang Indonesia Aug 20 2024), ir.jinkosolar.com Tier A (JinkoSolar HARSOL81 Saudi Arabia $1B 10GW JV RELC/VI Jul 16 2024), pv-tech.org+pv-magazine.com (Q-sun Solar HARSOL104 Oman Sohar $200M Bakarat JV Aug 2024), pv-tech.org+angop.ao Tier A (Qinghai Lihao HARSOL107 Angola Luanda Sonangol MoU Oct 18 2024). Fallback fDi Markets (FT): R350 (DMEGC Indonesia — Indonesia factory confirmed by annual report but specific city/zone not found in any Tier A/B source; dataset G 'Deltamas Industrial Park, Bekasi, West Java' unconfirmed), R358 (HIUV Australia — available source mysteel.net FLASH describes $6.5M PV recycling/tech center, not manufacturing; state/city TBC; not Tier A/B), R364 (QC Solar Corp Atlanta HARSOL106 — no Tier A/B source found after company IR + Georgia econ-dev + trade press passes; yicaiglobal found a different QC Solar Texas connectors project $13M). A-O reconciliations: R347 M 1→0 + O 'MODON'→empty (Pattern C: MODON is Saudi industrial zone authority, not equity JV partner); R349 L None→25 (theinvestor.vn $25M confirmed; R=[UNVERIFIED] due to source citing Yen Lu IP vs dataset's Van Trung IP — Bac Giang province confirmed); R351 D 'China'→'Singapore' + G 'Indonesia (exact province/city TBC)'→'Batam' (prnewswire.com + pv-tech.org confirm EliTe Solar = Singapore-HQ, facility in Batam Dec 4 2024); R352 G 'UAE (exact city/emirate TBC; Abu Dhabi expected)'→'Abu Dhabi (exact zone TBC)' (pvtime.org confirms Abu Dhabi explicitly); R354 G 'Jakarta (GIIC Green Industrial Park International Center)'→'Cikarang (GIIC Green Industrial Park International Center)' (Pattern D: GIIC is 55km SE of Jakarta in Cikarang, Bekasi West Java); R355 L None→98 (CNY 700M ÷ 7.15 FX Aug 2024 ≈ $98M; gstarsolar.com); R357 M None→1 + O extended-notes→'Siraj Group, Galaxico, Stark Consulting' (O column had embedded text notes; cleaned to JV partner names only); R360 I 2025→None + L None→210 + N None→1 + O 'AHG,...'→'AH for Industrial Management and Consulting, Global South Utilities, Infinity Capital' (pv-tech.org: construction started Dec 15 2025, not completed; $210M confirmed; AH = Egyptian local partner); R362 L None→1000 + N None→1 (ir.jinkosolar.com Tier A: ~$1B investment, RELC/Vision Industries are Saudi local partners); R363 L None→200 + N None→1 (pv-tech.org: ~$200M investment [UNVERIFIED vs pvknowhow $220M]; Bakarat = Omani company). Pattern C flag R361: Suntech Power in JVCo is Chinese not Indonesian; DDI co-signatory nationality unconfirmed; left N=1 pending verification. R355/R356 flag: same Vientiane Saysettha location and years — gstarsolar.com shows one groundbreaking ceremony; possible Phase 1 (Completed)/Phase 2 (Commenced) split or duplicate pair requiring review."
     },
     {
       "date": "2026-05-02",
