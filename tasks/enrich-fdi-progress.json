@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 334,
-  "rows_fully_sourced": 107,
-  "rows_partially_sourced": 201,
-  "rows_no_result": 28,
-  "next_unsourced_row": 401,
+  "rows_processed": 354,
+  "rows_fully_sourced": 108,
+  "rows_partially_sourced": 216,
+  "rows_no_result": 32,
+  "next_unsourced_row": 421,
   "priority": "sequential",
   "last_updated": "2026-05-03",
   "last_operator": "Claude (Opus 4.7)",
-  "last_batch": "381-400",
+  "last_batch": "401-420",
   "batches": [
     {
       "date": "2026-04-08",
@@ -226,6 +226,17 @@
       "kind": "enrich",
       "rows": "381-400",
       "notes": "Sequential rows 381-400 (Lihui Solar Turkey through Thornova Solar Vietnam). All Solar Manufacturing. Fully sourced: R397 (Gstar Thailand Rayong — gstarsolar.com Tier A company website confirms Oct 17 2022 factory at Rayong Rubber IE, $300M investment, cell manufacturing). Partial: R382 (LONGi Bintulu Samalaju — mida.gov.my + bernama.com Tier A; RM1.3B groundbreaking Oct 2023, Q1 2024 production start); R383 (LONGi Sarawak East Malaysia — [UNVERIFIED] same MIDA Oct 2023 announcement; specific Sarawak expansion project not separately confirmed from HARSOL91); R384 (NE Solar Phoenix — solarpowerworldonline.com + pv-magazine-usa.com; Cambodia-based 2GW factory opened 2024); R386 (SolarSpace Laos Saysettha — pv-magazine.com + pv-tech.org Tier B; 5GW cell plant launched Sept 24 2023, cell production 2024); R388 (Trina Solar KEZAD UAE — taiyangnews.info; MoU signed Oct 18 2023 with AD Ports + JOCIC); R389 (TrinaTracker Salvador Brazil — prnewswire.com Tier A; factory opened Sept 3 2023); R394 (Arctech India Mundra — en.arctechsolar.com Tier A + prnewswire.com; 3GW tracker JV Jash Energy inaugurated Aug 30 2022); R395 (BYD Campinas Brazil Solar — en.byd.com Tier A + pv-magazine.com; capacity expansion 2022); R398 (Jabil Circuit Chihuahua Mexico — jabil.com Tier A; third facility opened Nov 16 2023); R399 (SolarSpace Cambodia Snuol — pv-magazine.com + pv-tech.org; 1.2GW module factory opened March 2023 at UBE Snoul SEZ); R400 (Thornova Solar Vietnam — prnewswire.com + theinvestor.vn; Que Vo IP Bac Ninh, ramped July 2023). No-result (all fDi fallback): R381 (Lihui Solar Turkey — no Tier A/B source), R385 (Sandaoke Laos — no source; company name not found in English/Chinese trade press), R387 (Tonglin Vietnam — no source), R390 (Xinbo Malaysia — SZSE-listed 003038.SZ confirmed Malaysia expansion but no Tier A/B URL), R391 (Yihua USA — czt-energy.com confirms US operations but no 2023 factory announcement), R392 (Yisheng Vietnam — no Tier A/B source distinct from R373 Yisheng Batam), R393 (Yonz Vietnam — plans announced but no Completed 2023/2024 source), R396 (Elite Solar Cambodia — no Tier A/B source with confirmed PPSEZ/Kampong Speu location). A-O reconciliations: R382 E Completed→Commenced (MIDA confirms Q1 2024 production start; Pattern A) + I 2023→2024 + L None→278 (RM1.3B ÷ 4.67 FX Oct 2023); R384 E Announced→Completed (factory opened 2024) + D China→Cambodia (NE Solar is Cambodia-based; nesolar.com.kh); R386 G 'Vientiane'→'Vientiane (Saysettha Development Zone)'; R388 O 'AD Ports'→'AD Ports, JOCIC' (JOCIC = Jiangsu Provincial Overseas Cooperation and Investment Company; both are Trina KEZAD MoU parties); R389 G 'Brazil (undisclosed)'→'Salvador, Bahia' (prnewswire confirms location); R394 O verbose notes text→'Jash Energy Pvt. Ltd.' (clean partner name per prnewswire + arctechsolar.com); R397 L None→300 (gstarsolar.com confirms $300M total investment); R400 G 'Vietnam (undisclosed)'→'Bac Ninh (Que Vo Industrial Park)' + D China→United States (Thornova Solar is US-based per theinvestor.vn 'US firm')."
+    },
+    {
+      "date": "2026-05-03",
+      "rows_processed": 20,
+      "fully_sourced": 1,
+      "partial": 15,
+      "no_result": 4,
+      "operator": "Claude (Opus 4.7)",
+      "kind": "enrich",
+      "rows": "401-420",
+      "notes": "Sequential rows 401-420 (AE Solar Kayseri Turkey through LONGi Andhra Pradesh India). All Solar Manufacturing, vintage 2015-2021 Completed projects. Sources: pv-magazine.com + taiyangnews.info (AE Solar Turkey, Risen Energy Kulim, Seraphim Vinh Phuc), balkangreenenergynews.com + serbia-energy.eu (AE Solar Bulgaria), pv-magazine.com + canalsolar.com.br (Amerisolar BH/Confins), yicaiglobal.com + runergy.com IR (Runergy Chachoengsao), pv-magazine.com + asia.nikkei.com (GS-Solar Kulim Panasonic acquisition), nesolar.com.kh IR (NE Solar Phnom Penh), pv-magazine.com + pv-magazine-india.com (TBEA Bidadi Bengaluru inverters), firstpvm.com IR (Foster Rayong Thailand), pv-magazine.com + renewablesnow.com (Seraphim Coega Port Elizabeth), trinasolar.com IR (Trina Nclave Spain acquisition), pv-magazine.com + pv-tech.org (GCL+Vina Bac Giang 2017), pv-magazine-india.com + pv-tech.org (LONGi Andhra Pradesh). Fully sourced: R418 (GCL+Vina Bac Giang — all fields confirmed including L=2.9M from CNY 222M). No-result: R404 (Seraphim Solar System Cambodia 2021 — no Tier A/B); R408 (Elite Solar Bac Ninh Que Vo IP 2019/2021 — no Tier A/B); R417 (China Sunergy Bac Giang 2017 — no Tier A/B; Vietnam Sunergy JSC at Dinh Tram IP is separate entity, possible row mislabeling); R419 (GCL Group Bac Giang 2017 — likely DUPLICATE of R418 GCL+Vina). Partial: R401 AE Solar Kayseri (S=fDi); R402 AE Solar Plovdiv (S/L confirmed via Bulgarian energy minister: €150M ≈ 70M; W=[UNV] capacity not disclosed; project later relocated to N. Macedonia 2022/2023); R403 Risen Kulim (RM 42.2B is multi-phase total over 15yr not single capex; S=fDi); R405 Runergy Chachoengsao (S/U=fDi); R406 Seraphim Vinh Phuc (S=fDi); R407 Amerisolar Confins (S=fDi); R409 GS Solar Kulim (Q=[UNV] partnership ended July 2020 short-lived; S=fDi); R410 NE Solar Phnom Penh (intra-country Cambodia→Cambodia not technically FDI; S/U=fDi); R411 Sungrow Chonburi (R/W=[UNV]; Q/S/U/V=fDi heavy fallback; product is inverters not solar panels); R412 TBEA Bengaluru (W=[UNV] inverter mfg not transformer — corrects dataset; S=fDi); R413 Yihua Thailand (R/W=[UNV] likely PV mounting/fasteners not modules; Q/S/U/V=fDi heavy); R414 Foster Thailand (G reconciled Amata Chonburi→Rayong; W=[UNV] EVA/POE films narrower; S/U/V=fDi); R415 Seraphim Coega (G reconciled Port Elizabeth→Coega IDZ Port Elizabeth; S=fDi); R416 Trina Spain (G reconciled Spain→Viana Navarra per Nclave acquisition; W=[UNV] tracker mfg via M&A not greenfield; S=fDi); R420 LONGi AP (Q=[UNV] project stalled then restarted; S=09M total confirmed). A-O reconciliations: R402 L None→170 (€150M); R414 G→'Rayong'; R415 G→'Coega IDZ, Port Elizabeth'; R417 G→'Viana, Navarra'; R418 L None→32.9 (CNY 222M); R420 L None→309. Activity-mismatch flags (W=[UNVERIFIED]): R411 Sungrow inverters; R412 TBEA inverters; R413 Yihua mounting; R414 Foster EVA/POE films; R416 Trina/Nclave trackers via M&A. Status flags: R402 (project relocated post-announcement); R409 (JV ended 8 months after acquisition); R420 (stalled then restarted)."
     }
   ]
 }
