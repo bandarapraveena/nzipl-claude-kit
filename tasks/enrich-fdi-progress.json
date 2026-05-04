@@ -1,15 +1,15 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 374,
-  "rows_fully_sourced": 117,
-  "rows_partially_sourced": 226,
-  "rows_no_result": 33,
-  "next_unsourced_row": 442,
+  "rows_processed": 394,
+  "rows_fully_sourced": 124,
+  "rows_partially_sourced": 238,
+  "rows_no_result": 34,
+  "next_unsourced_row": 462,
   "priority": "sequential",
   "last_updated": "2026-05-03",
   "last_operator": "Claude (Sonnet 4.6)",
-  "last_batch": "422-441",
+  "last_batch": "442-461",
   "batches": [
     {
       "date": "2026-04-08",
@@ -248,6 +248,17 @@
       "no_result": 1,
       "operator": "Claude (Sonnet 4.6)",
       "notes": "Sequential rows 422-441, all Solar sector. Sources: trinasolar.com, prnewswire.com, pv-magazine.com, pv-tech.org, ir.jinkosolar.com, renewablesnow.com, longi.com, astronergy.com, pveurope.eu, heza.gov.vn, bqlkcn.bacgiang.gov.vn, investors.canadiansolar.com, ir.renesolapower.com, en.vietnamplus.vn, htsolargroup.com, htsolar.com.tr, siliconsemiconductor.net, africabusinesscommunities.com/sapvia.co.za. Potential dedup flagged: R423 (FDI173549 Trina Solar 'Pac Giang' Vietnam) and R424 (HARSOL135 Trina Solar Bac Giang) describe the same Bac Giang cell factory; R424 is the canonical HAR row. A-O reconciliations (18 cells, yellow fill applied): R423 col G 'Pac Giang'\u2192'Bac Giang' (source: siliconsemiconductor.net); R423 col I 2018\u21922017 (factory opened Jan 2017); R423 col K 'Logistics...'\u2192'Manufacturing' (cell plant); R423 col L None\u2192100 ($100M from siliconsemiconductor.net); R424 col L None\u2192100 ($100M); R425 col L None\u219223 ($23M from pv-magazine); R426 col G 'Lang Son Province (Dong Kinh Industrial Park)'\u2192'Hai Phong (Dinh Vu Industrial Park)' (source: heza.gov.vn \u2014 project is in Hai Phong EZ, not Lang Son); R426 col L None\u2192200 ($200M from vietnamplus.vn); R427 col G 'Vietnam (exact city/zone TBC)'\u2192'Hai Phong' (source: htsolargroup.com); R429 col G 'Rotterdam'\u2192'Heerlen' (source: trinasolar.com \u2014 acquisition from Solland Solar in Heerlen); R430 col G 'Rayong Province (EEC)'\u2192'Chachoengsao (Ko Khanun, Phanom Sarakham District)' (source: astronergy.com address confirms Chachoengsao, not Rayong); R432 col G 'Goais'\u2192'Goi\u00e1s' (typo fix; note: company later relocated plan to Santa Catarina); R432 col L None\u219245 (~$44.5M BRL150M converted); R434 col L None\u219270 ($70M from pv-magazine); R435 col L None\u2192100 ($100M from jinkosolar.us); R438 col G 'Bac Giang'\u2192'Rayong' (data error: Bac Giang is in Vietnam; Trina Solar Thailand=Rayong per trinasolar.com); R438 col L None\u2192160 ($160M from prnewswire.com); R440 col O 'Vitec'\u2192'Vitec; Sun-s Co' (source: renewablesnow.com \u2014 Vitec 51%, ReneSola+Sun-s Co hold remainder). No-result: R437 Neo Solar Power Thailand city='Penang' (Penang is in Malaysia not Thailand); public sources confirm SEA expansion (pv-magazine Nov 2015) but do not name Thailand or city; all columns fallback fDi Markets (FT) or [UNVERIFIED]."
+    },
+    {
+      "date": "2026-05-03",
+      "rows_processed": 20,
+      "kind": "enrich",
+      "rows": "442-461",
+      "fully_sourced": 7,
+      "partial": 12,
+      "no_result": 1,
+      "operator": "Claude (Sonnet 4.6)",
+      "notes": "Sequential rows 442-461, all Solar sector, 2010-2014 vintage. Sources: businesswire.com, pv-tech.org, prnewswire.com, pv-magazine.com, ir.jinkosolar.com, americas.kyocera.com, renewablesnow.com, bbj.hu, firstsolar.com, renewableenergyworld.com, electricityforum.com, renewableenergymagazine.com, investor.firstsolar.com, global.sharp/corporate, gov.uk, ots.at, solarserver.de, solarindustrymag.com, groupgshk.com, isc-konstanz.de, jetion.com.cn, energytrend.com. A-O reconciliations (5 cells, yellow fill): R449 col G standardised city label to 'Istanbul (Tuzla Trade Free Zone)'; R450 col L None\u21927.5 ($7.5M from prnewswire.com); R453 col L None\u21921067 ($1,067M from firstsolar.com); R456 col K 'Manufacturing'\u2192'Research & Development' (source: pv-tech.org confirms Ferro Taiwan Tech Center is an R&D lab, not a manufacturing plant); R459 col E 'Announced'\u2192'Completed' (americas.kyocera.com confirms manufacturing commenced June 2010). Note R444 (Solar89.4 2013 official opening) and R449 (Solar89.3 2012 establishment) describe the same CSUN Eurasia Turkey factory; both sourced since they are not HAR/non-HAR duplicates. No-result: R457 Ferro Singapore R&D 2010 \u2014 no Tier A/B source found; all columns fDi Markets (FT). Flags: R446 GSHK China city TBC \u2014 city not confirmed in any public source; R column fallback. R458 First Solar Blanquefort France Cancelled \u2014 confirmed by French moratorium Dec 2010; investment \u20ac100M cited from renewableenergymagazine.com."
     }
   ]
 }
