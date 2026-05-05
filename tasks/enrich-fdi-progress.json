@@ -1,10 +1,10 @@
 {
   "task": "FDI Source Enrichment",
   "total_rows": 697,
-  "rows_processed": 534,
-  "rows_fully_sourced": 161,
-  "rows_partially_sourced": 330,
-  "rows_no_result": 45,
+  "rows_processed": 535,
+  "rows_fully_sourced": 156,
+  "rows_partially_sourced": 332,
+  "rows_no_result": 46,
   "next_unsourced_row": 623,
   "priority": "sequential",
   "last_updated": "2026-05-05",
@@ -18,7 +18,9 @@
       "partial": 8,
       "no_result": 0,
       "operator": "Gilberto",
-      "notes": "Rows sorted by investment desc, $3.2B-$11.5B"
+      "notes": "Rows sorted by investment desc, $3.2B-$11.5B",
+      "rows": "unknown",
+      "rows_source": "not recorded; selection was top-20 by investment desc ($3.2B-$11.5B) \u2014 specific row IDs must be recovered from xlsx audit"
     },
     {
       "date": "2026-04-22",
@@ -27,7 +29,9 @@
       "partial": 15,
       "no_result": 0,
       "operator": "Praveen",
-      "notes": "Sequential rows 2-21 (2-B Energy through AESC Spain). Sources: BusinessWire, GlobeNewsWire, Windpower Monthly, Automation.com, CompositesWorld, ACCIONA pressroom, RenewablesNow, PV-Magazine, Japan Times, La Moncloa. Flags: Aeolon row 17 cites Nador not Tanger; AESC Douai row 18 investment discrepancy ($920M vs ~\u20ac2B); AESC Sunderland row 20 investment discrepancy ($622M vs \u00a31B). AAER row 5 Bordeaux/Valorem not independently confirmed \u2014 fallback fDi Markets (FT)."
+      "notes": "Sequential rows 2-21 (2-B Energy through AESC Spain). Sources: BusinessWire, GlobeNewsWire, Windpower Monthly, Automation.com, CompositesWorld, ACCIONA pressroom, RenewablesNow, PV-Magazine, Japan Times, La Moncloa. Flags: Aeolon row 17 cites Nador not Tanger; AESC Douai row 18 investment discrepancy ($920M vs ~\u20ac2B); AESC Sunderland row 20 investment discrepancy ($622M vs \u00a31B). AAER row 5 Bordeaux/Valorem not independently confirmed \u2014 fallback fDi Markets (FT).",
+      "rows": "2-21",
+      "rows_source": "derived from notes field"
     },
     {
       "date": "2026-04-30",
@@ -337,5 +341,71 @@
       "operator": "Claude (Opus 4.7)",
       "notes": "Sequential rows 603-622 all Wind sector. Mix of historical (2010-2018) and recent 2025 announcements. Sources: chathamvoice.com + newswire.ca (R605 Siemens Chatham Ontario wind service & training centre 2013 announcement 2014 opening), acciona.com Tier A + windsystemsmag.com (R606 Acciona Simoes Filho Bahia Brazil hub assembly 2013 turbine assembly 2014/2015), siemensgamesa.com Tier A (R608 Siemens Gamesa Agreda Soria Spain nacelle factory 2018), cswind.com Tier A (R609 CS Wind Malaysia Eco Tower Kuantan Pahang acquisition Jan 3 2017), windpowermonthly.com (R610 Doosan Renfrew Scotland R&D centre announcement 2011 \u2014 never built, project abandoned), siemens.com Tier A + greenporthull.co.uk + gov.uk (R613/R614 Siemens Hull blade factory \u00a3160M Mar 2014 announcement, opened Dec 2016 at Alexandra Dock), windpowermonthly.com + balkangreenenergynews.com (R615 Goldwind-Dere Construction Izmir Turkey blade factory 2025), saudigulfprojects.com (R616 Goldwind Yanbu Saudi Arabia hybrid tower factory 3GW PIF Wave 5 announcement 2025), vietnam.vn (R617 PowerChina-Trung Nam Group Ca Na Ninh Thuan Vietnam tower/blade factory cooperation announced May 2025), sanyglobal.com Tier A + renewablesnow.com (R618 Sany Renewable Energy Jambyl Kazakhstan $114M JV with Samruk-Kazyna groundbreaking Nov 29 2024 technical opening Sep 2 2025), renewablesnow.com + egyptoil-gas.com (R619 Sany Egypt 2,000MW renewable + first wind turbine factory talks May 2026 \u2014 initially pitched January 2025), korea-certification.com (R620 Shanghai Electric-Hyosung Heavy Industries Dadaepo Ulsan Korea SEW8.5-230 12 turbines), windpowermonthly.com + clickpetroleoegas.com (R622 Windey Brazil R&D Salvador June 2025 \u2014 manufacturing facilities planned but Rio Grande do Norte specifically not confirmed). Fully sourced: R606 (Acciona Simoes Filho), R618 (Sany Kazakhstan), R613 (Siemens Hull). No-result (full fDi fallback): R603 (Paguld Thailand Rayong \u2014 no Tier A/B source for 'Paguld' Chinese wind manufacturer in EEC); R604 (Siemens Orlando FL R&D 2013 \u2014 Innovation Center didn't open until 2019; 2013 entry pre-dates documented R&D operations); R607 (Siemens Madrid Spain R&D 2018 \u2014 confirmed Madrid is one of Siemens Gamesa R&D locations but no specific 2018 announcement found); R611 (Siemens Leeds UK 2010/2011 \u2014 Siemens Hull blade factory was 2014/2016 not 2010/2011 in Leeds; fDi data may be error or unrelated facility); R612 (Alstom-Duro Felguera Manchester UK 2015 logistics \u2014 search shows this was Carrington gas-fired power station consortium not wind; sector misclassification); R621 (Shanghai Electric Uzbekistan Navoi 2025 \u2014 not confirmed in available sources). A-O reconciliations (2 cells, yellow fill): R613 col G 'Leeds' -> 'Hull' (Pattern D: Siemens blade factory is at Alexandra Dock Green Port Hull not Leeds \u2014 fDi error); R614 col G 'Leeds' -> 'Hull' (same Hull blade factory expansion; not Leeds). Flags: R604 Siemens Orlando \u2014 Innovation Center Orlando opened Oct 2019, not 2013 \u2014 fDi date may be erroneous or pre-Center R&D activity; R610 Doosan Renfrew \u2014 announced 2011 but project never built; status 'Announced' technically accurate; R612 Alstom Manchester \u2014 sector misclassification \u2014 this is gas-fired power station (Carrington 880MW combined cycle) not wind; R615 Goldwind Izmir \u2014 Alia\u011fa is rumored location but not confirmed in source; R col flagged [UNVERIFIED]; R616 Goldwind Yanbu \u2014 confirms 3GW Saudi turbine supply but Yanbu Industrial City as factory location requires confirmation (Al Yamamah Steel Industries also has Yanbu wind tower factory); R619 Sany Egypt \u2014 talks ongoing as of May 2026; 2025 dataset 'Commenced' status premature \u2014 should be 'Announced' but no formal status update available; R620 Shanghai Electric Korea \u2014 Dadaepo project is South Gyeongnam, not Ulsan as fDi G column states (location reconciliation possible but unclear if dataset row covers Ulsan separately); R622 Windey Brazil \u2014 R&D centre opened in Salvador June 2025; manufacturing facility location not yet confirmed (Rio Grande do Norte unverified)."
     }
-  ]
+  ],
+  "data_integrity_note": {
+    "updated": "2026-05-05",
+    "status": "STALE \u2014 log known to underreport actual progress",
+    "reason": "Some xlsx rows have been sourced but never logged in batches. These counters are the sum of batch fields, not ground truth. Run source-solar-wind-battery-fdi/audit_fdi_sources.py against FDI_Combined.xlsx for the authoritative count.",
+    "previous_counter_drift": {
+      "top_level_was": {
+        "rows_processed": 534,
+        "rows_fully_sourced": 161,
+        "rows_partially_sourced": 330,
+        "rows_no_result": 45
+      },
+      "sum_of_batches_full_partial_none": 534,
+      "sum_of_batches_rows_processed": 535
+    },
+    "known_issues": [
+      "batch[0] (2026-04-08, Gilberto): row IDs not recorded \u2014 top-20 by investment",
+      "batch[14] (307-326): internal arithmetic 3+16+0=19 != rows_processed=20",
+      "batches 14 & 15 overlap on row 326 (307-326 then 326-335)",
+      "coverage gaps in row sequence: 22-101 (likely partial via batch[0]), 366-370, 421, 482-502",
+      "rows 623-697 not yet processed (matches next_unsourced_row=623)"
+    ]
+  },
+  "ground_truth_audit": {
+    "audited_file": "/Users/praveenabandara/Documents/GitHub/LCT-FDI/FDI_All_ToSource.xlsx",
+    "audited_at": "2026-05-05",
+    "tool": "source-solar-wind-battery-fdi/audit_fdi_sources.py",
+    "note": "Canonical working file lives in the LCT-FDI repo. Earlier audit of FDI_All_ToSource.xlsx in Downloads (May 4) was a stale snapshot.",
+    "totals_in_working_file": {
+      "data_rows": 693,
+      "fully_sourced_all_8_cols": 125,
+      "partially_sourced": 493,
+      "unsourced_rows_empty_P_W": 75
+    },
+    "partial_fill_distribution": {
+      "1_col_filled": 2,
+      "3_cols_filled": 5,
+      "4_cols_filled": 7,
+      "5_cols_filled": 8,
+      "6_cols_filled": 94,
+      "7_cols_filled": 377
+    },
+    "unsourced_row_ranges": [
+      "162",
+      "252",
+      "482",
+      "623-694"
+    ],
+    "log_vs_reality": {
+      "rows_fully_sourced_overstated_by": 31,
+      "reason": "Operators marked rows \"fully sourced\" at batch end if substantively complete, but the strict definition requires all 8 of P-W filled. 377 rows have 7-of-8, mostly missing one date column.",
+      "total_rows_diff": 4,
+      "work_actually_lost": "none \u2014 earlier suspicion of 503-622 missing was a stale-file artifact"
+    },
+    "rows_to_re_source": [
+      162,
+      252,
+      482
+    ],
+    "recommended_actions": [
+      "Re-source rows 162, 252, 482 (singleton skips)",
+      "Continue sourcing rows 623-694 (the unfinished tail)",
+      "Decide whether to backfill the 7-of-8 partials (mostly missing dates) for \"true\" fully-sourced status",
+      "Update enrich-fdi.md and SKILL.md to reference FDI_All_ToSource.xlsx in LCT-FDI repo (not FDI_Combined.xlsx)",
+      "Reconcile total_rows=697 in log vs 693 in file (4-row diff)"
+    ]
+  }
 }
