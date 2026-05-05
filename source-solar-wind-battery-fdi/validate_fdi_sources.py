@@ -31,6 +31,7 @@ DATE_COLUMNS = {"U", "V"}
 FALLBACK_LITERAL = "fDi Markets (FT)"
 UNVERIFIED_PREFIX = "[UNVERIFIED] "
 YEAR_ONLY_SUFFIX = "(year only)"
+AMOUNT_NOT_DISCLOSED = "Investment value not publicly disclosed"  # col S only
 
 
 def host_of(url: str) -> str | None:
@@ -75,6 +76,8 @@ def validate_cell(col: str, value) -> list[str]:
     if not text:
         return []
     if text == FALLBACK_LITERAL or text == UNVERIFIED_PREFIX + FALLBACK_LITERAL:
+        return []
+    if col == "S" and text == AMOUNT_NOT_DISCLOSED:
         return []
 
     body = text[len(UNVERIFIED_PREFIX):].strip() if text.startswith(UNVERIFIED_PREFIX) else text
