@@ -136,6 +136,7 @@ Use the `/nzipl-design` skill for all visual formatting. Key tokens:
 | Command | Description |
 |---------|-------------|
 | `/source-solar-wind-battery-fdi` | Enrich FDI dataset rows with per-row source URLs via web research. Reads xlsx, searches for confirming articles, writes URLs to source columns. SKILL + references in `source-solar-wind-battery-fdi/`. |
+| `/merge-fdi-sources` | Second-pass merge of a curated source list into `FDI_All_ToSource.xlsx`. Auto-detects between `China_FDI_<Tech>.xlsx` (HAR IDs) and `Globa_FDI_<Tech>_Manual.xlsx` (FDI IDs). Replaces only `fDi Markets (FT)` fallback cells; reconciles column L. SKILL + script in `merge-fdi-sources/`. |
 
 ## Tasks
 
