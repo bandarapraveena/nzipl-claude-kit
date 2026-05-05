@@ -5,7 +5,7 @@ Hard-rejects forbidden-domain URLs (wikipedia, social, medium) and reports
 malformed cells. Exit code 0 = clean; non-zero = errors found.
 
 Usage:
-    python3 validate_fdi_sources.py FDI_Combined.xlsx
+    python3 validate_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx
 """
 
 import re

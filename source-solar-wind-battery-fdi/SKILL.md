@@ -73,6 +73,7 @@ Three files, ~15 minutes:
 
 | Decision | Default |
 |----------|---------|
+| Working file | `../LCT-FDI/FDI_All_ToSource.xlsx` (formerly `FDI_Combined.xlsx`) |
 | Batch size | 20 |
 | Priority | `largest` (by Capital Investment, column L) |
 | Date format (U, V) | MM/DD/YYYY; year-only sources annotated `(year only)` |

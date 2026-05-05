@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ground-truth audit of FDI_Combined.xlsx source columns (P-W).
+"""Ground-truth audit of FDI_All_ToSource.xlsx source columns (P-W).
 
 Reports which rows are fully sourced, partially sourced, or unsourced based
 on the actual cell contents — independent of any progress log. Useful when
@@ -12,7 +12,7 @@ Output:
 - Optional --json for machine-readable output
 
 Usage:
-    python3 audit_fdi_sources.py FDI_Combined.xlsx [--json]
+    python3 audit_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx [--json]
 """
 
 import argparse

@@ -75,7 +75,7 @@ Expected: The `/nzipl-design` skill runs. Output uses `#1A1B1E` body, `#25262B` 
 ### 7. Enrich a small FDI batch
 
 ```
-/enrich-fdi --file=FDI_Combined.xlsx --rows=1-5
+/enrich-fdi --file=../LCT-FDI/FDI_All_ToSource.xlsx --rows=1-5
 ```
 
 Expected: Five rows filled in source columns (P-W) with URLs to confirming articles. Mix of trade publications (PV Magazine, electrive), press releases, government announcements. Check `tasks/enrich-fdi-progress.json` for the batch status.

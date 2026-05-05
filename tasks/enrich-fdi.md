@@ -2,7 +2,9 @@
 
 ## What this task is
 
-The `FDI_Combined.xlsx` dataset contains 698 clean energy FDI projects (Battery, Solar, Wind) originally sourced from fDi Markets (Financial Times). Columns A-O have project data. Columns P-W need per-row URLs to news articles or press releases that independently verify each data point.
+The `FDI_All_ToSource.xlsx` dataset (in the `LCT-FDI` repo) contains ~693 clean energy FDI projects (Battery, Solar, Wind) originally sourced from fDi Markets (Financial Times). Columns A-O have project data. Columns P-W need per-row URLs to news articles or press releases that independently verify each data point.
+
+The file was previously called `FDI_Combined.xlsx`; older docs and search results may still use that name.
 
 This matters because fDi Markets is a proprietary database. For any published analysis, we need publicly citable sources rather than a database citation.
 
@@ -15,7 +17,7 @@ From a Claude Code session in the `nzipl-claude-kit/` directory (or any director
 ```
 
 Claude will ask you for:
-1. The file path (default: `../FDI_Combined.xlsx`)
+1. The file path (default: `../LCT-FDI/FDI_All_ToSource.xlsx`)
 2. Batch size (default: 20 rows)
 3. Priority order (largest investments first is recommended)
 
@@ -31,7 +33,9 @@ Rows with no web-findable sources get `fDi Markets (FT)` as fallback attribution
 
 After each batch:
 
-1. **Run the validator.** `python3 source-solar-wind-battery-fdi/validate_fdi_sources.py FDI_Combined.xlsx`. Exits non-zero if any P–W cell contains a forbidden domain (Wikipedia, social, Medium) or a malformed value. Fix and re-run before marking the batch done.
+1. **Run the validator.** `python3 source-solar-wind-battery-fdi/validate_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx`. Exits non-zero if any P–W cell contains a forbidden domain (Wikipedia, social, Medium) or a malformed value. Fix and re-run before marking the batch done.
+
+   You can also run `python3 source-solar-wind-battery-fdi/audit_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx` for a ground-truth count of fully/partially/unsourced rows independent of the progress log.
 
 2. **Spot-check 10% of URLs.** Open them in a browser. Confirm:
    - The URL resolves (not a 404)
