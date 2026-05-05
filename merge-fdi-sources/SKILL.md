@@ -67,7 +67,7 @@ For rows that have **not met first-best** (column S is not a credible URL — i.
 
 This **relaxes Rule 6 for column Q only**: stage 1 won't write into an empty cell, but here we will, because Q is the prerequisite for the disclosure note in (b). Other columns continue to honor Rule 6.
 
-### (b) Disclosure note on S
+### (b) Disclosure note on S — and clear L
 
 For rows where Q is now a credible URL **and** S is still `fDi Markets (FT)` or empty, set S to the literal:
 
@@ -75,9 +75,11 @@ For rows where Q is now a credible URL **and** S is still `fDi Markets (FT)` or 
 Investment value not publicly disclosed
 ```
 
-Rationale: the investment exists (Q is a real source for the project status) but the amount was never disclosed. Marking S this way distinguishes "we know this project exists, amount unknown" (count-regression eligible) from "we couldn't verify anything" (drop). Yellow highlight as usual.
+**Also clear column L (Capital Investment)** on the same row. Rationale: the original L value came from the fDi Markets export and was implicitly attributed to FT via `S = "fDi Markets (FT)"`. Once we disown the amount source via the disclosure note, L can no longer be credibly cited as that number, so we drop it to keep L and S consistent. The cleared L is reported in the change log.
 
-The validator (`validate_fdi_sources.py`) recognizes this literal as valid in column S only.
+The investment exists (Q is a real source for the project status) but the amount is unknown. Marking S this way distinguishes "we know this project exists, amount unknown" (count-regression eligible) from "we couldn't verify anything" (drop). Yellow highlight on both S and the cleared L.
+
+The validator (`validate_fdi_sources.py`) recognizes the disclosure literal as valid in column S only.
 
 ### Two-curated-file workflow
 

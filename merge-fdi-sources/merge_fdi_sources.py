@@ -82,7 +82,7 @@ def is_real_url(v, empty_markers):
     if v is None:
         return False
     s = str(v).strip()
-    if not s or s == FALLBACK:
+    if not s or s == FALLBACK or s == DISCLOSURE_NOTE:
         return False
     if any(s.upper() == m.upper() for m in empty_markers):
         return False
@@ -138,10 +138,13 @@ def stage2_pass(ws_m, ws_c, layout, sector_filter):
     curated_q_col = layout["source_cols"]["Q"]
     id_col = layout["id_col"]
 
+    # Stage 2 indexes by ANY ID in the curated file — sector is the filter,
+    # not ID prefix. The manual file mixes FDI* and Battery* IDs; the China
+    # file is HAR* only. Both should match into stage 2.
     curated_idx = {}
     for r in range(2, ws_c.max_row + 1):
         pid = ws_c.cell(r, id_col).value
-        if pid and str(pid).strip().startswith(layout["id_prefix"]):
+        if pid:
             curated_idx[str(pid).strip()] = r
 
     sector_check = (lambda s: True) if not sector_filter else (
@@ -171,7 +174,9 @@ def stage2_pass(ws_m, ws_c, layout, sector_filter):
         q_cell.fill = YELLOW
         q_filled.append((r, str(pid).strip(), str(cval)[:60]))
 
-    # (b) Disclosure-note pass on S
+    # (b) Disclosure-note pass on S — also clear L (Capital Investment).
+    # The FT-derived L number is no longer credibly sourced once we mark S
+    # as 'not publicly disclosed', so we drop it to keep L and S consistent.
     for r in range(2, ws_m.max_row + 1):
         if not sector_check(ws_m.cell(r, MASTER_SECTOR_COL).value):
             continue
@@ -182,7 +187,14 @@ def stage2_pass(ws_m, ws_c, layout, sector_filter):
             continue
         s_cell.value = DISCLOSURE_NOTE
         s_cell.fill = YELLOW
-        s_disclosed.append((r, str(ws_m.cell(r, MASTER_ID_COL).value).strip()))
+        l_cell = ws_m.cell(r, MASTER_L_COL)
+        old_l = l_cell.value
+        l_cleared = False
+        if old_l is not None and str(old_l).strip() != "":
+            l_cell.value = None
+            l_cell.fill = YELLOW
+            l_cleared = True
+        s_disclosed.append((r, str(ws_m.cell(r, MASTER_ID_COL).value).strip(), old_l if l_cleared else None))
 
     return q_filled, s_disclosed
 
@@ -207,16 +219,19 @@ def merge(master_path, curated_path, sheet_name, layout_hint, limit, run_stage2,
     prefix = layout["id_prefix"]
     empty = layout["empty_markers"]
 
+    # Match by exact ID, not prefix. The China file is HAR-only by construction;
+    # the manual file mixes FDI*/Battery*/Batteries* IDs and we want all of them
+    # eligible. id_prefix is now informational (used for the missing-IDs report).
     curated = {}
     for r in range(2, ws_c.max_row + 1):
         pid = ws_c.cell(r, layout["id_col"]).value
-        if pid and str(pid).strip().startswith(prefix):
+        if pid:
             curated[str(pid).strip()] = r
 
     master_index = {}
     for r in range(2, ws_m.max_row + 1):
         pid = ws_m.cell(r, MASTER_ID_COL).value
-        if pid and str(pid).strip().startswith(prefix):
+        if pid:
             master_index.setdefault(str(pid).strip(), []).append(r)
 
     if limit is not None:
@@ -248,24 +263,33 @@ def merge(master_path, curated_path, sheet_name, layout_hint, limit, run_stage2,
         for mrow in master_index[pid]:
             if limit is not None and processed >= limit:
                 break
-            ft_present = any(
-                str(ws_m.cell(mrow, c).value).strip() == FALLBACK
-                for c in MASTER_SOURCE_COLS.values()
-            )
-            if not ft_present:
+            # Replaceable cells: 'fDi Markets (FT)' anywhere, plus the
+            # disclosure-note literal in column S only (a real URL upgrades
+            # a previously-disclosed row back to first-best).
+            def replaceable(letter, val):
+                s = "" if val is None else str(val).strip()
+                if s == FALLBACK:
+                    return True
+                if letter == "S" and s == DISCLOSURE_NOTE:
+                    return True
+                return False
+
+            if not any(replaceable(L, ws_m.cell(mrow, c).value) for L, c in MASTER_SOURCE_COLS.items()):
                 continue
             row_changes = []
             s_replaced = False
             for letter, mcol in MASTER_SOURCE_COLS.items():
                 cell = ws_m.cell(mrow, mcol)
-                if str(cell.value).strip() != FALLBACK:
+                old = "" if cell.value is None else str(cell.value).strip()
+                if not replaceable(letter, cell.value):
                     continue
                 cval = ws_c.cell(crow, layout["source_cols"][letter]).value
                 if not is_real_url(cval, empty):
                     continue
                 cell.value = cval
                 cell.fill = YELLOW
-                row_changes.append(f"{letter}({mcol}): FT -> {str(cval)[:60]}")
+                marker = "DISCLOSED" if old == DISCLOSURE_NOTE else "FT"
+                row_changes.append(f"{letter}({mcol}): {marker} -> {str(cval)[:60]}")
                 if letter == "S":
                     s_replaced = True
 
@@ -297,14 +321,14 @@ def merge(master_path, curated_path, sheet_name, layout_hint, limit, run_stage2,
             print(f"  {c}")
 
     if missing:
-        print(f"\n=== {prefix} IDs in curated list but not in master ({len(missing)}) ===")
+        print(f"\n=== Curated IDs not found in master ({len(missing)}) ===")
         for pid in missing[:20]:
             print(f"  {pid}")
         if len(missing) > 20:
             print(f"  ... and {len(missing) - 20} more")
 
     updated = sum(1 for _, _, c in log if c[0] != "(no curated URLs available for FT cells)")
-    print(f"\nStage 1: processed {processed} {prefix} row(s); {updated} updated.")
+    print(f"\nStage 1: processed {processed} matched row(s); {updated} updated.")
 
     if run_stage2:
         scope = f"sector={sector_filter}" if sector_filter else "all sectors"
@@ -313,8 +337,10 @@ def merge(master_path, curated_path, sheet_name, layout_hint, limit, run_stage2,
         for r, pid, url in q_filled:
             print(f"  row {r} {pid}: {url}")
         print(f"\nS (Source for Amount) set to disclosure note: {len(s_disclosed)}")
-        for r, pid in s_disclosed:
-            print(f"  row {r} {pid}")
+        for entry in s_disclosed:
+            r, pid, cleared_l = entry
+            tail = f" (L cleared: was {cleared_l})" if cleared_l is not None else ""
+            print(f"  row {r} {pid}{tail}")
 
 
 def main():
