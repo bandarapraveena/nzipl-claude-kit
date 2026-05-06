@@ -11,7 +11,7 @@ Auto-detects the input format from the workbook layout:
       - Match key: FDI* IDs in column 1
       - Source cols 18,19,20,21,22,23,24,26 (skips 25 = Tech source)
       - Capital Investment col 13
-      - Empty marker: 'NA'
+      - Empty marker: 'NA', '-'
 
 Precedence rules (identical for both inputs):
   1. Column S (Source for Amount) is the priority cell.
@@ -52,7 +52,7 @@ LAYOUTS = {
         "id_col": 1,
         "source_cols": {"P": 18, "Q": 19, "R": 20, "S": 21, "T": 22, "U": 23, "V": 24, "W": 26},
         "l_col": 13,
-        "empty_markers": {"NA"},
+        "empty_markers": {"NA", "-"},
     },
 }
 
