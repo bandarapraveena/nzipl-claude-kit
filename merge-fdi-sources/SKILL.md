@@ -1,6 +1,6 @@
 ---
 name: merge-fdi-sources
-description: "Second-pass enrichment for FDI projects. Merges sources from a curated list into the master FDI_All_ToSource.xlsx. Auto-detects between two supported curated formats: a China_FDI_<Tech>.xlsx (Chinese-parent rows, matched by HAR ID) and a Globa_FDI_<Tech>_Manual.xlsx (non-HAR rows, matched by FDI ID). Use when the user asks to 'apply China sources', 'merge the manual battery list', or runs any post-SKILL sourcing round. Honors strict precedence: SKILL-found URLs in FDI_All_ToSource win over curated URLs (even when tagged [UNVERIFIED]); curated URLs only replace cells that say 'fDi Markets (FT)'. Reconciles Capital Investment (column L) to whichever source is ultimately cited in column S. Optional stage-2 pass (`--stage2`) tops up column Q for rows that didn't meet first-best, then marks any still-uncited Source (Amount) cells with 'Investment value not publicly disclosed' so they remain count-regression eligible."
+description: "Second-pass enrichment for FDI projects. Merges sources from a curated list into the master FDI_All_ToSource.xlsx. Auto-detects between two supported curated formats: a China_FDI_<Tech>.xlsx (Chinese-parent rows, matched by HAR ID) and a Globa_FDI_<Tech>_Manual.xlsx (non-HAR rows, matched by FDI ID). Use when the user asks to 'apply China sources', 'merge the manual battery list', or runs any post-SKILL sourcing round. Honors strict precedence: SKILL-found URLs in FDI_All_ToSource win over curated URLs (even when tagged [UNVERIFIED]); curated URLs only replace cells that say 'fDi Markets (FT)'. Reconciles Capital Investment (column L) to whichever source is ultimately cited in column S. Optional stage-2 pass (`--stage2`) tops up column Q for rows that didn't meet first-best, then marks any still-uncited Source (Amount) cells with 'Investment value not publicly disclosed' so they remain count-regression eligible. Optional stage-3 pass (`--stage3`) performs cross-ID-class dedup (HAR vs FDI vs Manual) and adds a Project Stage column that numbers same-company / same-city / close-year rows as phases of one project."
 ---
 
 # Merge FDI Sources
@@ -95,6 +95,100 @@ python3 merge_fdi_sources.py --master FDI_All_ToSource.xlsx \
   --curated China_FDI_Battery.xlsx --sheet Battery --stage2 --sector battery
 ```
 
+## Stage 3 — Cross-source dedup & phasing pass (`--stage3`)
+
+After stage-1 (and optionally stage-2), the stage-3 pass tightens the master against double-counting that survives the merge. It is run **after** any stage-1/2 sourcing pass, because it relies on column S being settled (a Manual row with a real S URL beats an FDI row whose S is still `fDi Markets (FT)`). Two sub-steps; both write a per-row change log.
+
+### (a) Cross-ID-class dedup
+
+Project IDs in `FDI_All_ToSource` come in three classes:
+
+| Class | Example | Origin |
+|-------|---------|--------|
+| HAR    | `HAR0010`, `HARSOL128`, `HARW003`, `HAREV0050` | Curated China list (HAR-prefixed). Authoritative for Chinese-parent rows. |
+| FDI    | `FDI237070`                                    | fDi Markets export. Broad coverage, lower per-row verification. |
+| Manual | `Battery2.1`, `Solar88.1`, `New_DE_TR1`, `EV1` | Hand-entered rows added to the master before/after merges. |
+
+The same project can appear under more than one class. Stage-3 detects and resolves these.
+
+**Match key (normalized):**
+- `Parent company` → lower-case alphanumeric, then substring match either direction (handles `Greatwall Motor` ↔ `Great Wall Motor`, `GAC` ↔ `GAC Aion`).
+- `Destination Country` → exact normalized.
+- `Year Announced` within ±1 year.
+- `Capital Investment (US$m)` within 5% (treat one-side-missing as no-match for that criterion).
+
+A pair is **exact (4/4)** when all four criteria match, **partial (3/4)** when company+country match plus either year or investment.
+
+**Resolution rules (apply in order, scoped per technology so EV stays separate from Battery, etc.):**
+
+1. **HAR vs non-HAR exact (4/4).** Drop the non-HAR row. Keep the HAR row. The HAR list is the curated authority; treat it as canonical when amount and year line up.
+2. **HAR vs non-HAR partial (3/4).** Keep both. Attach a cell comment to the non-HAR `Project ID` cell pointing at the HAR counterpart and listing the discrepancy (e.g. `POTENTIAL DUPLICATE of HAREV0050. BYD Hungary 2023: HAR=$4500m vs non-HAR=$4200m`). Author this comment as `Dedup check`.
+3. **HAR-with-`New_*` Manual partner.** When a HARW (or HARSOL / HAREV) row has a `New_<co>_<country>1`-style Manual sibling in the same company+country, drop the `New_*` row in favor of HAR. Confirm with the user before running this on borderline cases — `New_*` rows in *different* cities or with *different* amounts may be genuinely separate projects.
+4. **Manual vs FDI duplicates within the same technology.**
+   - If the Manual row has a credible `Source (Amount)` (a URL, not the empty-marker tokens or `fDi Markets (FT)`), **keep the Manual row, drop the FDI row(s)**. The Manual entry is the curated record; the FDI rows are the original-source phase splits.
+   - If the Manual row's `Source (Amount)` is empty, `fDi Markets (FT)`, or a free-text note like `Investment value not publicly disclosed` (no URL), **drop the Manual row, keep the FDI row(s)**. Without a citation, the FDI export is the better-attributed entry.
+   - When a single Manual row matches multiple FDI rows (common when fDi Markets split a project into expansion phases), all matching FDI rows are dropped together.
+5. **Conflict resolution.** A cell can be implicated by more than one rule (e.g. `FDI198973` matches both a sourced Manual row *and* an unsourced Manual row). Rule 4-keep-Manual takes precedence: if any Manual partner has a credible source, the FDI row is dropped, regardless of what the unsourced Manual row would have triggered. The unsourced Manual row is then dropped under rule 4-drop-Manual on its own merits.
+6. **Stale comments.** When stage-3 keeps a row but earlier stages had attached a "POTENTIAL DUPLICATE" comment to it, clear that comment after the partner row is dropped. The comment is no longer informative.
+
+Stage-3 dedup writes the change log as a CSV next to the master:
+- `duplicate_flags_manual_vs_fdi.csv` — Manual ↔ FDI pairs scored 3 or 4.
+- `duplicate_flags_phases.csv` — phasing clusters from sub-step (b).
+
+These CSVs are read-only artifacts for review; the script does not consume them.
+
+### (b) Phasing column — `Project Stage`
+
+Add a single new column `Project Stage` to sheet `All`, immediately to the right of the existing last column (typically becomes column **Y** when the master has 24 columns). Header style copies from the neighboring header; data-cell style copies from the neighboring data column. Set width to 14.
+
+**Cluster rule.** Group rows by normalized `Parent company` + `Destination Country` + `Destination city` (all three required — rows with any of those three missing are not clustered). Within each group:
+
+1. Sort rows by `Year Announced` (parse 4-digit substrings out of strings if the cell isn't already numeric — the master mixes int and string-typed years).
+2. Walk the sorted list. Open a new chain at row 1; extend the current chain when the next row's year is within **5 years** of the previous row's year. A gap > 5 years closes the current chain and opens a new one.
+3. Rows with no year join the single existing chain in their group if there is exactly one; otherwise they form their own chain.
+4. Within each chain of length ≥ 2, write stage numbers `1, 2, 3, …` chronologically. Chains of length 1 leave the cell blank.
+
+Stage numbers are an annotation, not a deduplication: phased rows stay in the file. Downstream count-regression code can decide whether to collapse chains.
+
+### (c) Cell-level cleanup
+
+Stage-3 also applies these passes (idempotent — safe to run repeatedly):
+
+- Replace the literal token `\ ` (backslash-space) anywhere in string cells with the empty string, then strip surrounding whitespace. Empty strings become `None`. The `\` token is the China-list empty marker that some merges leave behind in city / source columns.
+- Strip trailing whitespace from `Technology` values (the master has historically carried both `Wind` and `Wind ` — collapse to `Wind`).
+
+### Sort after stage 3
+
+After dedup deletions and the new column, **re-sort the sheet** with the existing key (`Technology` asc, then HAR-first, then `Capital Investment` desc) so rows stay in canonical order. Preserve all cell styles and comments through the rewrite — see the helpers used elsewhere in this kit (`snap_color`, `snap_font`, `snap_fill`, `snap_border`, `snap_alignment`, `snap_comment`, `restore_*`). Do **not** use `copy.deepcopy` on openpyxl style objects — it recurses through the style proxy and overflows.
+
+### Highlights
+
+- New `Project Stage` cells: no highlight (stage numbers are not source claims).
+- Cells whose value changed via the `\ `-strip pass: no highlight (cleanup, not a source change).
+- Rows dropped: gone from the file; logged to stdout and to the dedup CSV.
+
+### Invocation
+
+```bash
+# Full pipeline (stage 1 + 2 + 3) on a curated battery list
+python3 merge_fdi_sources.py --master FDI_All_ToSource.xlsx \
+  --curated China_FDI_Battery.xlsx --sheet Battery \
+  --stage2 --stage3 --sector battery
+
+# Stage 3 only, after stages 1/2 already ran
+python3 merge_fdi_sources.py --master FDI_All_ToSource.xlsx --stage3 --sector battery
+```
+
+When `--stage3` is invoked without a `--curated` flag, the stage-1/stage-2 passes are skipped and dedup runs against the existing master state alone.
+
+### Two-curated-file workflow
+
+When a sector has both a China list (HAR) and a manual list (FDI / non-HAR), run stage-1/stage-2 on each file separately, then run stage-3 **once** at the end. Running stage-3 between merges risks deleting a non-HAR row before its sourced Manual sibling has been imported, leaving the dataset thinner than intended.
+
+### Manual review hooks
+
+Stage-3 is the most opinionated of the three stages — the cross-ID-class rules can over- or under-delete on edge cases. Before saving, the script prints a confirmation prompt listing every dropped ID and the partner that beat it. In `--auto` mode the prompt is skipped; otherwise the user can paste a comma-separated **keep list** to veto specific drops. The kept rows stay; the comment from rule 2/6 is left in place so the override is auditable.
+
 ## What this skill does NOT do
 
 - **No web research.** It only moves URLs that already exist in the curated list. If both files lack an amount source for a project, the cell stays as `fDi Markets (FT)` (or empty). Web sourcing belongs to `/source-solar-wind-battery-fdi`.
@@ -132,6 +226,7 @@ python3 source-solar-wind-battery-fdi/validate_fdi_sources.py /path/to/FDI_All_T
 - All Rule-3 candidates in the requested batch are replaced.
 - Column L reconciled where S was replaced and the curated row provided a number.
 - If `--stage2` was set: relaxed Q-fill applied for non-first-best rows in scope, and disclosure note applied to S where Q is now credible.
-- Yellow highlight applied to every changed cell.
+- If `--stage3` was set: cross-ID-class duplicates resolved per the rules above; `Project Stage` column written; `\ ` cleanup applied; sheet re-sorted; dedup CSVs emitted alongside the master.
+- Yellow highlight applied to every changed cell (stage 1 + 2 only — stage 3 deletions are reported, not highlighted).
 - `validate_fdi_sources.py` exits 0 (recognizes `Investment value not publicly disclosed` in column S).
-- Change log includes: rows updated, rows skipped (curated lacks the source), curated IDs with no master match, and (if stage 2) per-row Q fills and S disclosure-note assignments.
+- Change log includes: rows updated, rows skipped (curated lacks the source), curated IDs with no master match, (if stage 2) per-row Q fills and S disclosure-note assignments, and (if stage 3) per-row drops with partner ID and per-row stage assignments.
