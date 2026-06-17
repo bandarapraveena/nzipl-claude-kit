@@ -1,0 +1,268 @@
+{
+  "version": "1.0",
+  "verified_date": "2026-06-17",
+  "description": "Admissible-component taxonomy for coding the TECHNOLOGY field of FDI_All_ToSource.xlsx into a specific component + annual production capacity. hs6 = best single HS-2022 customs code (analytically usable). hs6_shortlist_key = the code the client's admissible-components image assigned (kept for traceability; may differ from / be wrong vs the customs code). The validator accepts EITHER code for a component. in_shortlist=true means the component is one of the client's image shortlist items; false means it is an extended/recognized type the Lab schema also accepts.",
+  "out_of_shortlist_label": "Other / out-of-shortlist",
+  "capacity_unit_enum": [
+    "GW/year", "GWh/year", "MW/year", "MWh/year",
+    "tonnes/year", "kt/year", "million-m2/year", "m2/year", "km/year",
+    "units/year", "vehicles/year", "cells/year", "packs/year",
+    "blades/year", "blade-sets/year", "towers/year", "tower-sections/year",
+    "nacelles/year", "turbines/year", "gearboxes/year", "generators/year",
+    "drive-units/year", "e-axles/year", "motors/year", "inverters/year",
+    "chargers/year", "foundations/year", "monopiles/year"
+  ],
+  "global_rules": [
+    "Capacity is ALWAYS annual (per-year), nameplate/installed throughput of the COMPONENT. Never cumulative, never installed-base, never an order book.",
+    "Capital Investment (US$m) is NOT capacity. The single most common error. If the only large number in the sources is the investment, leave capacity blank (tier 3).",
+    "Classify the COMPONENT from textual evidence (project description, named product), never from an HS6 code alone. Battery materials all share the image key 850780, which cannot tell cathode from anode from electrolyte.",
+    "Integrated complexes are multi-component. Code the PRIMARY component the row's actor builds, set multi_component=true, and name the others in Coding Notes. Never attach another company's or another site's capacity to the row.",
+    "GW (power) vs GWh (energy): solar module/cell/inverter and wind are GW/MW (power); battery cells/packs are GWh (energy). A GWh figure on a Solar or EV row almost always signals a misfiled battery plant -> flag for re-tag.",
+    "Capture phase-1 vs full-ramp: announcements usually quote the larger full build-out. Record the stated figure and note the ramp stage in Coding Notes.",
+    "battery-grade gate: generic aluminium foil, copper foil, graphite, glass, and lithium-refining plants are out-of-shortlist unless the source explicitly says battery-grade / solar-grade for the component in question."
+  ],
+  "technologies": {
+    "Solar": {
+      "components": {
+        "Solar Modules / Panels": {
+          "hs6": "854143", "hs6_shortlist_key": "854143", "in_shortlist": true,
+          "aliases": ["module", "panel", "PV module", "solar panel", "c-Si module", "thin-film module", "module assembly line", "panel assembly", "TOPCon module", "PERC module", "HJT module"],
+          "capacity_units": ["GW/year", "MW/year"],
+          "capacity_reporting": "Nameplate DC power per year (GW/yr, MW/yr). NEVER GWh. An integrated cell+module line that leads with panel output codes here; do not sum cell GW + module GW (one throughput, not additive)."
+        },
+        "Solar Cells": {
+          "hs6": "854142", "hs6_shortlist_key": "854142", "in_shortlist": true,
+          "aliases": ["cell", "PV cell", "solar cell", "wafer-based cell", "cell line", "cell fab", "TOPCon cell", "PERC cell", "HJT cell"],
+          "capacity_units": ["GW/year", "MW/year", "cells/year"],
+          "capacity_reporting": "Cell power output per year (GW/yr). A standalone cell fab codes here; wafer GW is a different upstream component, do not record it as cell GW."
+        },
+        "PV Semiconductor Devices": {
+          "hs6": "854149", "hs6_shortlist_key": "854149", "in_shortlist": true,
+          "aliases": ["photosensitive semiconductor device", "photodiode", "phototransistor", "PV semiconductor device", "optoelectronic semiconductor"],
+          "capacity_units": ["units/year", "GW/year", "MW/year"],
+          "capacity_reporting": "WEAK RESIDUAL bucket. In HS-2022 PV cell content moved to 854142/854143; 854149 is other photosensitive devices. Most rows that sound like 'PV semiconductor' are really cells or modules -> re-bucket before coding here. Expect very few genuine rows."
+        },
+        "Mounting Equipment": {
+          "hs6": "830249", "hs6_shortlist_key": "830249", "in_shortlist": true,
+          "aliases": ["mounting", "racking", "mounting structure", "ground mount", "rooftop mount", "fixed-tilt structure", "mounting fittings"],
+          "capacity_units": ["tonnes/year", "units/year", "MW/year"],
+          "capacity_reporting": "tonnes/year (metalworking) or units/year (racking sets). Heavy structural substructures often classify under 7308 (steel) / 7610 (aluminium); motorized trackers are a separate type -> flag those rather than forcing into 830249."
+        },
+        "Inverters": {
+          "hs6": "850440", "hs6_shortlist_key": "854129", "in_shortlist": true,
+          "aliases": ["inverter", "solar inverter", "PV inverter", "string inverter", "central inverter", "microinverter", "hybrid inverter", "static converter", "power conversion system"],
+          "capacity_units": ["GW/year", "MW/year", "units/year"],
+          "capacity_reporting": "CODE CORRECTION: the image's 854129 is telephony parts and is WRONG; PV inverters are static converters -> 850440. Capacity in GW/MW (AC power) or units/year. Not GWh."
+        }
+      },
+      "out_of_shortlist": [
+        {"plant_type": "Polysilicon", "example": "Daqo, OCI, GCL, Wacker", "hs6": "280461", "capacity_units": ["tonnes/year", "kt/year"], "handling": "Out-of-shortlist (upstream feedstock). Component = 'Other / out-of-shortlist'; note 'polysilicon' in Coding Notes."},
+        {"plant_type": "Ingot / Wafer", "example": "Longi, TCL Zhonghuan, GCL", "hs6": "—", "capacity_units": ["GW/year", "tonnes/year"], "handling": "Out-of-shortlist. Often bundled 'ingot + wafer'. Do NOT map wafer GW to Solar Cells."},
+        {"plant_type": "Solar glass / PV cover glass", "example": "Xinyi Solar, Flat Glass Group, Borosil", "hs6": "700991", "capacity_units": ["tonnes/year", "tonnes/day"], "handling": "Out-of-shortlist. Often reported as tonnes/DAY melting capacity (annualize or record as-stated + flag)."},
+        {"plant_type": "EVA / POE encapsulant film", "example": "Hangzhou First, STR, Sveck", "hs6": "392010", "capacity_units": ["tonnes/year", "m2/year"], "handling": "Out-of-shortlist BOM polymer film."},
+        {"plant_type": "Backsheet", "example": "Cybrid, Jolywood", "hs6": "392099", "capacity_units": ["m2/year", "tonnes/year"], "handling": "Out-of-shortlist BOM film."},
+        {"plant_type": "Junction box", "example": "Stäubli, TE Connectivity", "hs6": "853890", "capacity_units": ["units/year"], "handling": "Out-of-shortlist; do NOT fold into Inverters."},
+        {"plant_type": "Solar tracker", "example": "Nextracker, Array, Soltec", "hs6": "—", "capacity_units": ["MW/year", "units/year"], "handling": "Motorized structures (steel 7308 + drive 8501). Map to Mounting Equipment only if reported as mounting/structure; else flag."},
+        {"plant_type": "Metallization / silver paste", "example": "Heraeus, DKEM", "hs6": "—", "capacity_units": ["tonnes/year"], "handling": "Out-of-shortlist input."}
+      ],
+      "notes": "Inverter code corrected to 850440. 854149 is a weak residual; re-bucket apparent 'PV semiconductor' rows to cells/modules first. Upstream (polysilicon/ingot/wafer/glass/film/paste) is common in real solar FDI and is out of the 5-item shortlist."
+    },
+    "Wind": {
+      "components": {
+        "Wind Turbine (assembly)": {
+          "hs6": "850231", "hs6_shortlist_key": "850231", "in_shortlist": true,
+          "aliases": ["wind turbine", "wind-powered generating set", "WTG", "turbine assembly", "complete turbine", "turbine integration plant"],
+          "capacity_units": ["MW/year", "GW/year", "turbines/year", "units/year"],
+          "capacity_reporting": "Complete generating set (final nacelle+hub mating). MW/GW per year of nameplate output, or turbines/year. Do not confuse a turbine's per-unit MW rating with the plant's MW/year throughput. Use this only for final-assembly plants; component fabrication -> nacelle/blade/etc."
+        },
+        "Nacelles": {
+          "hs6": "841290", "hs6_shortlist_key": "841290", "in_shortlist": true,
+          "aliases": ["nacelle", "nacelle assembly", "powertrain assembly", "drivetrain housing", "hub"],
+          "capacity_units": ["nacelles/year", "units/year", "MW/year"],
+          "capacity_reporting": "841290 also covers blades & hubs (parts of the wind engine 8412.80) -> 841290 alone CANNOT distinguish a nacelle from a blade; disambiguate by the row's text. A nacelle plant doing final integration may instead be 850231."
+        },
+        "Blades": {
+          "hs6": "841290", "hs6_shortlist_key": "841290", "in_shortlist": true,
+          "aliases": ["wind turbine blade", "rotor blade", "blade", "blade set", "blade factory", "blade molding plant"],
+          "capacity_units": ["blades/year", "blade-sets/year", "MW/year"],
+          "capacity_reporting": "blades/year or blade-sets/year (3 blades = 1 set; convert at 3:1). Shares HS6 841290 with nacelles -> distinguish by text, never by code."
+        },
+        "Towers": {
+          "hs6": "730820", "hs6_shortlist_key": "730820", "in_shortlist": true,
+          "aliases": ["wind tower", "tower", "tubular tower", "steel tower", "tower section", "tower can"],
+          "capacity_units": ["towers/year", "tower-sections/year", "units/year"],
+          "capacity_reporting": "730820 = towers/masts of IRON OR STEEL only. CONCRETE / hybrid towers fall outside (concrete articles -> 6810) -> flag the material mismatch. towers/year (a tower = several sections)."
+        },
+        "Gear Box": {
+          "hs6": "848340", "hs6_shortlist_key": "870840", "in_shortlist": true,
+          "aliases": ["gearbox", "wind turbine gearbox", "drivetrain gearbox", "speed increaser", "planetary gearbox", "gear unit"],
+          "capacity_units": ["units/year", "gearboxes/year", "MW/year"],
+          "capacity_reporting": "CODE CORRECTION: image's 870840 is automotive gearboxes (Ch.87); correct wind code is 848340 (gears/gearing, Ch.84). Direct-drive turbines have NO gearbox, so gearbox output does not scale 1:1 with fleet turbine output. units/year is safest."
+        },
+        "Generator": {
+          "hs6": "850164", "hs6_shortlist_key": "850164", "in_shortlist": false,
+          "aliases": ["wind turbine generator", "alternator", "PMG", "permanent magnet generator", "DFIG", "generator factory"],
+          "capacity_units": ["units/year", "generators/year", "MW/year"],
+          "capacity_reporting": "Extended type. 850164 = AC generators >750 kVA. Do not confuse the bare generator (8501) with the complete genset (850231). kVA (apparent power) is the tariff basis, not MW."
+        },
+        "Offshore Foundation": {
+          "hs6": "730890", "hs6_shortlist_key": "730890", "in_shortlist": false,
+          "aliases": ["monopile", "jacket foundation", "transition piece", "offshore foundation", "floating foundation", "substructure"],
+          "capacity_units": ["units/year", "foundations/year", "monopiles/year"],
+          "capacity_reporting": "Extended type. Large steel substructures -> 730890. Concrete gravity bases fall outside Ch.73 -> flag. 1 turbine = 1 foundation; transition pieces sometimes counted separately."
+        },
+        "Cable": {
+          "hs6": "854460", "hs6_shortlist_key": "854460", "in_shortlist": false,
+          "aliases": ["array cable", "inter-array cable", "export cable", "submarine cable", "HV cable", "subsea cable"],
+          "capacity_units": ["km/year", "units/year"],
+          "capacity_reporting": "Extended type. >1 kV insulated conductors -> 854460. km/year is native; do not coerce to MW."
+        }
+      },
+      "out_of_shortlist": [
+        {"plant_type": "Pitch/yaw systems, bearings, main shaft", "example": "SKF, ThyssenKrupp Rothe Erde", "hs6": "8482", "capacity_units": ["units/year"], "handling": "Out-of-shortlist (bearings 8482, shafts 8483)."},
+        {"plant_type": "Concrete / hybrid tower & concrete gravity foundation", "example": "Max Bögl", "hs6": "6810", "capacity_units": ["units/year"], "handling": "Concrete is not iron/steel -> outside 730820/730890. Flag; do not force into Towers/Foundation."},
+        {"plant_type": "Blade recycling / glass-fibre & resin (composites)", "example": "Owens Corning, Vestas recycling", "hs6": "7019", "capacity_units": ["tonnes/year"], "handling": "Upstream materials / recycling -> out-of-shortlist; only finished-blade fabrication maps to Blades."},
+        {"plant_type": "Power electronics / converter / switchgear", "example": "Ingeteam, Siemens Energy", "hs6": "850440", "capacity_units": ["units/year"], "handling": "Out-of-shortlist for wind."},
+        {"plant_type": "Permanent-magnet / rare-earth magnet plant", "example": "MP Materials, Vacuumschmelze", "hs6": "850511", "capacity_units": ["tonnes/year"], "handling": "Standalone magnet plant -> out-of-shortlist; map to Generator only if explicitly a wind-generator line."},
+        {"plant_type": "Offshore substation / transformer module", "example": "Siemens Energy", "hs6": "850421", "capacity_units": ["units/year"], "handling": "Transformers 8504; substation steel 730890. Flag unless clearly a foundation/cable line."},
+        {"plant_type": "Wind farm O&M / service / development office", "example": "developer service hubs", "hs6": "—", "capacity_units": [], "handling": "Not greenfield manufacturing -> exclude from component coding."}
+      ],
+      "notes": "Gearbox corrected to 848340. The 850231 (whole turbine) vs 841290 (nacelle/blade/hub parts) decision is the biggest hazard; 841290 collapses Nacelles AND Blades onto one code, so disambiguate by the row's text. Steel-only gate on 730820/730890."
+    },
+    "Battery": {
+      "components": {
+        "Lithium-ion battery (cell/pack)": {
+          "hs6": "850760", "hs6_shortlist_key": "850760", "in_shortlist": true,
+          "aliases": ["Li-ion battery", "Li-ion cell", "lithium-ion cell", "battery cell", "gigafactory cell plant", "EV battery cell", "LFP cell", "NMC cell", "prismatic cell", "cylindrical cell", "pouch cell"],
+          "capacity_units": ["GWh/year"],
+          "capacity_reporting": "Finished cell/module/pack -> 850760 (cell/module/pack are all 850760 at HS6; separate only on text). GWh/year. Treat a plain 'GW' for a cell plant as GWh. 'supports N vehicles' / investment $ are NOT capacity. Default integrated gigafactories here."
+        },
+        "Ni-MH battery (cell/pack)": {
+          "hs6": "850750", "hs6_shortlist_key": "850750", "in_shortlist": true,
+          "aliases": ["NiMH battery", "nickel-metal hydride battery", "Ni-MH cell", "HEV battery (NiMH)"],
+          "capacity_units": ["GWh/year", "packs/year"],
+          "capacity_reporting": "Finished Ni-MH cell/pack -> 850750. GWh/year (or packs/Ah for older HEV plants). Declining chemistry; rare in modern FDI. Default integrated gigafactories to Li-ion unless source says Ni-MH."
+        },
+        "Cathode material (Li-ion)": {
+          "hs6": "284190", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["CAM", "cathode active material", "cathode powder", "NMC", "NCM", "NCA", "LFP cathode", "pCAM", "precursor cathode active material", "positive electrode material"],
+          "capacity_units": ["tonnes/year", "kt/year"],
+          "capacity_reporting": "Image key 850780 is 'other accumulators', NOT a material code. Customs is chemistry-dependent: NMC/LCO oxides 284190/285200; LFP 285390; pCAM precursor 282540. Code on TEXT ('CAM', 'NMC plant'). tonnes/year; do NOT convert to enabled-GWh. pCAM maps here."
+        },
+        "Anode material (Li-ion)": {
+          "hs6": "380110", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["AAM", "anode active material", "graphite anode", "synthetic graphite", "artificial graphite", "natural graphite anode", "spherical graphite", "silicon anode", "negative electrode material"],
+          "capacity_units": ["tonnes/year", "kt/year"],
+          "capacity_reporting": "Customs: artificial graphite 380110; natural 250410; coated/processed 380190; silicon-based 280461. tonnes/year. Raw flake graphite MINING (250410) is upstream/out-of-scope unless framed as battery-grade AAM."
+        },
+        "Separator (Li-ion)": {
+          "hs6": "392010", "hs6_shortlist_key": "850790", "in_shortlist": true,
+          "aliases": ["battery separator", "microporous separator film", "PE separator", "PP separator", "polyolefin separator", "ceramic-coated separator", "wet-process separator", "dry-process separator"],
+          "capacity_units": ["million-m2/year", "tonnes/year"],
+          "capacity_reporting": "Image key 850790 ('parts of accumulators') is defensible. Customs material code: PE film 392010 / PP 392020. Usually reported as area (million m2/year); sometimes tonnes/year. Record as stated; do not convert (thickness varies)."
+        },
+        "Electrolyte (Li-ion)": {
+          "hs6": "382499", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["battery electrolyte", "electrolyte solution", "LiPF6 electrolyte", "liquid electrolyte", "electrolyte salt", "lithium hexafluorophosphate"],
+          "capacity_units": ["tonnes/year", "kt/year"],
+          "capacity_reporting": "Customs: formulated electrolyte 382499; pure LiPF6 salt 282690. tonnes/year — record whether basis is solution or salt (salt is ~12-15% of solution)."
+        },
+        "Cathode current collector (Li-ion)": {
+          "hs6": "760711", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["aluminum foil", "battery aluminum foil", "cathode foil", "Al current collector", "battery-grade aluminium foil"],
+          "capacity_units": ["tonnes/year"],
+          "capacity_reporting": "Aluminium foil. Customs 760711/760719. battery-grade only (6-20 micron, high-purity); generic packaging foil is out-of-scope."
+        },
+        "Anode current collector (Li-ion)": {
+          "hs6": "740919", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["copper foil", "battery copper foil", "electrodeposited copper foil", "ED copper foil", "anode foil", "Cu current collector", "battery-grade copper foil"],
+          "capacity_units": ["tonnes/year"],
+          "capacity_reporting": "Copper foil. Customs 740919/741012. battery-grade (4.5-12 micron ED) only; PCB/standard copper foil is out-of-scope."
+        },
+        "Cathode material (Ni-MH)": {
+          "hs6": "282540", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["nickel hydroxide", "Ni(OH)2", "NiMH positive electrode material", "spherical nickel hydroxide"],
+          "capacity_units": ["tonnes/year"],
+          "capacity_reporting": "Nickel hydroxide -> 282540. tonnes/year. Rare in modern FDI."
+        },
+        "Current collector (Ni-MH)": {
+          "hs6": "750610", "hs6_shortlist_key": "850780", "in_shortlist": true,
+          "aliases": ["nickel foam", "nickel foil", "perforated nickel strip", "NiMH current collector", "nickel-plated steel substrate"],
+          "capacity_units": ["tonnes/year"],
+          "capacity_reporting": "Nickel foam/foil -> 750610 / 750800. tonnes/year. Rare in modern FDI."
+        },
+        "Battery pack / module assembly": {
+          "hs6": "850760", "hs6_shortlist_key": "850760", "in_shortlist": false,
+          "aliases": ["pack assembly", "module assembly", "pack plant", "battery module plant", "ESS pack assembly", "EV pack line"],
+          "capacity_units": ["GWh/year", "packs/year"],
+          "capacity_reporting": "Extended type. A finished pack is still 850760. Pack/module assembly buys cells and assembles them. Tag as pack only if source clearly says assembly-only; if it makes cells, code the cell component. 'supports N vehicles' is not capacity."
+        },
+        "Battery recycling": {
+          "hs6": "854810", "hs6_shortlist_key": "854810", "in_shortlist": false,
+          "aliases": ["battery recycling", "black mass plant", "Li-ion recycling", "hydromet recycling", "material recovery", "urban mining battery"],
+          "capacity_units": ["tonnes/year", "kt/year"],
+          "capacity_reporting": "Extended type. Spent batteries/scrap -> 854810. tonnes/year of input feedstock OR recovered output — record which basis."
+        }
+      },
+      "out_of_shortlist": [
+        {"plant_type": "Lead-acid battery", "example": "Clarios, Exide, Amara Raja", "hs6": "850710", "capacity_units": ["units/year"], "handling": "Out-of-shortlist chemistry; only Li-ion 850760 and Ni-MH 850750 are in-scope."},
+        {"plant_type": "Nickel-cadmium battery", "example": "Saft, HBL Power", "hs6": "850730", "capacity_units": ["units/year"], "handling": "Out-of-shortlist chemistry."},
+        {"plant_type": "Na-ion / solid-state / Li-S cell", "example": "CATL Na-ion, QuantumScape, NGK NaS", "hs6": "850780", "capacity_units": ["GWh/year"], "handling": "Finished cells of non-shortlist chemistries (850780 = 'other accumulators'). Do NOT auto-map an 850780 row to a Li-ion material; flag."},
+        {"plant_type": "Lithium refining (carbonate/hydroxide)", "example": "Albemarle, Ganfeng, SQM", "hs6": "283691", "capacity_units": ["tonnes/year"], "handling": "Upstream of cathode. Map to Cathode material only if framed as cathode/pCAM feed; else out-of-shortlist refining."},
+        {"plant_type": "pCAM (precursor CAM)", "example": "Umicore, BASF, EcoPro, GEM", "hs6": "282540", "capacity_units": ["tonnes/year"], "handling": "Maps to Cathode material (Li-ion); note precursor vs finished CAM."},
+        {"plant_type": "Binder / conductive additive (PVDF, CMC, carbon black)", "example": "Arkema, Solvay, Orion", "hs6": "—", "capacity_units": ["tonnes/year"], "handling": "Out-of-shortlist; do not force into Electrolyte."},
+        {"plant_type": "Cell casing / can / housing / BMS", "example": "Tier-2 metal stampers", "hs6": "850790", "capacity_units": ["units/year"], "handling": "Parts of accumulators but not a listed material; out-of-shortlist."},
+        {"plant_type": "Cell-production / coating equipment", "example": "Wuxi Lead, Manz, Dürr", "hs6": "—", "capacity_units": ["units/year"], "handling": "Capital equipment, not a battery component; different bucket."},
+        {"plant_type": "Capacitor / supercapacitor", "example": "Skeleton, Maxwell", "hs6": "8532", "capacity_units": ["units/year"], "handling": "Not an accumulator; out-of-shortlist."}
+      ],
+      "notes": "HS6 ALONE CANNOT disambiguate battery materials: the image assigns 850780 to six different materials, and 850780 is really 'other accumulators' (finished cells). Classify by text. Only Li-ion (850760) and Ni-MH (850750) chemistries are in-scope. Cell/module/pack are all 850760 at HS6 — separate on text; default integrated gigafactories to the Li-ion cell. Customs material codes are documented per component for later standardization."
+    },
+    "EV": {
+      "components": {
+        "Finished EV / vehicle assembly": {
+          "hs6": "870380", "hs6_shortlist_key": "870380", "in_shortlist": true,
+          "aliases": ["EV assembly plant", "BEV plant", "electric car factory", "vehicle assembly", "passenger EV", "OEM assembly", "final assembly", "e-vitara plant"],
+          "capacity_units": ["vehicles/year", "units/year"],
+          "capacity_reporting": "Passenger BEV -> 870380; electric bus (10+) 870240; electric truck/goods 870490. vehicles/year. Trap: a multi-model plant's TOTAL capacity (incl. ICE) is not the BEV/EV throughput — code the EV line only. Phase-1 vs full-ramp; production target vs export volume vs peak-line are different numbers."
+        },
+        "E-motor / traction motor": {
+          "hs6": "850153", "hs6_shortlist_key": "850153", "in_shortlist": true,
+          "aliases": ["traction motor", "drive motor", "e-motor", "electric motor", "EV motor", "PMSM", "IPMSM", "motor plant"],
+          "capacity_units": ["units/year", "motors/year", "MW/year"],
+          "capacity_reporting": "Route by power: >75 kW AC -> 850153; 750W-75kW AC -> 850152; DC analogues 850132/850133. Default 850153 for unspecified vehicle traction motors. units/year. 'drive units' may bundle motor+gearbox+inverter -> see E-axle."
+        },
+        "Power electronics / inverter (EV)": {
+          "hs6": "850440", "hs6_shortlist_key": "850440", "in_shortlist": true,
+          "aliases": ["traction inverter", "power inverter", "power electronics", "motor controller", "PEU", "power control unit", "SiC inverter", "DC-DC converter"],
+          "capacity_units": ["units/year", "inverters/year"],
+          "capacity_reporting": "850440 (static converters). Shares HS6 with EV charger and on-board DC-DC -> disambiguate by text. If a row only says 'power electronics', default inverter and note ambiguity. units/year."
+        },
+        "E-axle / drive unit": {
+          "hs6": "870850", "hs6_shortlist_key": "870850", "in_shortlist": true,
+          "aliases": ["e-axle", "eaxle", "drive unit", "electric drive unit", "EDU", "3-in-1 drive", "integrated drive", "e-drive", "powertrain unit"],
+          "capacity_units": ["units/year", "e-axles/year", "drive-units/year"],
+          "capacity_reporting": "No clean single HS6. Default 870850 (drive-axle) for a marketed e-axle; 870840 if clearly just a gearbox; 850153 if clearly just a motor. units/year. '1 e-axle per single-motor vehicle, 2 for dual-motor' — convert carefully if quoted as vehicles."
+        },
+        "EV charger": {
+          "hs6": "850440", "hs6_shortlist_key": "850440", "in_shortlist": true,
+          "aliases": ["EV charger", "charging station", "EVSE", "wallbox", "AC charger", "DC fast charger", "charge point", "on-board charger", "OBC"],
+          "capacity_units": ["units/year", "chargers/year"],
+          "capacity_reporting": "850440 (static converters incl. accumulator chargers). Shares HS6 with inverter -> disambiguate by text. Only charger MANUFACTURING is in-scope; charging-network deployment is not. Charging cables alone -> 8544 (out-of-scope). units/year."
+        }
+      },
+      "out_of_shortlist": [
+        {"plant_type": "Battery cell / module / pack gigafactory", "example": "CATL, LGES, Panasonic, BYD", "hs6": "850760", "capacity_units": ["GWh/year"], "handling": "Route to the BATTERY technology, never EV. The #1 EV misclassification: a GWh figure on an EV row = a battery plant. Flag for re-tag."},
+        {"plant_type": "Battery materials (cathode/anode/electrolyte/separator)", "example": "BASF, Umicore, POSCO Future M", "hs6": "—", "capacity_units": ["tonnes/year"], "handling": "Route to BATTERY technology."},
+        {"plant_type": "Battery recycling", "example": "Redwood, Li-Cycle, Ascend", "hs6": "854810", "capacity_units": ["tonnes/year"], "handling": "Route to BATTERY technology."},
+        {"plant_type": "ICE / PHEV / HEV vehicle assembly", "example": "legacy OEM lines", "hs6": "870321", "capacity_units": ["vehicles/year"], "handling": "Not BEV (PHEV 870360/870370). Map to vehicle assembly only if dedicated BEV (870380); else flag."},
+        {"plant_type": "Generic auto parts (body, chassis, brakes, interiors, ADAS)", "example": "Magna, Bosch, Continental", "hs6": "8708", "capacity_units": ["units/year"], "handling": "Not EV-drivetrain-specific -> out-of-shortlist (generic auto-supplier scope)."},
+        {"plant_type": "Power semiconductors (SiC / IGBT chips for inverters)", "example": "Wolfspeed, Infineon, onsemi", "hs6": "8541", "capacity_units": ["units/year"], "handling": "Semiconductor fab upstream of the inverter -> out-of-shortlist; only the finished inverter (850440) is in-scope."},
+        {"plant_type": "Wiring harnesses / connectors / charging cables", "example": "Aptiv, Yazaki, Sumitomo", "hs6": "8544", "capacity_units": ["units/year"], "handling": "Out-of-shortlist."},
+        {"plant_type": "Electric 2W/3W / micro-mobility", "example": "Ola Electric, Ather, Gogoro", "hs6": "871160", "capacity_units": ["units/year"], "handling": "Not passenger BEV (871160) -> flag unless scope broadened."},
+        {"plant_type": "Fuel-cell stacks / hydrogen powertrain", "example": "Hyundai HTWO, Ballard", "hs6": "850680", "capacity_units": ["units/year"], "handling": "Different powertrain -> out-of-shortlist."},
+        {"plant_type": "Charging-network deployment (not manufacturing)", "example": "Electrify America, IONITY, ChargePoint rollouts", "hs6": "—", "capacity_units": [], "handling": "Infrastructure/services, not greenfield manufacturing -> flag, exclude."}
+      ],
+      "notes": "EV = finished BEV + drivetrain hardware only. ALL battery cell/pack/material/recycling rows belong to the Battery technology, never an EV bucket — the dominant EV misclassification. 850440 is shared by inverter + charger + DC-DC; 8501 motor codes are power-rated, not EV-labeled. E-axle has no native HS6 (default 870850)."
+    }
+  }
+}

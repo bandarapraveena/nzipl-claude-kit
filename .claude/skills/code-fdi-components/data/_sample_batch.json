@@ -1,0 +1,92 @@
+[
+  {
+    "project_id": "HARSOL127", "technology": "Solar",
+    "component": "Inverters", "component_hs6": "850440",
+    "capacity_value": null, "capacity_unit": null, "capacity_source": null,
+    "coding_tier": 3,
+    "coding_notes": "Multi-component Ain Sokhna complex; this row's actor (TBEA/Kemet) makes ONLY inverters. GCL's 5 GW cells and Cornex's 5 GWh storage belong to other firms — do not attach. Image HS6 854129 is wrong (telephony parts); inverters are static converters 850440. MoU stage, no inverter capacity disclosed. Note: the row's Amount source actually points at the unrelated Xinyi Indonesia glass project, so InvestM=11500 is unverified for Egypt."
+  },
+  {
+    "project_id": "HARSOL144", "technology": "Solar",
+    "component": "Other / out-of-shortlist", "component_hs6": "700991",
+    "capacity_value": null, "capacity_unit": null, "capacity_source": null,
+    "coding_tier": 2,
+    "coding_notes": "Primary product is solar GLASS (HS 700991), outside the 5-item shortlist. Xinyi interim report: 2,400 tonnes/DAY melting at Rempang (unit is per-day, not per-year — not annualized here). The complex also hosts a separate 2 GW/yr module line (854143), the only shortlist-admissible component; flagged multi-component. Identical 'polysilicon/float-glass/PV-glass' figure set is also cited for Xinyi's Qujing CHINA site — do not cross-attribute."
+  },
+  {
+    "project_id": "HARSOL64", "technology": "Solar",
+    "component": "Other / out-of-shortlist", "component_hs6": "280461",
+    "capacity_value": null, "capacity_unit": null, "capacity_source": null,
+    "coding_tier": 3,
+    "coding_notes": "Integrated silicon->polysilicon->cells->modules complex; upstream anchor is polysilicon (280461), out of shortlist. Parent Hongshi is a cement maker; Solar tag is correct via its Asia Silicon stake. Capacity figures in sources (90,000 t Asia Silicon; 250,000 t / 200,000 t / 15 GW Qinghai) are for EXISTING China plants, not this Indonesia site; the '2 GW' is a captive power station. Capacity left null."
+  },
+  {
+    "project_id": "EV1", "technology": "Battery",
+    "component": "Lithium-ion battery (cell/pack)", "component_hs6": "850760",
+    "capacity_value": 30, "capacity_unit": "GWh/year",
+    "capacity_source": "https://pressroom.toyota.com/toyota-charges-into-u-s-battery-manufacturing/",
+    "coding_tier": 1,
+    "coding_notes": "Toyota Battery Mfg North Carolina, Liberty NC. '30 GWh annually at full capacity' (full-ramp, 14 lines). Correctly tagged Battery (cells live under Battery, not EV). $13.9B is capex, not capacity."
+  },
+  {
+    "project_id": "Battery 15.1", "technology": "Battery",
+    "component": "Lithium-ion battery (cell/pack)", "component_hs6": "850760",
+    "capacity_value": null, "capacity_unit": null, "capacity_source": null,
+    "coding_tier": 3,
+    "coding_notes": "Foxconn/IBC/Indika/Gogoro Batang MoU: integrated ecosystem (cells + cathode precursor + 2W/4W EVs + ESS + recycling). Primary = Li-ion cell. $8B is total ecosystem capex across 5 parties. Do NOT borrow the CATL 15 GWh Batang or IBC-LG figures — different plants at the same estate."
+  },
+  {
+    "project_id": "HAR0010", "technology": "Battery",
+    "component": "Lithium-ion battery (cell/pack)", "component_hs6": "850760",
+    "capacity_value": 100, "capacity_unit": "GWh/year",
+    "capacity_source": "https://www.catl.com/en/news/983.html",
+    "coding_tier": 1,
+    "coding_notes": "CATL Debrecen: '100 GWh battery plant', cells + modules (multi-component; cells primary). EUR7.34B (~$7.5B) is capex, not capacity. Li-ion (NMC/LFP) -> 850760, never Ni-MH. 100 GWh is at-full-ramp."
+  },
+  {
+    "project_id": "New_MY_UK1", "technology": "Wind",
+    "component": "Nacelles", "component_hs6": "841290",
+    "capacity_value": null, "capacity_unit": null, "capacity_source": null,
+    "coding_tier": 3,
+    "coding_notes": "Mingyang Ardersier 'fully integrated' plant: Phase 1 makes nacelles + blades (both map to 841290), later phases add electronics — multi-component. Only capex (up to GBP1.5B / GBP750M Phase 1) and ~1,500 jobs disclosed; no annual throughput. Status soft (UK gov reportedly not backing Mingyang turbines)."
+  },
+  {
+    "project_id": "FDI148696", "technology": "Wind",
+    "component": "Towers", "component_hs6": "730820",
+    "capacity_value": null, "capacity_unit": null, "capacity_source": null,
+    "coding_tier": 3,
+    "coding_notes": "Acciona Escobedo (Monterrey) makes CONCRETE wind tower segments. Shortlist routes Towers->730820 (iron/steel) but concrete towers arguably fall outside 7308 -> material mismatch flagged. $650M is the Ventika I+II wind-farm cost (252 MW, 84 turbines), NOT the plant capex/capacity. No annual tower throughput disclosed."
+  },
+  {
+    "project_id": "FDI188773", "technology": "Wind",
+    "component": "Towers", "component_hs6": "730820",
+    "capacity_value": 80, "capacity_unit": "towers/year",
+    "capacity_source": "https://renewablesnow.com/news/nordex-starts-production-at-tower-factory-in-brazils-piaui-608081/",
+    "coding_tier": 1,
+    "coding_notes": "Nordex Piaui concrete-tower factory: 'capacity to construct 80 towers a year able to support 250 MW' (80 towers/yr primary; ~250 MW/yr equivalent). Concrete tower vs steel-tower 730820 material mismatch flagged. $416M is the 195 MW Lagoa do Barro complex cost, not the plant."
+  },
+  {
+    "project_id": "EV1", "technology": "EV",
+    "component": "Other / out-of-shortlist", "component_hs6": "850760",
+    "capacity_value": 30, "capacity_unit": "GWh/year",
+    "capacity_source": "https://pressroom.toyota.com/toyota-charges-into-u-s-battery-manufacturing/",
+    "coding_tier": 2,
+    "coding_notes": "MIS-TAGGED: this EV-tagged row is the same Liberty NC battery plant (30 GWh/yr Li-ion). Batteries belong under Battery, not EV -> out-of-shortlist for EV; recommend re-tagging Technology to Battery. GWh on an EV row is the giveaway."
+  },
+  {
+    "project_id": "EV2", "technology": "EV",
+    "component": "Finished EV / vehicle assembly", "component_hs6": "870380",
+    "capacity_value": 240000, "capacity_unit": "vehicles/year",
+    "capacity_source": "https://global.honda/en/newsroom/news/2024/c240425deng.html",
+    "coding_tier": 1,
+    "coding_notes": "Honda Alliston EV assembly: '240,000 EVs per year' (from 2028). Co-located 36 GWh battery + CAM/pCAM + separator JVs (named in JV_company) are Battery-tech and belong there, not on this EV row. Project shelved May 2026 but coded at its 2024 announced status."
+  },
+  {
+    "project_id": "New_MarutiSuzuki_IN1", "technology": "EV",
+    "component": "Finished EV / vehicle assembly", "component_hs6": "870380",
+    "capacity_value": 67000, "capacity_unit": "vehicles/year",
+    "capacity_source": "https://www.reuters.com/world/india/suzuki-motor-invest-8-billion-india-begins-first-ev-production-2025-08-26/",
+    "coding_tier": 2,
+    "coding_notes": "Hansalpur e-Vitara BEV line. EV throughput ~67,000/yr planned FY25-26 (peak ~110k at 440/day). Do NOT use the plant's 750k-1M TOTAL (mostly ICE) capacity. Production target vs export volume (50-100k) vs peak-line capacity are three different numbers."
+  }
+]
