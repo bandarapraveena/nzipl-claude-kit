@@ -1,140 +1,99 @@
-# Reconciliation
+# Reconciliation: what becomes a proposal
 
-This task treats the **web source as the source of truth** and the Excel data (originally from fDi Markets) as a starting hypothesis. When they disagree, the cell is updated and highlighted yellow.
+The web source outranks the Excel value, which came from fDi Markets and is a starting hypothesis. When they disagree, this skill **proposes** the change and the owner applies it. Nothing in columns A to O is written by this skill. If guidance elsewhere in the kit says to update a cell, or to apply a yellow fill, it is superseded by this file (2026-10-29).
 
-This is the inverse of the older fDi-Markets-as-ground-truth posture. If you find guidance elsewhere in this kit that says "trust the column data" or "do not modify A–O", treat it as superseded by this file.
+## Proposals, not writes
 
-## Highlight convention
+Each batch has one proposals file, `LCT-FDI/outputs/proposals/<batch>.md`, in the format the owner reviews:
 
-Any A–O cell whose value was changed from the original gets a `PatternFill` with `start_color="FFFFFF00"` and `end_color="FFFFFF00"` (yellow). The fill stays on the cell permanently — it is the audit trail that distinguishes original fDi Markets data from reconciled values.
+| Excel row | Project ID | Company | Field | Ours | What the source says | Proposed fix |
+|---|---|---|---|---|---|---|
 
-```python
-from openpyxl.styles import PatternFill
-YELLOW = PatternFill(start_color="FFFFFF00", end_color="FFFFFF00", fill_type="solid")
-ws.cell(row=r, column=col_idx).fill = YELLOW
-```
+followed by a ready-to-run `MasterEdit` block per ten rows, with `why=` on every line. Mark a `DECISION` item wherever two readings are possible, give the options and a recommendation, and leave the choice. The owner says yes, possibly with changes; then the block runs. A proposal that changes an amount carries the new `Capital Investment (US$m)` and the new `Source (Amount)` in the same block, because `MasterEdit` checks the cited page against the amount as it will be after the edit.
 
-Do **not** highlight P–W cells; highlights are only for reconciled A–O values.
+Why this way: in the 2026-09 audit, 13 amounts had been overwritten from an article that carried a different figure (a funding round, a wind farm, an annual budget, a sister plant). The finder was also the judge. The proposals file gives the figure a second reader before it lands.
 
 ## Dedup pass (run once before sourcing)
 
-Chinese-parent rows sometimes appear twice in the dataset — once with a `HAR####` Project ID (column B) and once with another ID (`Battery N.M`, `FDI######`, etc.). Drop the non-HAR duplicate.
+Chinese-parent rows sometimes appear twice, once with a `HAR####` Project ID and once with another ID (`Battery N.M`, `FDI######`, ...). The HAR row is canonical.
 
-**Match criterion** (all three must match):
-- `Parent company` (column C) — case-insensitive, whitespace-trimmed
-- `Destination city` (column G) — case-insensitive, whitespace-trimmed
-- `Destination Country` (column F) — case-insensitive
+**Match criterion** (all three): `Parent company` (fuzzy, see SKILL.md), `Destination city` (parentheticals stripped), `Destination Country`. **Filter:** `Company Country (HQ)` = China. **Action:** list the pair in the proposals file with the row to keep; the owner applies `drop_row` with the reason. If both rows have HAR IDs, or neither does, note the pair as unresolved.
 
-**Filter:** only applies when `Company Country (HQ)` (column D) equals `China` (case-insensitive).
+## Per-column rules: what is proposable
 
-**Action:** delete the non-HAR row outright (do not just mark it). The HAR row is the kept canonical record.
+Propose only when the source unambiguously contradicts the cell. Do not propose away precision (`Karawang` is better than `Indonesia`). When in doubt, leave the cell, and tag the relevant source cell `[UNVERIFIED] ` with the reason.
 
-If both candidate rows have HAR IDs, or neither does, dedup does **not** fire — leave both rows in place and note the unresolved pair in the batch log.
-
-## Per-column reconciliation rules
-
-Reconcile only when the source unambiguously contradicts the cell. Don't reconcile away precision (e.g., don't replace `Karawang` with `Indonesia`). When in doubt, leave the cell unchanged and prefix the relevant P–W URL with `[UNVERIFIED]`.
-
-| Col | Field | Reconcile? | How |
+| Col | Field | Proposable? | How |
 |-----|-------|-----------|-----|
-| A | Sector | No | Sector taxonomy is a Lab decision, not a source claim. |
-| B | Project ID | No | fDi Markets / HAR ID is an identifier; do not change. |
-| C | Parent company | Yes | If source uses canonical full name (e.g. `Contemporary Amperex Technology (CATL)` vs `CATL`), prefer the form used in source. Don't rewrite for spelling variants only. |
-| D | Company Country (HQ) | Yes | If source HQ disagrees, update. (E.g. parent listed as a subsidiary in one country but HQ is elsewhere.) |
-| E | Project Status | Yes | Most-current status from source wins: `Cancelled` > `Operational` / `Completed` > `Under Construction` > `Announced` (`Commenced` retired 2026-10-01; use `Under Construction`; a plant whose building is finished — even if only in trial production — is `Completed`). If a 2025 article says cancelled and the cell says under construction, update to `Cancelled`. |
-| F | Destination Country | Yes | Source disagrees → update. Rare. |
-| G | Destination city | Yes | Source names a more specific city → update. Don't replace city with region. |
-| H | Year Announced | Yes | Source has a precise announcement date and the year differs → update to source year. |
-| I | Year Completed | Yes | Source confirms commissioning / production-start year and it differs → update. If source says "expected to start 2026" and column says 2024, update to 2026. |
-| J | Technology | No | Lab taxonomy, not a source claim. |
-| K | Industry activity | Yes | If source describes a different scope (e.g. `Pack assembly` vs `Cell manufacturing`), update. |
-| L | Capital Investment (US$m) | **Yes — most common reconciliation target** | When the source reports a different USD figure, update column L to the source figure. See "Capital investment specifics" below. |
-| M | Joint Venture (flag) | Yes | If source confirms a JV not in the cell, update flag to `1`. If source says it's a wholly-owned subsidiary and cell says JV=1, update to `0`. |
-| N | Joint Venture Local | Yes | Mark `1` if source confirms a local (destination-country) partner. |
-| O | Joint Venture Company | Yes | Update partner names to match source spelling and full list. |
+| A | Sector | No | Lab taxonomy, not a source claim. |
+| B | Project ID | No | An identifier. |
+| C | Parent company | Yes | If the source uses the canonical full name (`Contemporary Amperex Technology (CATL)` vs `CATL`), prefer the source form. Not for spelling variants only. |
+| D | Company Country (HQ) | Yes | The parent's headquarters, not an early JV partner's country (Volkswagen is Germany, not Sweden). |
+| E | Project Status | Yes | Most current status wins: `Cancelled` > `Completed` / `Operational` > `Under Construction` > `Announced`. `Commenced` is retired (2026-10-01). A plant whose building is finished, even in trial production, is `Completed`. Built then closed: `Completed` + Operational `Ceased operations`. Built but halted: `Paused` with Year Completed. Cancelled before building: `Announced only`, Year Completed blank. Divestment with the plant still running: stays `Operational`. |
+| F | Destination Country | Yes | Rare. |
+| G | Destination city | Yes | A more specific city from the source. Never replace a city with a region. |
+| H | Year Announced | Yes | The source gives a precise announcement date and the year differs. |
+| I | Year Completed | Yes | The source confirms the commissioning or production-start year and it differs. "Expected to start 2026" against a cell of 2024: propose 2026. |
+| J | Technology | No | Lab taxonomy. |
+| K | Industry activity | Yes | The source describes a different scope (`Pack assembly` vs `Cell manufacturing`). |
+| L | Capital Investment (US$m) | **Yes, the most common proposal** | See the owner's rules below. |
+| M | Joint Venture (flag) | Yes | A JV the source confirms, or a wholly owned plant the cell calls a JV. |
+| N | Joint Venture Local | Yes | A local (destination-country) partner the source confirms. |
+| O | Joint Venture Company | Yes | Partner names as the source spells them, the full list. |
 
-## Capital investment specifics
+## The owner's rules for amounts (confirmed 2026-10-02)
 
-Column L is the most common reconciliation target. When updating:
+- **Currency.** The column is US$m. A USD figure in the source is used as stated. Otherwise convert at the **FRED annual average for the year of the figure** (AEXUSEU, AEXCHUS, AEXKOUS, AEXINUS and the rest). For currencies FRED does not publish (IDR, VND, HUF, PLN, TRY, EGP, MAD and others) use **World Bank PA.NUS.FCRF** (official rate, period average) for that year. For a 2026 figure with no annual average yet, use the latest full year and say so in `why=`. Record the rate in `why=`. A EUR or CNY figure that equals the cell digit for digit is the signature of a currency error: propose the converted figure.
+- **Joint ventures.** The amount is the foreign partners' share; all foreign partners count (Amplify: EVE 10% + Daimler 30% = 40%). All partners foreign: the total. A local partner contributes: the foreign share only. Split unknown: the full amount.
+- **Government money.** Subtract it only when the source says the government pays a share of the stated total (Koura: DOE $100m of $406.58m, so $306.58m). State aid reported separately is not subtracted (Northvolt Heide, ProLogium).
+- **Unsplittable figures.** A figure covering several plants or phases stays whole on one row, and the sibling rows carry `Investment value not publicly disclosed` (Stellantis Windsor C$3.6bn, Magna $790m, Honda $700m). When the source does split it, use this row's component (Graphite One Ohio $2bn, not the $5bn with the Alaska mine).
+- **Scope.** If a confirmed figure differs from the cell by 30% or more, look for a scope explanation first (one partner's share, one phase, the manufacturing slice of an integrated project, an original announcement against a de-scoped final). The cell may be right at its scope and the press right at another. When unclear, tag `[UNVERIFIED]` instead of proposing.
+- **fDi-origin rows** whose cited article states no figure: relabel the amount source `fDi Markets (FT)` and keep the estimate.
+- **Authority order** when sources disagree: company press release > regulatory filing > government or IPA announcement > named-author trade press > wire pickup. Most recent wins a tie.
 
-- **Use the source's USD figure** as-stated. If source uses local currency, convert at the announcement-date FX rate. Annotate the conversion in the batch log.
-- **If multiple sources give different figures**, prefer in this order: company press release > regulatory filing > government / IPA announcement > named-author trade press > wire pickup. Pick the most recent figure when sources are otherwise tied.
-- **If the project is multi-phase**, prefer the figure that matches the phase described in columns G/H/I. Do not replace a phase-specific figure with a total-project figure (or vice versa). If the cell currently has a total but the source describes phase 1, leave it and prefix the S column URL with `[UNVERIFIED]`.
-- **Cell coloring** — apply yellow `PatternFill` to L when changed.
-- **Always cite the source** in column S that justifies the new L value. The S URL is the audit trail for the L change.
+## Recurring patterns (from rows R2 to R91, April 2026, and the 2026-10 country checks)
 
-## Common reconciliation patterns (lessons from R2–R91)
+### Pattern A: Year Completed is the fDi capex year, not the commissioning year
 
-After ~90 rows of reconciliation work, these patterns recur frequently enough to look for proactively:
+The single most common proposal. Examples: CATL Debrecen (2022 to 2026), CALB Sines (2023 to 2027), CATL Arnstadt (2018 to 2022), Samsung Seremban (2022 to 2024), Gotion Kenitra (2024 to 2026), AESC Sunderland (2021 to 2025), Hithium Mesquite (2024 to 2025). **Heuristic:** when Year Completed equals or is one year after Year Announced, search the press for the production-start year.
 
-### Pattern A: Year Completed = fDi capex year, not commissioning year
+### Pattern B: the amount is a different scope
 
-The single most common reconciliation. The dataset's `Year Completed` is often the fDi-recorded capex / transaction-completion year, **not** the operational / production-start year. When sources unambiguously give a production-start year (or "production targeted YYYY"), reconcile column I to that year.
-
-Examples encountered: R3 CATL Debrecen (2022→2026), R23 CALB Sines (2023→2027), R24 CATL+Stellantis Zaragoza (2024→2026), R28 CATL Arnstadt (2018→2022), R34 EVE Debrecen (2023→2026), R39 Samsung Seremban (2022→2024), R40 Gotion Kenitra (2024→2026), R41 Siro Gemlik (2021→2023), R42 AESC Navalmoral (2024→2026), R45 AESC Douai (2021→2025), R47 Hailiang Gresik (2023→2025), R48 SEMCORP Debrecen (2020→2025), R49 Gotion Göttingen (2021→2023), R58 AESC Sunderland (2021→2025), R62 EVE Phase 2 Kulim (2024→2027), R63 AESC Ibaraki (2021→2024), R66 VW Resende (2020→2021), R73 Hailiang Tangier (2024→2027), R74 Tenpower Selangor (2022→2025), R77 Sunwoda Nyíregyháza (2023→2025), R83 Tinci Houston (2023→2027), R84 Senior Tech Eskilstuna (2021→2025), R87 Pylontech Italy (2023→2025), R88 Samsung SDI Xi'an Phase 2 (2021→2023), R90 Hithium Mesquite (2024→2025).
-
-**Heuristic:** if the dataset's Year Completed equals or is one year after Year Announced, suspect this pattern. Search press for actual production-start year.
-
-### Pattern B: Capital Investment scope ambiguity
-
-The dataset's L value may represent a different scope than the headline figure in press. Several sub-patterns:
-
-- **One partner's share of a JV** rather than total project. R24 ($2.165B = CATL's ~50% of €4.1B JV with Stellantis), R36 ($1.4B = one party's half of $2.8B Volvo+Northvolt commitment), R81 ($250M = Ganfeng's half of $500M JV).
-- **One phase of multi-phase project** rather than total. R40 Gotion Kenitra Phase 1 ($1.3B vs $6.5B over 5 phases), R83 Tinci Texas ($102.5M Texas-only vs $250M dataset-aggregate possibly including other Tinci US plans).
-- **Manufacturing slice vs integrated value chain.** R5 Halmahera ($6B = full nickel-to-cell), R17 CATL Karawang ($3B for cell mfg vs $6B for whole Indonesia Battery Integration Project).
-- **Original announcement vs de-scoped final.** R2 LG Indonesia ($9.8B original 2020 vs $7.7-8.5B at 2025 cancellation).
-
-**Action:** if your search-confirmed figure differs from the dataset by 30%+, look for these scope explanations *before* reconciling. Sometimes the dataset is right at its scope and the press is right at a different scope. When unclear, prefix S with `[UNVERIFIED]` rather than reconciling.
+One partner's share of a JV (CATL Zaragoza $2.165B = half of the EUR 4.1B JV); one phase (Gotion Kenitra Phase 1 $1.3B of $6.5B over five phases); the manufacturing slice against the integrated chain (CATL Karawang $3B cells against $6B for the whole Indonesia Battery Integration Project); an original announcement against the de-scoped final (LG Indonesia $9.8B in 2020, $7.7 to 8.5B at the 2025 cancellation). Apply the owner's scope rule above.
 
 ### Pattern C: JV miscoding
 
-Recurring miscodings encountered:
+State and regional IPAs are not JV partners (Invest Kedah at EVE Kulim). Customers are not JV partners (Toyota at LG Holland). Government funds and state aid are backers, not partners (CDG Morocco at Gotion Kenitra). Long-established China JVs get JV=0 because only the foreign partner is in column C: add the Chinese partner (SAIC at VW Anting, EVE at SK Yancheng, JAC at VW Hefei, GM at Ultium Spring Hill).
 
-- **State / regional IPAs and economic-dev agencies are NOT JV partners.** Examples wrongly listed: Invest Kedah (R31 EVE Kulim — they're the Kedah state IPA), Hungarian Investment Promotion Agency variants. Reconcile JV=0, clear partner name.
-- **Customer / supply relationships are NOT JV partners.** Examples wrongly inferred: Toyota in R16 LG Holland (Toyota is a module supply customer, not a JV partner). Leave JV=0.
-- **Government investment funds taking a stake** (e.g. CDG Morocco at R40, EU state aid grants) are usually backers/investors, not JV partners. Default JV=0 unless source explicitly calls it a joint venture with operating responsibility.
-- **Long-established JVs in China get marked JV=0** because the parent name in column C is the foreign partner alone. Verify and add the Chinese partner. Examples: R19 VW Anting (added SAIC), R20 SK Yancheng (added EVE Energy), R53 VW Hefei (added JAC Motors), R69 NEC Sunderland (added Nissan), R14 Ultium Spring Hill (added GM — was wrongly listed as LG-only).
+### Pattern D: region instead of facility city
 
-### Pattern D: Destination city — region vs facility
+Birmingham to Coventry; Morowali to Gresik; Kulim to Penang; Kuala Lumpur to Selangor. Check Malaysian, Indonesian and UK rows against the groundbreaking or IPA notice.
 
-The dataset sometimes lists a region/state instead of the actual facility city, or a major city instead of the suburb where the facility actually is. Examples: R32 Birmingham → Coventry (UK); R47 Morowali → Gresik (Indonesia — both nickel-region hubs, easy to confuse); R55 Kulim → Penang (Malaysia); R74 Kuala Lumpur → Selangor (Malaysia); R86 Kuala Lumpur → Kulim (Malaysia).
+### Pattern E: post-bankruptcy acquisition
 
-**Heuristic:** when sourcing Malaysian, Indonesian, or UK rows, double-check the city against the source's groundbreaking/MIDA/IPA notice.
+The original parent's row stays `Cancelled` even when the site continues under new ownership (Northvolt Heide and Gdansk to Lyten; Volvo-Northvolt Novo Energy shuttered). The acquirer's project is a new row, which this skill does not create; note it in the proposals file.
 
-### Pattern E: Post-bankruptcy asset acquisition (Northvolt/Lyten pattern)
+### Pattern F: HQ country
 
-When the original parent goes bankrupt and another company acquires the assets, the original project is `Cancelled` even though the site continues under new ownership. Examples: R8 Northvolt Heide (Lyten took over assets), R36 Volvo-Northvolt Novo Energy (shuttered), R91 Northvolt Gdansk (Lyten acquired).
+Rare but real: Volkswagen listed as Sweden. The HQ is the parent's, not an early partner's.
 
-**Action:** keep status `Cancelled` for the original-parent row; the acquirer's project is a new entry (not auto-created by this skill). Note the acquisition in the batch log.
+### Pattern G: a figure that is not capex (2026-10 checks)
 
-### Pattern F: HQ country errors
+A Series D round (StoreDot $80m), a supply contract (Alstom GBP 18m), an annual country budget (Gamesa Rs700 crore per year), a wind farm's cost on the turbine maker's row (Nordex R$1.3bn), an HQ office on a plant row (Vestas Portland), a government contract that financed a site (Orbia $8.4m DoD). A page that names the firm and a figure has not thereby stated the investment. Cite Source (Amount) only when the page ties the figure to this plant.
 
-Less common but real. R44 had Volkswagen listed as Sweden HQ (wrong — Wolfsburg, Germany). The dataset's `Company Country (HQ)` should be the parent's headquarters, not the location of an early JV partner.
+## When not to propose
 
-## When NOT to reconcile
-
-- Source value is older than cell value and cell value is plausible — leave the cell, cite the older source in P–W with `[UNVERIFIED]` only if needed for disambiguation.
-- Source is a single Tier B article with no corroboration and the cell value matches multiple other Tier A/B sources — keep the cell.
-- The disagreement is between project scope definitions (e.g., source describes the broader integrated project, cell describes the manufacturing slice) — keep the cell, document the scope difference in the batch log.
-- Source is paywalled and no free mirror confirms the disagreement — keep the cell.
-- The cell change would be cosmetic (whitespace, capitalization, "Inc" vs "Inc.") — leave it.
-
-## Batch logging
-
-For every reconciliation, record in the batch entry's `notes`:
-
-```
-R{row}: changed col {L} from {old_value} → {new_value} (source: {url})
-R{row}: changed col {E} from {old_status} → {new_status} (source: {url})
-```
-
-This makes it possible to undo a reconciliation later if the source turns out to be wrong.
+- The source value is older than the cell value and the cell value is plausible.
+- A single Tier B article against a cell that several Tier A/B sources support.
+- The disagreement is one of scope definitions: keep the cell, note the scope in the batch log.
+- The source is paywalled and no free mirror confirms the disagreement.
+- The change is cosmetic (whitespace, capitalization, `Inc` against `Inc.`).
 
 ## Order of operations within a batch
 
-1. Dedup pass (only on the first batch of a fresh xlsx).
-2. Pick batch rows (same selection rules as before).
-3. For each row: gather sources → write P–W URLs → reconcile A–O cells against source → apply yellow fill to changed cells.
-4. Save xlsx.
-5. Run validator (operates on P–W only, ignores A–O highlighting).
-6. Update progress JSON.
+1. Dedup pass (first batch of a fresh file only), pairs listed as proposals.
+2. Pick the batch rows.
+3. For each row: gather sources, run `source_check.py` on each candidate URL, then write the source cells through `MasterEdit`.
+4. Write the proposals file for every A to O disagreement found.
+5. Run `validate_master.py` and `validate_fdi_sources.py`.
+6. Update the progress JSON and the quality flags document before the next batch.
