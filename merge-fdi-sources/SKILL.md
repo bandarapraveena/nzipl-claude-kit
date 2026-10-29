@@ -7,6 +7,10 @@ description: "Second-pass enrichment for FDI projects. Merges sources from a cur
 
 Second-round sourcing skill. The first round (`/source-solar-wind-battery-fdi`) populates source URLs by web research. This skill takes a separately curated list and merges its URLs into the master file (`FDI_All_ToSource.xlsx`) where — and only where — the SKILL pass had to fall back to `fDi Markets (FT)`.
 
+## Caution (2026-10-29)
+
+`merge_fdi_sources.py` still saves the master with openpyxl directly: it predates `bin/master_io.py` and does not run the page check that `MasterEdit` applies to every source cell. Until it moves behind `MasterEdit`, run `python3 ../LCT-FDI/bin/check_source_alignment.py --countries "<the merged rows' countries>" --snippets` after a merge and read every FAIL before committing.
+
 ## Supported curated inputs (auto-detected)
 
 | Input | Match key | Source columns (curated) | Capital col | Empty marker |
@@ -27,7 +31,7 @@ Detection runs on the first 200 rows of column 1 — whichever prefix dominates 
 1. **Column S (Source for Amount) is the priority cell.** All other source columns are secondary.
 2. **SKILL URL beats curated URL — including `[UNVERIFIED]` SKILL URLs.** Do not replace a real URL (or `[UNVERIFIED] <url>`) in `FDI_All_ToSource` with a curated URL.
 3. **Exception: cells equal to `fDi Markets (FT)` are replaceable.** If the curated list has a real URL for that cell, replace it. Applies to any of P–W, not just S.
-4. **Column L (Capital Investment) follows the cited S source.** When S is replaced and the curated row carries a different L value, update L to the curated value and highlight it. If the curated row's L is empty (None / `\` / `NA`), leave the existing L untouched.
+4. **Column L (Capital Investment) follows the cited S source.** When S is replaced and the curated row carries a different L value, update L to the curated value (printed in the change log; no highlighting). If the curated row's L is empty (None / `\` / `NA`), leave the existing L untouched.
 5. **Empty-marker tokens mean no-source-available.** Treat as if absent (`\` for the China list, `NA` for the manual list).
 6. **Empty master cells are not Rule 3 candidates.** This skill does not invent sources where neither file has one.
 

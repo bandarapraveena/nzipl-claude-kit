@@ -8,11 +8,14 @@ Signals that demote a candidate URL or cause the row to fall back to `fDi Market
 - **Three reproductions of one PR.** Company PR + Reuters pickup + Electrive pickup = one source with three URLs, not three independent sources. Pick the most authoritative URL; don't double-count.
 - **"Industry sources" with company silence.** Named-author trade piece citing "sources familiar" + the company's own newsroom is silent. → Cite at most as Q (status) or W (activity) with `[UNVERIFIED]` prefix; do not cite as S (amount) or U/V (dates).
 - **Satellite imagery without timestamp.** Can't distinguish 2022 from 2024 construction. → Optional strengthener only, never primary citation for U or V.
-- **Local press conflicts with company filing.** Local paper says operating; company's 10-K says "expected to start 2026". → Trust the filing; cite the filing in Q. If column E disagrees with the filing, reconcile per `reconciliation.md` (update column E to match filing, yellow fill).
+- **Local press conflicts with company filing.** Local paper says operating; company's 10-K says "expected to start 2026". → Trust the filing; cite the filing in Q. If column E disagrees with the filing, propose the change per `reconciliation.md`.
+- **A figure on the page that is not the investment.** Funding rounds, supply contracts, annual budgets, land prices, government contracts, programme totals across several plants, a wind farm's cost on a turbine maker's row. The 2026-10 checks found 13 amounts taken this way. → Cite S only when the page ties the amount to this plant; otherwise propose nothing and tag S `[UNVERIFIED]` or fall back.
+- **One article for every cell.** Eight source cells citing one URL is legitimate only when that article states every one of the values; the page check fails the cells it does not. → Cite each URL in the columns it confirms.
+- **ChatGPT referral tag.** A URL carrying `utm_source=chatgpt` came from a chat answer, not from reading the page. → Strip the tag, read the page, then decide. `validate_master.py` warns on the tag.
 
 ## Existence flags (apply when web search results are thin)
 
-- **MOU-only.** "Signed an MOU", "intends to invest", no site, no permit, no update in 6+ months. → Acceptable only as Q (status) for `Announced` rows; not acceptable for S, R, U, V. If column E claims `Completed` based on this MOU only, reconcile column E down to `Announced` per `reconciliation.md`.
+- **MOU-only.** "Signed an MOU", "intends to invest", no site, no permit, no update in 6+ months. → Acceptable only as Q (status) for `Announced` rows; not acceptable for S, R, U, V. If column E claims `Completed` based on this MOU only, propose `Announced` per `reconciliation.md`.
 - **Stale announcement.** >18 months old, no construction / permit / hiring / equipment trail. → Acceptable as U (announcement date) only. If column E says `Completed` and stale evidence is the strongest available, fall back rather than reconcile (insufficient signal).
 - **Politician announcement, no company confirmation.** Governor / minister announces Company X investing, company silent. → Cite at most as Q (status) with `[UNVERIFIED]` prefix; re-audit in 60 days.
 - **Reverse announcement.** Local press claims investment; company's IR / 10-K mentions nothing. → Treat as rumor; skip as primary citation. Try the language-first search before falling back.
@@ -65,7 +68,7 @@ When a parent goes bankrupt and another company acquires the site, the original-
 - **Forbidden domain in search results.** Wikipedia, social, Medium dominate the top results. → Re-query with `site:` operator, language-first, or IPA portal (see `sources.md` "Search-tightening operators").
 - **Date column without precise date.** Source gives only year for U or V. → Acceptable: write the URL with ` (year only)` appended.
 - **No Tier A / Tier B after exhausted passes.** Company IR + Reuters + local-language + IPA portal all empty. → Write `fDi Markets (FT)`. Note in batch log which passes were attempted.
-- **Currency not USD.** Article gives investment in EUR / CNY / KRW. → Cite the URL anyway; column L is already in USD per fDi Markets methodology, so the source corroborates the amount even if currency differs.
+- **Currency not USD.** Article gives investment in EUR / CNY / KRW. → Convert at the FRED annual average for the year of the figure (World Bank PA.NUS.FCRF where FRED has no series) and compare with column L. A EUR or CNY figure that equals L digit for digit is the signature of a currency error, the most common error class in the 2026-10 North America check: propose the converted L with the rate in `why=`. The page check converts the same way and fails a cell whose figure is more than 5% off.
 
 ## When a red flag fires
 
