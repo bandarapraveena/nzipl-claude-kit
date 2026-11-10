@@ -1,4 +1,4 @@
-"""Merge a curated FDI source list into FDI_All_ToSource.xlsx.
+"""Merge a curated FDI source list into FDI_All_ToSource.xlsx, through LCT-FDI/bin/master_io.py.
 
 Auto-detects the input format from the workbook layout:
 
@@ -15,24 +15,38 @@ Auto-detects the input format from the workbook layout:
 
 Precedence rules (identical for both inputs):
   1. Column S (Source for Amount) is the priority cell.
-  2. Existing master URL beats curated URL — including '[UNVERIFIED] ...'.
-     Only cells equal to 'fDi Markets (FT)' are replaceable.
-  3. If S is replaced and the curated row has a real Capital Investment
-     value, update master L too.
+  2. An existing master URL beats the curated URL, including '[UNVERIFIED] ...'.
+     Only cells equal to 'fDi Markets (FT)' are replaceable, plus the disclosure note in S.
+  3. If S is replaced and the curated row has a real Capital Investment value, master L follows.
   4. Empty master cells are not replaced (this skill does not invent sources).
 
-No cell highlighting (project convention since 2026-09-28); every change is printed in the change log.
+How it writes (since 2026-10-29): this script saves nothing itself. It decides, then hands the
+cell edits to the master's own bin/master_io.py (MasterEdit), which backs up the file, refuses
+any change not requested, fetches every cited page and refuses a source cell whose page does
+not state the value, runs bin/validate_master.py, and logs to data_changes_log.csv and
+source_evidence.csv. So that one bad curated URL does not abort a bulk merge, the script first
+runs the same page check (bin/source_check.py) on every curated URL it would merge and HOLDS
+BACK the cells that fail; they are printed and written to outputs/merge_heldback_<batch>.csv
+beside the master, for a reader to fix or tag. --dry-run previews all of it and writes nothing.
+
+The master must sit in its LCT-FDI checkout (bin/master_io.py and bin/source_check.py beside it).
 """
 import argparse
+import csv
+import datetime as dt
 import sys
+from pathlib import Path
+
 import openpyxl
 
 FALLBACK = "fDi Markets (FT)"
 DISCLOSURE_NOTE = "Investment value not publicly disclosed"
+L_NAME = "Capital Investment (US$m)"
+HELD_NOTE = "(no curated URLs for the replaceable cells, or all held back)"
 
-# Master columns are resolved BY HEADER NAME when the workbook is opened (resolve_master_cols).
-# The letters below are logical labels only. Hard-coded positions broke silently when the
-# master gained Expansion / Phase / Joint Venture Local State: "S" stopped being Source (Amount).
+# Master columns are resolved BY HEADER NAME when the workbook is opened. The letters are logical
+# labels only: hard-coded positions broke silently when the master gained Expansion / Phase /
+# Joint Venture Local State, and "S" stopped being Source (Amount).
 MASTER_COL_NAMES = {
     "P": "Source (Parent company name and HQ)",
     "Q": "Source (Project Status)",
@@ -43,21 +57,6 @@ MASTER_COL_NAMES = {
     "V": "Source (Date Completed [MM/DD/YYYY])",
     "W": "Source (Industry Activity)",
 }
-MASTER_SOURCE_COLS = MASTER_Q_COL = MASTER_S_COL = MASTER_L_COL = MASTER_ID_COL = MASTER_SECTOR_COL = None
-
-
-def resolve_master_cols(ws):
-    """Bind the MASTER_* column indices from the header row; exit if any is missing."""
-    global MASTER_SOURCE_COLS, MASTER_Q_COL, MASTER_S_COL, MASTER_L_COL, MASTER_ID_COL, MASTER_SECTOR_COL
-    hdr = {str(c.value).strip(): c.column for c in ws[1] if c.value is not None}
-    need = list(MASTER_COL_NAMES.values()) + ["Capital Investment (US$m)", "Project ID", "Sector"]
-    missing = [n for n in need if n not in hdr]
-    if missing:
-        sys.exit(f"Master is missing columns {missing}; refusing to write by position.")
-    MASTER_SOURCE_COLS = {L: hdr[n] for L, n in MASTER_COL_NAMES.items()}
-    MASTER_Q_COL, MASTER_S_COL = MASTER_SOURCE_COLS["Q"], MASTER_SOURCE_COLS["S"]
-    MASTER_L_COL = hdr["Capital Investment (US$m)"]
-    MASTER_ID_COL, MASTER_SECTOR_COL = hdr["Project ID"], hdr["Sector"]
 
 LAYOUTS = {
     "china": {
@@ -122,7 +121,7 @@ def to_number(v, empty_markers):
 
 
 def is_credible_url(v):
-    """A 'credible' source cell — anything that's a real URL (incl. [UNVERIFIED])."""
+    """A 'credible' source cell: anything that is a real URL (incl. [UNVERIFIED])."""
     if v is None:
         return False
     s = str(v).strip()
@@ -137,129 +136,121 @@ def s_is_first_best(v):
 
 
 def s_needs_disclosure(v):
-    """S is empty — eligible for the disclosure note when Q is credible.
+    """S is empty: eligible for the disclosure note when Q is credible.
 
-    'fDi Markets (FT)' is NOT eligible: since 2026-09-29 fDi capex estimates are kept as
-    amounts labelled 'fDi Markets (FT)' (only the $39.9m placeholder is rejected), so this pass
-    must not overwrite that label or clear the amount behind it."""
+    'fDi Markets (FT)' is NOT eligible: since 2026-09-29 fDi capex estimates are kept as amounts
+    labelled 'fDi Markets (FT)' (only the $39.9m placeholder is rejected), so this pass must not
+    overwrite that label or clear the amount behind it."""
     if v is None:
         return True
     return str(v).strip() == ""
 
 
-def stage2_pass(ws_m, ws_c, layout, sector_filter):
-    """Second-stage verification — runs after the standard stage-1 merge.
+def replaceable(letter, val):
+    """Replaceable cells: 'fDi Markets (FT)' anywhere, plus the disclosure note in S only (a real
+    URL upgrades a previously-disclosed row back to first-best)."""
+    s = "" if val is None else str(val).strip()
+    if s == FALLBACK:
+        return True
+    return letter == "S" and s == DISCLOSURE_NOTE
 
-    Two sub-steps, scoped to `sector_filter` if given:
-      (a) Relaxed Q fill: for rows that have NOT met first-best (S not credible),
-          fill Q from the curated file if master Q is empty or FT. This relaxes
-          stage-1 Rule 6 (which leaves empty cells alone) for col Q only.
-      (b) Disclosure note: for rows where Q is now credible and S is still
-          FT/empty, set S to 'Investment value not publicly disclosed'.
-    """
+
+def load_master_tools(master_path):
+    """Import master_io and source_check from the master's own bin/ (its LCT-FDI checkout)."""
+    b = Path(master_path).resolve().parent / "bin"
+    if not (b / "master_io.py").exists():
+        sys.exit(f"{b / 'master_io.py'} not found: the master must sit in its LCT-FDI checkout, with bin/ beside it.")
+    sys.path.insert(0, str(b))
+    import master_io  # noqa: E402
+    try:
+        import source_check  # noqa: E402
+    except ImportError as e:
+        sys.exit(f"bin/source_check.py could not be imported ({e}); install requests, or pass --no-page-check "
+                 "for a batch you verified by hand.")
+    return master_io, source_check
+
+
+class Master:
+    """The master workbook, read through openpyxl and changed in memory only, so that stage 2 sees
+    stage 1's result. Every change is also recorded as an edit for MasterEdit, the only thing
+    that writes the file."""
+
+    def __init__(self, path):
+        self.path = Path(path)
+        wb = openpyxl.load_workbook(path)
+        if "All" not in wb.sheetnames:
+            sys.exit(f"Master file missing sheet 'All': {path}")
+        self.ws = wb["All"]
+        self.hdr = [str(c.value).strip() if c.value is not None else None for c in self.ws[1]]
+        col = {h: i + 1 for i, h in enumerate(self.hdr) if h}
+        need = list(MASTER_COL_NAMES.values()) + [L_NAME, "Project ID", "Sector", "Joint Venture"]
+        missing = [n for n in need if n not in col]
+        if missing:
+            sys.exit(f"Master is missing columns {missing}; refusing to write by position.")
+        self.col = col
+        self.index = {}
+        for r in range(2, self.ws.max_row + 1):
+            pid = self.ws.cell(r, col["Project ID"]).value
+            if pid:
+                self.index.setdefault(str(pid).strip(), []).append(r)
+        self.edits = []  # (pid, column name, value, why)
+
+    def get(self, r, name):
+        return self.ws.cell(r, self.col[name]).value
+
+    def row_dict(self, r, **overrides):
+        d = {h: self.ws.cell(r, i + 1).value for i, h in enumerate(self.hdr) if h}
+        d.update(overrides)
+        return d
+
+    def set(self, r, name, value, why):
+        pid = str(self.get(r, "Project ID")).strip()
+        if len(self.index[pid]) > 1:
+            sys.exit(f"Project ID {pid!r} appears {len(self.index[pid])} times in the master; fix that first "
+                     "(validator R01), MasterEdit addresses cells by Project ID.")
+        self.ws.cell(r, self.col[name]).value = value
+        self.edits.append((pid, name, value, why))
+
+
+class PageCheck:
+    """The same check MasterEdit will run, applied here first so that a failing curated URL is
+    held back instead of aborting the whole merge."""
+
+    def __init__(self, sc, cache, strict):
+        self.sc, self.cache, self.strict = sc, cache, strict
+        self.rates = sc.Rates(quiet=True) if sc else None
+
+    def verdicts(self, items):
+        """items: [(column name, url, row dict)] -> [Verdict | None] (None when the check is off)."""
+        if self.sc is None or not items:
+            return [None] * len(items)
+        return self.sc.check_many(items, self.cache, self.rates)
+
+    def holds(self, v, row):
+        """True when the verdict means the cell must not be merged."""
+        if v is None:
+            return False
+        if v.verdict.startswith("FAIL"):
+            return True
+        if v.verdict.startswith("SHARE"):  # a share of the page figure is fine on a JV row only
+            return row.get("Joint Venture") not in (1, 1.0, "1")
+        if v.verdict == "unfetchable":
+            return self.strict
+        return False
+
+
+def stage1(M, ws_c, layout, limit, pc, sc, tag):
+    """Stage 1: replace 'fDi Markets (FT)' cells with curated URLs that pass the page check."""
     empty = layout["empty_markers"]
-    curated_q_col = layout["source_cols"]["Q"]
-    id_col = layout["id_col"]
-
-    # Stage 2 indexes by ANY ID in the curated file — sector is the filter,
-    # not ID prefix. The manual file mixes FDI* and Battery* IDs; the China
-    # file is HAR* only. Both should match into stage 2.
-    curated_idx = {}
-    for r in range(2, ws_c.max_row + 1):
-        pid = ws_c.cell(r, id_col).value
-        if pid:
-            curated_idx[str(pid).strip()] = r
-
-    sector_check = (lambda s: True) if not sector_filter else (
-        lambda s: s is not None and sector_filter.lower() in str(s).lower()
-    )
-
-    q_filled, s_disclosed = [], []
-
-    # (a) Relaxed Q fill
-    for r in range(2, ws_m.max_row + 1):
-        if not sector_check(ws_m.cell(r, MASTER_SECTOR_COL).value):
-            continue
-        if s_is_first_best(ws_m.cell(r, MASTER_S_COL).value):
-            continue
-        q_cell = ws_m.cell(r, MASTER_Q_COL)
-        qv = q_cell.value
-        qs = "" if qv is None else str(qv).strip()
-        if qs and qs != FALLBACK:
-            continue  # Q already credible
-        pid = ws_m.cell(r, MASTER_ID_COL).value
-        if pid is None or str(pid).strip() not in curated_idx:
-            continue
-        cval = ws_c.cell(curated_idx[str(pid).strip()], curated_q_col).value
-        if not is_real_url(cval, empty):
-            continue
-        q_cell.value = cval
-        q_filled.append((r, str(pid).strip(), str(cval)[:60]))
-
-    # (b) Disclosure-note pass on S — also clear L (Capital Investment).
-    # The FT-derived L number is no longer credibly sourced once we mark S
-    # as 'not publicly disclosed', so we drop it to keep L and S consistent.
-    for r in range(2, ws_m.max_row + 1):
-        if not sector_check(ws_m.cell(r, MASTER_SECTOR_COL).value):
-            continue
-        s_cell = ws_m.cell(r, MASTER_S_COL)
-        if not s_needs_disclosure(s_cell.value):
-            continue
-        if not is_credible_url(ws_m.cell(r, MASTER_Q_COL).value):
-            continue
-        s_cell.value = DISCLOSURE_NOTE
-        l_cell = ws_m.cell(r, MASTER_L_COL)
-        old_l = l_cell.value
-        l_cleared = False
-        if old_l is not None and str(old_l).strip() != "":
-            l_cell.value = None
-            l_cleared = True
-        s_disclosed.append((r, str(ws_m.cell(r, MASTER_ID_COL).value).strip(), old_l if l_cleared else None))
-
-    return q_filled, s_disclosed
-
-
-def merge(master_path, curated_path, sheet_name, layout_hint, limit, run_stage2, sector_filter):
-    wb_m = openpyxl.load_workbook(master_path)
-    if "All" not in wb_m.sheetnames:
-        sys.exit(f"Master file missing sheet 'All': {master_path}")
-    ws_m = wb_m["All"]
-    resolve_master_cols(ws_m)
-
-    wb_c = openpyxl.load_workbook(curated_path, data_only=True)
-    if sheet_name and sheet_name in wb_c.sheetnames:
-        ws_c = wb_c[sheet_name]
-    elif sheet_name:
-        sys.exit(f"Curated file missing sheet '{sheet_name}'. Available: {wb_c.sheetnames}")
-    else:
-        ws_c = wb_c.active
-
-    layout_name, layout = detect_layout(ws_c, layout_hint)
-    print(f"[info] curated layout: {layout_name} (sheet={ws_c.title})")
-
-    prefix = layout["id_prefix"]
-    empty = layout["empty_markers"]
-
-    # Match by exact ID, not prefix. The China file is HAR-only by construction;
-    # the manual file mixes FDI*/Battery*/Batteries* IDs and we want all of them
-    # eligible. id_prefix is now informational (used for the missing-IDs report).
     curated = {}
     for r in range(2, ws_c.max_row + 1):
         pid = ws_c.cell(r, layout["id_col"]).value
         if pid:
             curated[str(pid).strip()] = r
-
-    master_index = {}
-    for r in range(2, ws_m.max_row + 1):
-        pid = ws_m.cell(r, MASTER_ID_COL).value
-        if pid:
-            master_index.setdefault(str(pid).strip(), []).append(r)
-
-    if limit is not None:
-        # Iterate in master-row order so "first N" is reviewer-friendly.
+    if limit is not None:  # master-row order, so "first N" is reviewer-friendly
         ordered, seen = [], set()
-        for r in range(2, ws_m.max_row + 1):
-            pid = ws_m.cell(r, MASTER_ID_COL).value
+        for r in range(2, M.ws.max_row + 1):
+            pid = M.get(r, "Project ID")
             if not pid:
                 continue
             pid = str(pid).strip()
@@ -268,125 +259,229 @@ def merge(master_path, curated_path, sheet_name, layout_hint, limit, run_stage2,
                 seen.add(pid)
         pids = ordered
     else:
-        pids = sorted(curated.keys())
+        pids = sorted(curated)
 
-    log = []
-    missing = []
-    processed = 0
-
+    missing = [pid for pid in pids if pid not in M.index]
+    cands, processed = [], 0  # (pid, mrow, [(letter, name, url)], new_l)
     for pid in pids:
         if limit is not None and processed >= limit:
             break
-        if pid not in master_index:
-            missing.append(pid)
+        if pid not in M.index:
             continue
         crow = curated[pid]
-        for mrow in master_index[pid]:
+        for mrow in M.index[pid]:
             if limit is not None and processed >= limit:
                 break
-            # Replaceable cells: 'fDi Markets (FT)' anywhere, plus the
-            # disclosure-note literal in column S only (a real URL upgrades
-            # a previously-disclosed row back to first-best).
-            def replaceable(letter, val):
-                s = "" if val is None else str(val).strip()
-                if s == FALLBACK:
-                    return True
-                if letter == "S" and s == DISCLOSURE_NOTE:
-                    return True
-                return False
-
-            if not any(replaceable(L, ws_m.cell(mrow, c).value) for L, c in MASTER_SOURCE_COLS.items()):
+            if not any(replaceable(L, M.get(mrow, n)) for L, n in MASTER_COL_NAMES.items()):
                 continue
-            row_changes = []
-            s_replaced = False
-            for letter, mcol in MASTER_SOURCE_COLS.items():
-                cell = ws_m.cell(mrow, mcol)
-                old = "" if cell.value is None else str(cell.value).strip()
-                if not replaceable(letter, cell.value):
+            processed += 1
+            cells = []
+            for letter, name in MASTER_COL_NAMES.items():
+                if not replaceable(letter, M.get(mrow, name)):
                     continue
                 cval = ws_c.cell(crow, layout["source_cols"][letter]).value
-                if not is_real_url(cval, empty):
-                    continue
-                cell.value = cval
-                marker = "DISCLOSED" if old == DISCLOSURE_NOTE else "FT"
-                row_changes.append(f"{letter}({mcol}): {marker} -> {str(cval)[:60]}")
-                if letter == "S":
-                    s_replaced = True
-
-            if s_replaced:
+                if is_real_url(cval, empty):
+                    cells.append((letter, name, str(cval).strip()))
+            new_l = None
+            if any(L == "S" for L, _, _ in cells):
                 new_l = to_number(ws_c.cell(crow, layout["l_col"]).value, empty)
-                if new_l is not None:
-                    l_cell = ws_m.cell(mrow, MASTER_L_COL)
-                    old_l = to_number(l_cell.value, empty)
-                    if old_l != new_l:
-                        l_cell.value = new_l
-                        row_changes.append(f"L: {old_l} -> {new_l}")
+                if new_l is not None and to_number(M.get(mrow, L_NAME), empty) == new_l:
+                    new_l = None
+            cands.append((pid, mrow, cells, new_l))
 
-            processed += 1
-            log.append((pid, mrow, row_changes or ["(no curated URLs available for FT cells)"]))
+    # the page check, in one parallel fetch, against the row as it would be after the edit
+    items, where = [], []
+    for ci, (pid, mrow, cells, new_l) in enumerate(cands):
+        for k, (letter, name, val) in enumerate(cells):
+            u = sc.url_of(val) if sc else None
+            if u:
+                items.append((name, u, M.row_dict(mrow, **({L_NAME: new_l} if new_l is not None else {}))))
+                where.append((ci, k))
+    V = dict(zip(where, pc.verdicts(items)))
 
-    if run_stage2:
-        q_filled, s_disclosed = stage2_pass(ws_m, ws_c, layout, sector_filter)
+    log, held = [], []
+    for ci, (pid, mrow, cells, new_l) in enumerate(cands):
+        changes, s_merged = [], False
+        for k, (letter, name, val) in enumerate(cells):
+            v = V.get((ci, k))
+            if pc.holds(v, M.row_dict(mrow)):
+                held.append((pid, mrow, letter, name, val, v.verdict))
+                continue
+            old = M.get(mrow, name)
+            marker = "DISCLOSED" if str(old).strip() == DISCLOSURE_NOTE else "FT"
+            note = f"; page {v.verdict}" if v else ""
+            M.set(mrow, name, val, why=f"{tag}: curated URL replaces {marker}{note}")
+            changes.append(f"{letter}: {marker} -> {val[:60]}{note}")
+            if letter == "S":
+                s_merged = True
+        if s_merged and new_l is not None:
+            old_l = M.get(mrow, L_NAME)
+            M.set(mrow, L_NAME, new_l, why=f"{tag}: L follows the curated S")
+            changes.append(f"L: {old_l} -> {new_l}")
+        log.append((pid, mrow, changes or [HELD_NOTE]))
+    return log, missing, held, processed
+
+
+def stage2(M, ws_c, layout, sector_filter, pc, sc, tag):
+    """Stage 2, after stage 1: (a) relaxed Q fill for rows not at first-best; (b) disclosure note
+    on an EMPTY S where Q is credible, clearing L on the same row."""
+    empty = layout["empty_markers"]
+    curated_q_col = layout["source_cols"]["Q"]
+    curated_idx = {}  # any ID in the curated file; the sector is the filter, not the prefix
+    for r in range(2, ws_c.max_row + 1):
+        pid = ws_c.cell(r, layout["id_col"]).value
+        if pid:
+            curated_idx[str(pid).strip()] = r
+    in_scope = (lambda s: True) if not sector_filter else (
+        lambda s: s is not None and sector_filter.lower() in str(s).lower())
+
+    # (a) relaxed Q fill, page-checked
+    cands = []
+    for r in range(2, M.ws.max_row + 1):
+        if not in_scope(M.get(r, "Sector")):
+            continue
+        if s_is_first_best(M.get(r, "Source (Amount)")):
+            continue
+        qv = M.get(r, "Source (Project Status)")
+        qs = "" if qv is None else str(qv).strip()
+        if qs and qs != FALLBACK:
+            continue  # Q already credible
+        pid = M.get(r, "Project ID")
+        if pid is None or str(pid).strip() not in curated_idx:
+            continue
+        cval = ws_c.cell(curated_idx[str(pid).strip()], curated_q_col).value
+        if is_real_url(cval, empty):
+            cands.append((r, str(pid).strip(), str(cval).strip()))
+    items = [("Source (Project Status)", sc.url_of(v) or v, M.row_dict(r)) for r, _, v in cands] if sc else []
+    V = pc.verdicts(items) if items else [None] * len(cands)
+    q_filled, held = [], []
+    for (r, pid, cval), v in zip(cands, V):
+        if pc.holds(v, M.row_dict(r)):
+            held.append((pid, r, "Q", "Source (Project Status)", cval, v.verdict))
+            continue
+        note = f"; page {v.verdict}" if v else ""
+        M.set(r, "Source (Project Status)", cval, why=f"{tag} stage 2: relaxed Q fill{note}")
+        q_filled.append((r, pid, cval[:60]))
+
+    # (b) disclosure note on S, and clear L (the FT-derived number is no longer credibly sourced)
+    s_disclosed = []
+    for r in range(2, M.ws.max_row + 1):
+        if not in_scope(M.get(r, "Sector")):
+            continue
+        if not s_needs_disclosure(M.get(r, "Source (Amount)")):
+            continue
+        if not is_credible_url(M.get(r, "Source (Project Status)")):
+            continue
+        pid = str(M.get(r, "Project ID")).strip()
+        M.set(r, "Source (Amount)", DISCLOSURE_NOTE, why=f"{tag} stage 2: Q credible, S empty")
+        old_l = M.get(r, L_NAME)
+        cleared = old_l is not None and str(old_l).strip() != ""
+        if cleared:
+            M.set(r, L_NAME, None, why=f"{tag} stage 2: amount unsourced once S is the disclosure note")
+        s_disclosed.append((r, pid, old_l if cleared else None))
+    return q_filled, s_disclosed, held
+
+
+def write_heldback(master_path, batch, held, dry_run):
+    out = Path(master_path).resolve().parent / "outputs"
+    out.mkdir(exist_ok=True)
+    p = out / f"merge_heldback_{batch}{'_dryrun' if dry_run else ''}.csv"
+    with open(p, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["Project ID", "master row", "column", "curated value", "verdict"])
+        for pid, r, letter, name, val, verdict in held:
+            w.writerow([pid, r, name, val, verdict])
+    return p
+
+
+def merge(a):
+    master_io, sc = load_master_tools(a.master) if not a.no_page_check else (load_master_tools(a.master)[0], None)
+    M = Master(a.master)
+    wb_c = openpyxl.load_workbook(a.curated, data_only=True)
+    if a.sheet and a.sheet in wb_c.sheetnames:
+        ws_c = wb_c[a.sheet]
+    elif a.sheet:
+        sys.exit(f"Curated file missing sheet '{a.sheet}'. Available: {wb_c.sheetnames}")
     else:
-        q_filled, s_disclosed = [], []
-    wb_m.save(master_path)
-    run_master_validator(master_path)
+        ws_c = wb_c.active
+    layout_name, layout = detect_layout(ws_c, a.layout)
+    print(f"[info] curated layout: {layout_name} (sheet={ws_c.title})")
+    batch = a.batch or f"merge_{Path(a.curated).stem}_{dt.date.today():%Y%m%d}"
+    tag = f"merge {Path(a.curated).name}"
+    cache = Path(a.cache) if a.cache else Path(a.master).resolve().parent / "_source_cache"
+    pc = PageCheck(sc, cache, a.strict)
+    if sc is None:
+        print("[warn] page check OFF: curated URLs are merged unread; MasterEdit will not check them either")
 
-    print("\n=== Change log ===")
+    log, missing, held, processed = stage1(M, ws_c, layout, a.limit, pc, sc, tag)
+    q_filled, s_disclosed, held2 = stage2(M, ws_c, layout, a.sector, pc, sc, tag) if a.stage2 else ([], [], [])
+    held += held2
+
+    print("\n=== Change log (stage 1) ===")
     if not log:
         print("  (no changes)")
     for pid, row, changes in log:
         print(f"\n{pid} (master row {row}):")
         for c in changes:
             print(f"  {c}")
-
     if missing:
         print(f"\n=== Curated IDs not found in master ({len(missing)}) ===")
         for pid in missing[:20]:
             print(f"  {pid}")
         if len(missing) > 20:
             print(f"  ... and {len(missing) - 20} more")
-
-    updated = sum(1 for _, _, c in log if c[0] != "(no curated URLs available for FT cells)")
+    updated = sum(1 for _, _, c in log if c[0] != HELD_NOTE)
     print(f"\nStage 1: processed {processed} matched row(s); {updated} updated.")
-
-    if run_stage2:
-        scope = f"sector={sector_filter}" if sector_filter else "all sectors"
+    if a.stage2:
+        scope = f"sector={a.sector}" if a.sector else "all sectors"
         print(f"\n=== Stage 2 ({scope}) ===")
         print(f"Q (Source for Project Status) filled from curated: {len(q_filled)}")
         for r, pid, url in q_filled:
             print(f"  row {r} {pid}: {url}")
         print(f"\nS (Source for Amount) set to disclosure note: {len(s_disclosed)}")
-        for entry in s_disclosed:
-            r, pid, cleared_l = entry
+        for r, pid, cleared_l in s_disclosed:
             tail = f" (L cleared: was {cleared_l})" if cleared_l is not None else ""
             print(f"  row {r} {pid}{tail}")
+    if held:
+        p = write_heldback(a.master, batch, held, a.dry_run)
+        print(f"\n=== Held back: the cited page does not state the value ({len(held)}) -> {p} ===")
+        for pid, r, letter, name, val, verdict in held:
+            print(f"  {pid} row {r} {letter} {verdict}: {val[:80]}")
+        print("  Fix the URL in the curated list, or write the cell by hand with '[UNVERIFIED] ' and a why=.")
 
-
-def run_master_validator(master_path):
-    """If the master's repo ships bin/validate_master.py, run it and show the result."""
-    import os, subprocess
-    v = os.path.join(os.path.dirname(os.path.abspath(master_path)), "bin", "validate_master.py")
-    if os.path.exists(v):
-        print("\n=== Master validator ===")
-        rc = subprocess.run([sys.executable, v, master_path]).returncode
-        if rc:
-            print("Validator reported ERRORs: review before committing (the pre-commit hook will block).")
+    if not M.edits:
+        print("\nNothing to write.")
+        return 0
+    print(f"\n=== Writing {len(M.edits)} cell(s) through MasterEdit (batch {batch}{', DRY RUN' if a.dry_run else ''}) ===")
+    mode = False if sc is None else ("strict" if a.strict else True)
+    try:
+        with master_io.MasterEdit(batch=batch, who=a.who, path=a.master, dry_run=a.dry_run, check_sources=mode) as m:
+            for pid, name, val, why in M.edits:
+                m.set(pid, name, val, why=why, check="merge")
+    except master_io.MasterEditError as e:
+        print(f"\nmaster_io refused the write, nothing changed:\n{e}")
+        return 1
+    return 0
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Merge a curated FDI source list into FDI_All_ToSource.xlsx")
-    ap.add_argument("--master", required=True, help="Path to FDI_All_ToSource.xlsx")
+    ap = argparse.ArgumentParser(description="Merge a curated FDI source list into FDI_All_ToSource.xlsx through MasterEdit")
+    ap.add_argument("--master", required=True, help="Path to FDI_All_ToSource.xlsx inside its LCT-FDI checkout")
     ap.add_argument("--curated", required=True, help="Path to China_FDI_<Tech>.xlsx OR Globa_FDI_<Tech>_Manual.xlsx")
     ap.add_argument("--sheet", default=None, help="Sheet name in the curated file (default: active sheet)")
     ap.add_argument("--layout", choices=list(LAYOUTS), default=None, help="Force layout (default: auto-detect from ID prefix)")
     ap.add_argument("--limit", type=int, default=None, help="Process first N matched rows in master-row order")
     ap.add_argument("--stage2", action="store_true",
                     help="After stage-1 merge, run second-stage verification: relaxed Q-fill + disclosure-note pass on S")
-    ap.add_argument("--sector", default=None,
-                    help="Sector filter for stage 2 (e.g. 'battery'). Default: all sectors")
-    args = ap.parse_args()
-    merge(args.master, args.curated, args.sheet, args.layout, args.limit, args.stage2, args.sector)
+    ap.add_argument("--sector", default=None, help="Sector filter for stage 2 (e.g. 'battery'). Default: all sectors")
+    ap.add_argument("--dry-run", action="store_true", help="Decide, check and report; write nothing")
+    ap.add_argument("--who", default="merge_fdi_sources", help="Name for the change log (who=)")
+    ap.add_argument("--batch", default=None, help="Batch name for the change log (default merge_<curated>_<date>)")
+    ap.add_argument("--strict", action="store_true", help="Hold back cells whose page cannot be fetched, instead of merging them")
+    ap.add_argument("--no-page-check", action="store_true", help="Skip the page check (a batch verified by hand only)")
+    ap.add_argument("--cache", default=None, help="Page cache directory (default: _source_cache beside the master)")
+    a = ap.parse_args()
+    sys.exit(merge(a))
 
 
 if __name__ == "__main__":
