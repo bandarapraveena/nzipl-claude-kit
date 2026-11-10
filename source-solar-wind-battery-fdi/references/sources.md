@@ -85,6 +85,10 @@ If the top WebSearch results are Wikipedia / social / Medium, re-query with one 
 
 If after all these passes there is no Tier A or Tier B source: write `fDi Markets (FT)` as the fallback. Never substitute a forbidden URL.
 
+## URLs you did not read
+
+A URL copied from a chat answer or a search snippet has not been read. The signature is a tracking tag such as `utm_source=chatgpt`; the 2026-10 master carried 98 of them on 38 rows. Strip the tag, open the page, and cite it only for the cells it states. `MasterEdit` reads every cited page before writing, so an unread URL that does not state the value is refused at the gate.
+
 ## When to extend this file
 
 Append a new Tier A source (government portal, open database, sector-specific tracker) when you discover one. Log a one-liner in `discoveries.md` so others know. Tier B churn (newsrooms renaming, URLs changing) — update in place.

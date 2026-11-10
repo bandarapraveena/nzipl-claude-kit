@@ -2,11 +2,18 @@
 """Validate FDI source citations in columns P-W of an xlsx.
 
 Hard-rejects forbidden-domain URLs (wikipedia, social, medium) and reports
-malformed cells. Exit code 0 = clean; non-zero = errors found.
+malformed cells. Exit code 0 = clean; non-zero = errors found. URLs carrying a
+chat-referral tag (utm_source=chatgpt) are listed as warnings: they were copied,
+not read.
+
+This is a format gate. Whether a page states the value it is cited for is checked
+by LCT-FDI/bin/source_check.py, which MasterEdit runs before every write.
 
 Usage:
     python3 validate_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx
 """
+
+from __future__ import annotations  # str | None in signatures; a stock macOS python3 is 3.9
 
 import re
 import sys
@@ -122,12 +129,19 @@ def main(path: str) -> int:
         print(f"error: source columns missing from sheet: {missing}", file=sys.stderr)
         return 2
 
+    warnings: list[str] = []
     for r, row in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
         for label, i in idx.items():
             v = row[i] if i < len(row) else None
             for err in validate_cell(label, v):
                 errors.append(f"row {r}, [{SOURCE_NAMES[label]}] {err}")
+            if v is not None and "utm_source=chatgpt" in str(v):
+                warnings.append(f"row {r}, [{SOURCE_NAMES[label]}] chat-referral tag, URL copied not read: {str(v)[:70]}")
 
+    for w in warnings:
+        print("warning:", w)
+    if warnings:
+        print(f"{len(warnings)} warning(s): strip the tag, read the page, then keep or replace the URL.")
     if errors:
         for e in errors:
             print(e)

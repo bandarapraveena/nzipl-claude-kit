@@ -2,17 +2,17 @@
 
 # Schema
 
-The xlsx has fixed columns A–W. Columns A–O are project data (originate from fDi Markets, **reconcilable against source** — see `reconciliation.md`). Columns P–W are citation URLs added by this task.
+The xlsx has fixed columns A–W (logical labels; the master now has 28 columns, so write by header name). Columns A–O are project data from fDi Markets. This skill never writes them: a disagreement with a source becomes a proposal for the owner (see `reconciliation.md`). Columns P–W are citation URLs added by this task.
 
 ## Column map
 
 | Col | Header | Type | Source target | Notes |
 |-----|--------|------|---------------|-------|
-| A | Sector | enum | — | One of `Battery`, `Solar`, `Wind`. Drives which trade-press list applies (see `sources.md`). |
+| A | Sector | enum | — | One of `Battery`, `Solar`, `Wind`, `EV`. Drives which trade-press list applies (see `sources.md`). |
 | B | Project ID | string | — | fDi Markets ID, e.g. `FDI76190`. |
 | C | Parent company | string | **P** | Source must name the company. |
 | D | Company Country (HQ) | string | **P** | Source must name HQ country. |
-| E | Project Status | enum | **Q** | `Announced` / `Under Construction` / `Operational` / `Completed` / `Cancelled`. |
+| E | Project Status | enum | **Q** | `Announced` / `Under Construction` / `Completed` / `Operational` / `Paused` / `Cancelled` / `Closed`. `Commenced` was retired 2026-10-01. |
 | F | Destination Country | string | **R** | Must appear in source. |
 | G | Destination city | string | **R** | Must appear in source — disambiguation requirement. |
 | H | Year Announced | int (year) | **U** | Cite article that gives announcement date; format MM/DD/YYYY in U. |
@@ -33,8 +33,9 @@ The xlsx has fixed columns A–W. Columns A–O are project data (originate from
 ## Cell value formats
 
 **P, Q, R, S, T, W** — exactly one of:
-- A resolvable URL (`https://...`)
+- A resolvable URL (`https://...`), which `MasterEdit` reads before writing
 - The literal string `fDi Markets (FT)` (fallback only — see SKILL.md)
+- In S only, the literal string `Investment value not publicly disclosed` (the amount cell is then blank)
 - The empty string (preferred over a forbidden-domain citation)
 
 **U, V (date columns)** — exactly one of:
@@ -51,18 +52,8 @@ The xlsx has fixed columns A–W. Columns A–O are project data (originate from
 - **One URL per cell.** If multiple articles confirm the same data point, pick the most authoritative (Tier A > Tier B). Do not concatenate URLs.
 - **The same URL may appear across multiple columns** — a single comprehensive article often confirms P, Q, R, S simultaneously. Write it to all columns it confirms.
 - **No forbidden domains.** Validator rejects: `wikipedia.org`, `grokipedia.com`, `linkedin.com`, `reddit.com`, `twitter.com`, `x.com`, `facebook.com`, `instagram.com`, `medium.com`.
-- **No fabricated URLs.** Every URL must resolve. Do not guess plausible-looking paths.
-- **A–O cells are reconcilable** — when source contradicts a cell, update the cell to match the source and apply yellow `PatternFill` (`FFFFFF00`). Source > Excel. See `reconciliation.md` for per-column rules.
-
-## Highlight convention
-
-Yellow fill (`FFFFFF00`) on any A–O cell = "reconciled from source; differs from the original fDi Markets value." Cells without fill are unchanged. P–W cells are never highlighted regardless of state.
-
-```python
-from openpyxl.styles import PatternFill
-YELLOW = PatternFill(start_color="FFFFFF00", end_color="FFFFFF00", fill_type="solid")
-ws.cell(row=r, column=col_idx).fill = YELLOW
-```
+- **No fabricated URLs.** Every URL must resolve, and `MasterEdit` fetches every cited page before it writes: a page that does not name the firm, or does not state the amount, city or year it is cited for, is refused unless the cell is tagged `[UNVERIFIED] ` (see `LCT-FDI/DATA_EDITING.md`, *Source check*).
+- **A–O cells are never written by this skill.** When a source contradicts a cell, the change goes into the batch's proposals file and the owner applies it through `MasterEdit`. See `reconciliation.md`.
 
 ## Example
 

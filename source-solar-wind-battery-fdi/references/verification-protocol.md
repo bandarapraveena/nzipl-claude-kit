@@ -9,6 +9,7 @@ Every URL written to P–W must satisfy all three:
 1. **Tier A or Tier B domain** (see `sources.md`). Forbidden domains are validator-rejected.
 2. **Disambiguates the facility.** Names the city / permit ID / groundbreaking date / JV brand from columns C–G — not just the company.
 3. **Confirms the data point named in the column header** (HQ, status, city, amount, JV, dates, activity).
+4. **Passes the page check.** `LCT-FDI/bin/source_check.py` finds the firm on the page, and the city, the amount (within 3% in USD, 5% after conversion) or the year for the location, amount and date columns. `MasterEdit` runs the same check and refuses a cell that fails, unless it carries `[UNVERIFIED] ` and a reason in `why=`. Run it on each candidate URL before composing the block.
 
 A URL that satisfies (1) and (2) but doesn't confirm the specific data point goes in the column it *does* confirm. Don't smear one URL across columns it doesn't actually back up.
 
@@ -35,7 +36,7 @@ The status in column E sets the minimum row tier:
 | `Cancelled` | 1 (a cancellation must be confirmed by an independent source, not just rumor) |
 | `Announced` | 3 (any tier acceptable) |
 
-If a row is marked `Completed` in column E but only one weak source can be found, leave column E unchanged and flag in the batch notes for follow-up. **However**: if a Tier A or strong Tier B source unambiguously contradicts column E (e.g. a 2025 announcement saying the project was cancelled), reconcile per `reconciliation.md` — update column E to match the source and apply yellow fill. Source > Excel.
+If a row is marked `Completed` in column E but only one weak source can be found, leave column E unchanged and flag in the batch notes for follow-up. If a Tier A or strong Tier B source unambiguously contradicts column E (e.g. a 2025 announcement saying the project was cancelled), propose the status change in the proposals file per `reconciliation.md`; the owner applies it. Source > Excel, owner > skill.
 
 ## Disambiguation
 
@@ -57,13 +58,13 @@ The fDi Markets database itself is paywalled and explicitly excluded as a citati
 
 | Disagreement | Resolution |
 |--------------|-----------|
-| Two investment figures for column S | Update column L to the more authoritative figure (company > regulatory > government > trade press); cite that source in S; note older figure in batch log. |
+| Two investment figures for column S | Propose L = the more authoritative figure (company > regulatory > government > trade press) in the proposals file, with the new S URL in the same `MasterEdit` block; note the older figure in the batch log. Until the owner applies it, S keeps a URL that states the current L, or `[UNVERIFIED] URL` with the reason. |
 | Company says "Operational", independent says "delayed" | Cite the independent in Q with `[UNVERIFIED]` prefix; note in batch log. |
 | Company says "Cancelled", independent says "Paused" | Trust company. |
 | Different dates | Cite the most precise; if material gap, prefix `[UNVERIFIED]` and note. |
-| fDi Markets row data (A–O) conflicts with public source | **Update the cell to match source** (yellow fill); cite source in the relevant P–W column. See `reconciliation.md` for per-column rules. Source > Excel. |
+| fDi Markets row data (A–O) conflicts with public source | **Propose the change** in the proposals file; cite the source in the relevant P–W column once the owner has applied it. See `reconciliation.md` for per-column rules. |
 
-Never silently average. Always log A–O changes in the batch notes for audit.
+Never silently average. Every A–O proposal is in the proposals file; every applied change is in `data_changes_log.csv`.
 
 ## Re-audit (secondary invocation)
 

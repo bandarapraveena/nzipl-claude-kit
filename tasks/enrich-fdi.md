@@ -18,10 +18,10 @@ From a Claude Code session in the `nzipl-claude-kit/` directory (or any director
 
 Claude will ask you for:
 1. The file path (default: `../LCT-FDI/FDI_All_ToSource.xlsx`)
-2. Batch size (default: 20 rows)
+2. Batch size (default: 10 rows)
 3. Priority order (largest investments first is recommended)
 
-Each batch takes 5-15 minutes depending on web search speed. Plan for 35+ batches to cover all 698 rows.
+Each batch takes 5-15 minutes depending on web search speed. The rules for writing the master, including the page check that runs before every write, are in `LCT-FDI/DATA_EDITING.md`. The skill writes source URLs only; corrections to project data are proposals in `LCT-FDI/outputs/proposals/` that you apply after reading them.
 
 ## What "done" looks like
 
@@ -33,7 +33,7 @@ Rows with no web-findable sources get `fDi Markets (FT)` as fallback attribution
 
 After each batch:
 
-1. **Run the validator.** `python3 source-solar-wind-battery-fdi/validate_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx`. Exits non-zero if any P–W cell contains a forbidden domain (Wikipedia, social, Medium) or a malformed value. Fix and re-run before marking the batch done.
+1. **Run the validators.** `python3 source-solar-wind-battery-fdi/validate_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx` exits non-zero on a forbidden domain (Wikipedia, social, Medium) or a malformed value; `python3 ../LCT-FDI/bin/validate_master.py` must report 0 errors. Fix and re-run before marking the batch done. Every URL already passed the page check when `MasterEdit` wrote it, or carries `[UNVERIFIED]`.
 
    You can also run `python3 source-solar-wind-battery-fdi/audit_fdi_sources.py ../LCT-FDI/FDI_All_ToSource.xlsx` for a ground-truth count of fully/partially/unsourced rows independent of the progress log.
 
@@ -44,7 +44,7 @@ After each batch:
 
 3. **Check date formats.** Columns U and V should be MM/DD/YYYY. If the source only gives a year, the cell should contain the URL with "(year only)" appended.
 
-4. **Verify A-O untouched.** Run a diff or checksum on the original columns to confirm no project data was modified.
+4. **Read the proposals.** Project data (A-O) is untouched by the skill. Its proposed corrections are in `LCT-FDI/outputs/proposals/<batch>.md`; apply the ones you accept through `MasterEdit`, and `data_changes_log.csv` records each one.
 
 5. **Review [UNVERIFIED] tags.** These indicate Claude found a plausible but not definitive match. Decide whether to accept, search further, or remove.
 
@@ -57,7 +57,7 @@ After each batch:
 | Multiple articles cover the same project | Use the most authoritative source (company PR > news > blog) |
 | Cancelled or suspended projects | Search for cancellation announcements specifically |
 | JV projects (M=1) | Look for JV announcement press releases; these often name partners and shares |
-| Investment amount differs between sources | Use fDi Markets amount in column L; note discrepancy in S as `[AMOUNT DIFFERS] URL` |
+| Investment amount differs between sources | Propose the change in the proposals file (company > filing > IPA > trade press). Until it is applied, S keeps a URL that states the current L, or `[UNVERIFIED] URL` with the reason |
 | Company has been acquired or renamed | Search under both old and new names |
 
 ## Extending to other datasets
@@ -70,7 +70,7 @@ The `/source-solar-wind-battery-fdi` command works on any xlsx with the same col
 
 ## Progress tracking
 
-Live state is in `tasks/source-solar-wind-battery-fdi-progress.json`. After each session, update that file:
+Live state is in `tasks/enrich-fdi-progress.json`. After each batch, before the next one starts, update that file:
 - Top-level counters: `rows_processed`, `rows_fully_sourced`, `rows_partially_sourced`, `rows_no_result`
 - `next_unsourced_row` (so the next operator knows where to start)
 - Append a new entry to the `batches` array
